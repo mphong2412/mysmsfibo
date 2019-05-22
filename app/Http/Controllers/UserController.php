@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller{
-  public $timestamps = false;
 
   public function getLoginAdmin(){
      return view('page.login');
@@ -25,12 +25,12 @@ class UserController extends Controller{
           'password.min'=>'Password phai co it nhat 6 ky tu',
         ]);
         // $credentials = array('email'=>$request->email,'password'=>$request->password);
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=>1]))
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,]))
         {
           return redirect('index');
-        }elseif(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=> 0]))
-        {
-          return redirect('login')->with('thongbao','DeActive');
+        // }elseif(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=> 0]))
+        // {
+        //   return redirect('login')->with('thongbao','DeActive');
         }
         else{
           return redirect('login')->with('thongbao','Đăng nhập không thành công');

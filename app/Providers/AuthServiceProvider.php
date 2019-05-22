@@ -25,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('create_compose', function ($user) {
+          if($user->status == 1){
+            return true;
+          }else{
+            return false;
+          }
+        });
+
 
     }
 }
