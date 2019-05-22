@@ -28,6 +28,9 @@ class UserController extends Controller{
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=>1]))
         {
           return redirect('index');
+        }elseif(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=> 0]))
+        {
+          return redirect('login')->with('thongbao','DeActive');
         }
         else{
           return redirect('login')->with('thongbao','Đăng nhập không thành công');
