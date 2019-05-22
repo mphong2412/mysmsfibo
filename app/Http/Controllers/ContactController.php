@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\contact_groups;
+use App\contacts;
 
-class GroupController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getGroup()
+    public function index()
     {
-        $groups = contact_groups::all();
-        return view('page.group',compact('groups'));
+        $contact = contacts::all();
+        return view('page.contact',compact('contact'));
     }
 
     /**
@@ -23,24 +23,9 @@ class GroupController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getThem()
+    public function create()
     {
-        $groups = contact_groups::all();
-        return view('page/groups/add');
-    }
-    public function postThem()
-    {
-      $this->validate($request,
-       [
-           'txtGroup' => 'required ',
-           'txtDesc' =>'required ',
-       ]);
-
-       $groups = new contact_groups();
-       $groups->name_group = $request->txtGroup;
-       $groups->description = $request->txtDesc;
-       $groups->save();
-       return redirect()->back()->with('thongbao','Bạn đã thêm thành công');
+        //
     }
 
     /**

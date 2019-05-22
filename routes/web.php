@@ -16,6 +16,8 @@
 Route::get('index',['as'=>'trang-chu','uses'=>'PageController@getIndex']);
 
 Route::get('templates',['as'=>'template','uses'=>'PageController@getTemplates']);
+Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
+Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
 
 Route::get('login','UserController@getLoginAdmin');
@@ -24,7 +26,9 @@ Route::post('login','UserController@postLoginAdmin');
 Route::get('register','UserController@getRegisterAdmin');
 Route::post('register','UserController@postRegisterAdmin');
 
-Route::get('templates',['as'=>'templates','uses'=>'PageController@getTemplates']);
+Route::get('them','TemplateController@getThem');
+Route::post('them','TemplateController@postThem');
+
 Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
 
@@ -52,4 +56,11 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       //   //thêm template
       // Route::get('addtemp','ServiceController@getThem');
       // Route::post('addtemp','ServiceController@postThem');
+  });
+
+  Route::group(['prefix'=>'groups'],function(){
+    
+    Route::get('add','GroupController@getThem');
+    Route::post('add','GroupController@postThem');
+
   });

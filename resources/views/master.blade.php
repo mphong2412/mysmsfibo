@@ -114,7 +114,7 @@
         Contacts
       </div>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="group">
           <i class="fas fa-fw fa-folder"></i>
           <span>Groups Managerment</span>
         </a>
