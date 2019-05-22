@@ -50,16 +50,18 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
         // xóa template
       Route::get('xoa/{id}','ServiceController@destroy');
+
       //   // sửa template
-      // Route::get('edittemp/{id}','ServiceController@getSua');
-      // Route::post('edittemp/{id}','ServiceController@postSua');
+      Route::get('edit/{id}','ServiceController@getSua');
+      Route::post('edit/{id}','ServiceController@postSua');
+      
       //   //thêm template
-      // Route::get('addtemp','ServiceController@getThem');
-      // Route::post('addtemp','ServiceController@postThem');
+      Route::get('add','ServiceController@getadd');
+      Route::post('add','ServiceController@postadd');
   });
 
   Route::group(['prefix'=>'groups'],function(){
-    
+
     Route::get('add','GroupController@getThem');
     Route::post('add','GroupController@postThem');
 

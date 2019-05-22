@@ -26,7 +26,7 @@ class GroupController extends Controller
     public function getThem()
     {
         $groups = contact_groups::all();
-        return view('page/groups/add');
+        return view('page/groups');
     }
     public function postThem()
     {

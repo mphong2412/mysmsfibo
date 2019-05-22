@@ -25,7 +25,7 @@ class TemplateController extends Controller
 
  //
    public function getSua($id){
-       //$list_services = list_services::all();
+       // $list_services = list_services::all();
        $templates = templates::find($id);
        return view('page/templates/sua',['templates'=>$templates]);
    }
@@ -38,7 +38,7 @@ class TemplateController extends Controller
 
      $templates = templates::find($id);
      $templates->service = $request->txtService;
-     $templates->template =  $request->txtTemplate;
+     $templates->template= $request->txtTemplate;
      $templates->save();
 
      return redirect('templates/sua/'.$id)->with('thongbao','Sửa thành công');

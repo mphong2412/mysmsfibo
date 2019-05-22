@@ -18,10 +18,10 @@
       <h2>Edit Template</h2>
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-sm-12">Service:
-        <input type="text" id="Service" name="txtService" value="{{$templates->service}}"></div><br>
+        <input type="text" id="Service" name="txtService" value="{{$templates->service}}" size="80px"></div><br>
 
         <label for="lname">Template: </label>
-        <input type="textarea" id="Template" name="txtTemplate" value="{{$templates->template}}"><br>
+        <input type="textarea" id="Template" name="txtTemplate" value="{{$templates->template}}" size="80px"><br>
 
         <button class="btn btn-success" type="button" style="margin: 5px">
           <i class="fas fa-plus fa-sm"> Add User</i>

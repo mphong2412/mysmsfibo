@@ -16,7 +16,7 @@
               <button class="btn btn-primary" type="button" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
-              <a href="templates/them"><button class="btn btn-success" type="button" style="margin-left: 10px">
+              <a href="templates/them"><button class="btn btn-success" type="button" style="margin-left: 10px" >
                 <i class="fas fa-plus fa-sm"> Add New</i>
               </button></a>
             </div>
@@ -44,17 +44,17 @@
               <th>Actions</th>
             </tr>
           </thead>
-          @foreach($template as $t)
+          @foreach($templates as $t)
           <tbody>
             <tr>
               <td>{{$t->id}}</td>
               <td>{{$t->service}}</td>
               <td>{{$t->template}}</td>
               <td>
-                <button class="btn  btn-circle btn-sm" onclick="window.location.href='templates/sua/{id}'">
+                <button class="btn  btn-circle btn-sm" onclick="window.location.href='templates/sua/{{$t->id}}'">
                   <i class="fas fa-edit"></i>
                 </button>
-                <a href="templates/sua/{id}" class="btn btn-danger btn-circle btn-sm">
+                <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm">
                   <i class="fas fa-trash"></i>
                 </a>
             </td>
@@ -62,12 +62,14 @@
           </tbody>
           @endforeach
         </table>
-        <p class="pull-left">Total {{count($template)}} templates.</p>
+        <p class="pull-left">Total {{count($templates)}} templates.</p>
+        {{$templates->links()}}
       </div>
     </div>
   </div>
 
 </div>
+
 <!-- /.container-fluid -->
 <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="source/js/demo/datatables-demo.js"></script>

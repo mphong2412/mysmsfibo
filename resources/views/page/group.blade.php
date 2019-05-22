@@ -16,9 +16,9 @@
               <button class="btn btn-primary" type="button" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
-              <a href="groups/add"><button class="btn btn-success" type="button" style="margin-left: 10px">
+              <button class="btn btn-success" type="button" style="margin-left: 10px" data-toggle="modal" data-target="#myModal">
                 <i class="fas fa-plus fa-sm"> Add New</i>
-              </button></a>
+              </button>
             </div>
           </div>
         </form>
@@ -69,6 +69,41 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Group Infomation</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="col-sm-12">
+                <label>*Group Name: </label>
+                <input type="text" name="txtGroup" size="50px"><br>
+                <label style="margin-left:18px">Description: </label>
+                <input type="textarea" name="txtDesc" size="50px" >
+            </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success fas fa-save fa-sm"> Save</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="source/js/demo/datatables-demo.js"></script>
 @endsection

@@ -13,8 +13,8 @@ class PageController extends Controller
       return view('page.trangchu');
     }
     public function getTemplates(){
-      $template = templates::orderBy('id')->paginate(5);
-      return view('page.template',compact('template'));
+      $templates = templates::orderBy('id')->paginate(5);
+      return view('page.templates',['templates'=>$templates]);
     }
 
     public function getCompose(){
