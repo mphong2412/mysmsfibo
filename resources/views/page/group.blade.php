@@ -35,7 +35,7 @@
       @if(session('thongbao'))
       <div class="alert arlert-success">{{session('thongbao')}}</div>
       @endif
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Seq</th>
@@ -51,7 +51,7 @@
               <td>{{$t->name_group}}</td>
               <td>{{$t->description}}</td>
               <td>
-                <button class="btn  btn-circle btn-sm" onclick="window.location.href=''">
+                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href=''">
                   <i class="fas fa-edit"></i>
                 </button>
                 <a href="" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
@@ -85,9 +85,9 @@
         <div class="modal-body">
             <div class="col-sm-12">
                 <label>*Group Name: </label>
-                <input type="text" name="txtGroup" size="50px"><br>
+                <input type="text" id="ngroup" name="txtGroup" size="50px"><br>
                 <label style="margin-left:18px">Description: </label>
-                <input type="textarea" name="txtDesc" size="50px" >
+                <input type="textarea" id="gdesc" name="txtDesc" size="50px" >
             </div>
         </div>
 
@@ -101,10 +101,25 @@
     </div>
   </div>
 
+<script>
+    $(document).ready(function(){
+        $('#insert_form').on('submit',function(event){
+            event.preventDefault();
+            if($('#txtGroup').val()==''){
+                arlert('Group Name is required');
+            }else {
+                $.ajax({
+
+                });
+            }
+        });
+    });
+
+</script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="source/js/demo/datatables-demo.js"></script>
 @endsection

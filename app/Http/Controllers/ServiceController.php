@@ -35,8 +35,8 @@ class ServiceController extends Controller
     public function postAdd(Request $request){
        $this->validate($request,
         [
-            'txtName' => 'required ',
-            'txtDesc' =>'required ',
+            'txtName' => 'required',
+            // 'txtName' =>'unique ',
         ]);
 
         $services = new list_services();

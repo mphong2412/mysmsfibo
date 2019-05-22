@@ -42,7 +42,7 @@
           <option value="100">100/page</option>
         </select>
       </label> entries.</div>
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>Seq</th>
@@ -58,7 +58,7 @@
               <td>{{$t->name}}</td>
               <td>{{$t->description}}</td>
               <td>
-                <button class="btn  btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
+                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
                   <i class="fas fa-edit"></i>
                 </button>
                 <a href="services/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
