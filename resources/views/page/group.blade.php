@@ -54,7 +54,7 @@
                 <button class="btn  btn-circle btn-sm" onclick="window.location.href=''">
                   <i class="fas fa-edit"></i>
                 </button>
-                <a href="" class="btn btn-danger btn-circle btn-sm">
+                <a href="" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                   <i class="fas fa-trash"></i>
                 </a>
             </td>
@@ -70,6 +70,7 @@
 </div>
 <!-- /.container-fluid -->
 
+<!-- add new group -->
 <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -99,7 +100,7 @@
       </div>
     </div>
   </div>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

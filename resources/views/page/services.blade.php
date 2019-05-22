@@ -4,7 +4,17 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Service Managerment</h1>
-
+  @if(count($errors) > 0)
+  <div class="elert alert-danger">
+    @foreach($errors->all() as $err)
+      {{$err}} <br>
+    @endforeach
+  </div>
+  @endif
+  @if(session('thongbao'))
+  <div class="alert alert-success">
+    {{session('thongbao')}}</div>
+  @endif
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-body">
@@ -32,9 +42,6 @@
           <option value="100">100/page</option>
         </select>
       </label> entries.</div>
-      @if(session('thongbao'))
-      <div class="alert arlert-success">{{session('thongbao')}}</div>
-      @endif
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
@@ -54,7 +61,7 @@
                 <button class="btn  btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
                   <i class="fas fa-edit"></i>
                 </button>
-                <a href="services/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm">
+                <a href="services/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                   <i class="fas fa-trash"></i>
                 </a>
             </td>
