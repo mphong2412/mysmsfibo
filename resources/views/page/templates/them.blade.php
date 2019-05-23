@@ -20,10 +20,10 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
           <!-- <label for="fname">Service: </label> -->
           <div class="col-sm-12">Service:
-          <input type="text" id="Service" name="txtService" size="80px"></div><br>
+          <input type="text" id="Service" name="txtService" size="80px" pattern="[A-Z]{1,15}" title="Please enter capital letters or enter number."></div><br>
 
           <label for="lname">Template: </label>
-          <input type="textarea" id="Template" name="txtTemplate" size="80px"><br>
+          <input type="textarea" id="Template" name="txtTemplate" size="80px" pattern="[a-Z]{1,15}"><br>
 
           <button class="btn btn-success" type="button" style="margin: 5px" data-toggle="modal" data-target="#myModal">
             <i class="fas fa-plus fa-sm"> Add User</i>

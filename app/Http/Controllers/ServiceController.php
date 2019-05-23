@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\list_services;
 use App\templates;
 use session;
+use validator;
 
 class ServiceController extends Controller
 {
@@ -35,8 +36,9 @@ class ServiceController extends Controller
     public function postAdd(Request $request){
        $this->validate($request,
         [
-            'txtName' => 'required',
-            // 'txtName' =>'unique ',
+            'txtName' => 'required|unique:list_services,name',
+        ],[
+            'txtName.unique'=>'The service has already exists.',
         ]);
 
         $services = new list_services();

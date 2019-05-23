@@ -53,7 +53,11 @@ class TemplateController extends Controller
     $this->validate($request,
      [
          'txtService' => 'required ',
-         'txtTemplate' =>'required ',
+         'txtTemplate' =>'required|unique:templates,template',
+     ],[
+         'txtService.required'=>'Please enter the service.',
+         'txtTemplate.required'=>'Please enter the template.',
+         'txtTemplate.unique'=>'Template already exits. ',
      ]);
 
      $templates = new templates();

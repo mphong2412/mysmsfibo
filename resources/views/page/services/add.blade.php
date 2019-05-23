@@ -20,7 +20,7 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
           <!-- <label for="fname">Service: </label> -->
           <div class="col-sm-12">Name:
-          <input type="text" id="Service" name="txtName" size="80px" style="margin-left: 25px"></div><br>
+          <input type="text" id="Service" name="txtName" size="80px" style="margin-left: 25px" pattern="[A-Z]{1,15}" title="Please enter capital letters."></div><br>
 
           <label for="lname">Description: </label>
           <input type="textarea" id="Template" name="txtDesc" size="80px"><br>
