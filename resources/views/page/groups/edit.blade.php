@@ -12,18 +12,18 @@
     <div class="alert alert-success">
       {{session('thongbao')}}</div>
     @endif
-<form action="groups/add" method="POST">
+<form action="groups/edit/{{$contact_groups->id}}" method="POST">
 
   <div class="container">
-      <h2>Add New Group</h2>
+      <h2>Edit Group Infomation</h2>
       <!-- <form action="" method="POST"> -->
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
           <!-- <label for="fname">Service: </label> -->
           <div class="col-sm-12">Group Name:
-          <input type="text"  name="txtGroup" size="80px"  pattern="[a-Z]{1,15}"></div><br>
+          <input type="text"  name="txtGroup" size="80px" value="{{$contact_groups->name}}" pattern="[a-Z]{1,15}"></div><br>
 
           <label for="lname" style="margin-left: 10px">Description: </label>
-          <input type="textarea" name="txtDesc" style="margin-left: 10px" size="80px"><br>
+          <input type="textarea" name="txtDesc" style="margin-left: 10px" value="{{$contact_groups->description}}" size="80px"><br>
   </div>
 <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='group'">
   <i class="fas fa-times fa-sm"> Cancel</i>

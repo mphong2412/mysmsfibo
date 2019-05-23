@@ -17,7 +17,7 @@ class ServiceController extends Controller
      */
     public function getList()
     {
-      $service = list_services::orderBy('id')->paginate(5);
+      $service = list_services::orderBy('id')->paginate(10);
       return view('page.services',compact('service'));
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\contact_groups;
+use validator;
 
 class GroupController extends Controller
 {
@@ -14,7 +15,7 @@ class GroupController extends Controller
      */
     public function getGroup()
     {
-        $groups = contact_groups::all();
+        $groups = contact_groups::orderBy('id')->paginate(10);
         return view('page.group',compact('groups'));
     }
 
@@ -26,21 +27,22 @@ class GroupController extends Controller
     public function getThem()
     {
         $groups = contact_groups::all();
-        return view('page/groups');
+        return view('page/groups/add');
     }
-    public function postThem()
-    {
-      $this->validate($request,
-       [
-           'txtGroup' => 'required ',
-           'txtDesc' =>'required ',
-       ]);
+    public function postThem(Request $request){
+       $this->validate($request,
+        [
+            'txtGroup' => 'required |unique:contact_groups,name',
+        ],[
+            'txtGroup.required' => 'Please enter group name.',
+            'txtGroup.unique' => 'This name has already exists.',
+        ]);
 
-       $groups = new contact_groups();
-       $groups->name_group = $request->txtGroup;
-       $groups->description = $request->txtDesc;
-       $groups->save();
-       return redirect()->back()->with('thongbao','Bạn đã thêm thành công');
+        $groups = new contact_groups();
+        $groups->name = $request->txtGroup;
+        $groups->description = $request->txtDesc;
+        $groups->save();
+        return redirect('group')->with('thongbao','Bạn đã thêm thành công');
     }
 
     /**
@@ -71,10 +73,25 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+     public function getSua($id)
+     {
+         $groups = contact_groups::find($id);
+         return view('page/groups/edit',['contact_groups'=>$groups]);
+     }
+     public function postSua(Request $request ,$id){
+       $this->validate($request,
+        [
+            'txtGroup' => 'required ',
+        ],[
+            'txtGroup.require'=>'Please enter the group name.',
+        ]);
+
+        $groups = contact_groups::find($id);
+        $groups->name = $request->txtGroup;
+        $groups->description = $request->txtDesc;
+        $groups->save();
+         return redirect('group')->with('thongbao','Sửa thành công');
+       }
 
     /**
      * Update the specified resource in storage.
@@ -96,6 +113,8 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $groups = contact_groups::find($id);
+         $groups->delete();
+         return redirect('group')->with('thongbao','Xóa thành công');
     }
 }

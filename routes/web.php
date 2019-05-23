@@ -16,6 +16,9 @@
 Route::get('index',['as'=>'trang-chu','uses'=>'PageController@getIndex']);
 
 Route::get('templates',['as'=>'template','uses'=>'PageController@getTemplates']);
+
+Route::get('notices',['as'=>'notice','uses'=>'NoticeController@index']);
+
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
@@ -54,7 +57,7 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       //   // sửa template
       Route::get('edit/{id}','ServiceController@getSua');
       Route::post('edit/{id}','ServiceController@postSua');
-      
+
       //   //thêm template
       Route::get('add','ServiceController@getadd');
       Route::post('add','ServiceController@postadd');
@@ -64,5 +67,16 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
     Route::get('add','GroupController@getThem');
     Route::post('add','GroupController@postThem');
+
+    Route::get('edit/{id}','GroupController@getSua');
+    Route::post('edit/{id}','GroupController@postSua');
+
+    Route::get('xoa/{id}','GroupController@destroy');
+
+  });
+
+  Route::group(['prefix'=>'contacts'],function(){
+
+      Route::get('list','ContactController@index');
 
   });

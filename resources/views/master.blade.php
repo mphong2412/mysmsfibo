@@ -118,7 +118,7 @@
           <i class="fas fa-fw fa-folder"></i>
           <span>Groups Managerment</span>
         </a>
-        <a class="nav-link collapsed" href="#1">
+        <a class="nav-link collapsed" href="contacts/list">
           <i class="fas fa-fw fa-folder"></i>
           <span>Contacts Managerment</span>
         </a>
@@ -144,15 +144,15 @@
 
       <!-- Account -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
+        <a class="nav-link" href="">
+          <i class="fas fa-fw fa-user"></i>
           <span>User Config</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
+        <a class="nav-link" href="notices">
+          <i class="fas fa-fw fa-bell"></i>
           <span>Notice Config</span></a>
       </li>
 
@@ -331,6 +331,7 @@
   <!-- Page level custom scripts -->
   <script src="source/js/demo/chart-area-demo.js"></script>
   <script src="source/js/demo/chart-pie-demo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 
 </body>

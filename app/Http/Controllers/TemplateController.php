@@ -47,7 +47,7 @@ class TemplateController extends Controller
  // thêm template
  public function getThem(){
     $templates = templates::all();
-     return view('page/templates/them');
+     return view('page/templates/them',['templates'=>$templates]);
  }
  public function postThem(Request $request){
     $this->validate($request,

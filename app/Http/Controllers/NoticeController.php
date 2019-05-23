@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\contacts;
+use App\notices;
 
-class ContactController extends Controller
+class NoticeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact = contacts::all();
-        return view('page.contacts.list',compact('contact'));
+        $notice = notices::all();
+        return view('page.notices');
     }
 
     /**
@@ -56,9 +56,17 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getedit($id)
     {
-        //
+        $notice = notices::all();
+        return view('notices');
+    }
+    public function postedit(Request $request, $id)
+    {
+         $notice = notices::find($id);
+         $notice->notice = $request->txtNotice;
+         $notice->save();
+         return redirect('noitices')->with('thongbao','Cập nhật thành công.');
     }
 
     /**
@@ -70,7 +78,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
