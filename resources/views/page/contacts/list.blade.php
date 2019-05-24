@@ -21,7 +21,7 @@
       <div class="table-responsive">
         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
           <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
             <div class="input-group-append" style="margin-bottom: 10px">
               <button class="btn btn-primary" type="button" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
@@ -32,19 +32,29 @@
               <button class="btn btn-success" type="button" style="margin-left: 10px" >
                 <i class="fas fa-print fa-sm"> Export</i>
               </button>
-
             </div>
-          </div>
+        </div>
+          <div class="col-md-12">
+              <button type="button" class="btn btn-success" id="showmore" onclick="myFunction()">Add More Column</button><br>
+              <div class="col-md-12" id="showoption" style="display:none">
+                  Email: <input type="checkbox" id="myCheck" onclick="addRow()" name="cb"> |
+                  BirthDay: <input type="checkbox" id="myCheck1" onclick="addRow1()" name="cb1"> |
+                  Create Date: <input type="checkbox" id="myCheck2" onclick="addRow2()" name="cb2"> |
+                  Update Date: <input type="checkbox" id="myCheck3" onclick="addRow3()" name="cb3">
+              </div>
+          </div><br>
         </form>
-
 
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0" >
           <thead>
             <tr id="test">
               <th>Seq</th>
-              <th>Services</th>
-              <th id="template" style="display: none">Template</th>
-
+              <th>Phone</th>
+              <th>Full Name</th>
+              <th id="template" style="display:none">Email</th>
+              <th id="birth" style="display:none">Date Of Birth</th>
+              <th id="cre" style="display:none">Create Date</th>
+              <th id="upd" style="display:none">Update Date</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -53,7 +63,11 @@
             <tr id="test2">
               <td>{{$t->id}}</td>
               <td>{{$t->phone}}</td>
-              <td class="template2" style="display: none">{{$t->full_name}}</td>
+              <td>{{$t->full_name}}</td>
+              <td class="template2" style="display:none">{{$t->email}}</td>
+              <td class="birth1" style="display:none">{{$t->birthday}}</td>
+              <td class="cre1" style="display:none">{{$t->created_at}}</td>
+              <td class="upd1" style="display:none">{{$t->updated_at}}</td>
               <td>
                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='templates/sua/{{$t->id}}'">
                   <i class="fas fa-edit"></i>
@@ -61,7 +75,7 @@
                 <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                   <i class="fas fa-trash"></i>
                 </a>
-            </td>
+                </td>
             </tr>
           </tbody>
           @endforeach
@@ -70,38 +84,69 @@
       </div>
     </div>
   </div>
-  <button type="button" onclick="addRow()" name="button">TEsst</button>
-  <input type="checkbox" id="c2" onclick="addRow2()" name="button">TEsst</button>
 
 </div>
 <!-- /.container-fluid -->
 
 <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="source/js/demo/datatables-demo.js"></script>
-<script type="text/javascript">
-    function addRow() {
-        // console.log(1111);
-        //
-        // var html = "<th>TESST</th>";
-        // $('#test').append(html);
-        //
-        // var html2 = "<td>TESST</td>";
-        // $('#test2').append(html);
-        $("#template").css("display", "");
-        $(".template2").css("display", "");
 
+<script type="text/javascript">
+
+function myFunction() {
+  var x = document.getElementById("showoption");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+    function addRow() {
+        var checkBox = document.getElementById("myCheck");
+        var text = document.getElementById("template");
+        var text2 = document.getElementById("template2");
+        if (checkBox.checked == true){
+            text.style.display = "";
+            $(".template2").css("display", "");
+        } else {
+            text.style.display = "none";
+            $(".template2").css("display", "none");
+        }
+    }
+
+    function addRow1() {
+        var checkBox = document.getElementById("myCheck1");
+        var text = document.getElementById("birth");
+        if (checkBox.checked == true){
+            text.style.display = "";
+            $(".birth1").css("display", "");
+        } else {
+            text.style.display = "none";
+            $(".birth1").css("display", "none");
+        }
     }
     function addRow2() {
-        // console.log(1111);
-        //
-        // var html = "<th>TESST</th>";
-        // $('#test').append(html);
-        //
-        // var html2 = "<td>TESST</td>";
-        // $('#test2').append(html);
-        $("#template").css("display", "");
-        $(".template2").css("display", "");
-
+        var checkBox = document.getElementById("myCheck2");
+        var text = document.getElementById("cre");
+        if (checkBox.checked == true){
+            text.style.display = "";
+            $(".cre1").css("display", "");
+        } else {
+            text.style.display = "none";
+            $(".cre1").css("display", "none");
+        }
+    }
+    function addRow3() {
+        var checkBox = document.getElementById("myCheck3");
+        var text = document.getElementById("upd");
+        if (checkBox.checked == true){
+            text.style.display = "";
+            $(".upd1").css("display", "");
+        } else {
+            text.style.display = "none";
+            $(".upd1").css("display", "none");
+        }
     }
 </script>
 @endsection

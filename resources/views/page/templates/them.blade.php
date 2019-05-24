@@ -25,11 +25,9 @@
           <label for="lname">Template: </label>
           <input type="textarea" id="Template" name="txtTemplate" size="80px" pattern="[a-Z]{1,15}"><br>
 
-          <button class="btn btn-success" type="button" style="margin: 5px" data-toggle="modal" data-target="#myModal">
+          <button class="btn btn-success" type="button" style="margin: 5px" onclick="formadd()">
             <i class="fas fa-plus fa-sm"> Add User</i>
           </button> <br>
-
-
   </div>
 <table class="table table-bordered" id="dataTable" width="100%" >
   <thead>
@@ -49,7 +47,27 @@
   <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
 
 </form>
-</div>
+</div><br>
+<form action="" method="post" id="myDIV" style="display: none">
+    <input type="text" placeholder="abc"/>
+    <button type="submit" id="btnsearch">Search User</button>
+</form><br>
+
+<script>
+
+    function formadd(){
+        var x = document.getElementById("myDIV");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+</script>
+
+
+
 
 <script>
 function autocomplete(inp, arr) {
