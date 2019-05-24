@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 <!-- Begin Page Content -->
-<form action="{{route('index')}}">
+<form action="index">
 <div class="container-fluid">
 
   <!-- Page Heading -->

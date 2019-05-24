@@ -20,9 +20,9 @@ class PageController extends Controller
       // dd($a);
       // $a = session()->get('da');
       // dd($a);
-      if (Gate::allows('check_status')) {
-          return view('page.error.deactive');
-      }
+      // if (Gate::allows('check_status')) {
+      //     return view('page.error.deactive');
+      // }
       return view('page.trangchu');
     }
     public function getTemplates(){

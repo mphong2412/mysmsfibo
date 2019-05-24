@@ -28,8 +28,8 @@ Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
 
 
-Route::get('register','UserController@getRegisterAdmin');
-Route::post('register','UserController@postRegisterAdmin');
+// Route::get('register','UserController@getRegisterAdmin');
+// Route::post('register','UserController@postRegisterAdmin');
 
 Route::get('them','TemplateController@getThem');
 Route::post('them','TemplateController@postThem');
