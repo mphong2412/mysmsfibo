@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\list_services;
+use App\templates;
 use session;
+use validator;
 
 class ServiceController extends Controller
 {
@@ -20,7 +22,7 @@ class ServiceController extends Controller
      */
     public function getList()
     {
-      $service = list_services::all();
+      $service = list_services::orderBy('id')->paginate(10);
       return view('page.services',compact('service'));
     }
 
@@ -29,9 +31,26 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getadd()
     {
-        //
+      $template = templates::all();
+      $services = list_services::all();
+      return view('page/services/add',['templates'=>$template,'list_services'=>$services]);
+    }
+
+    public function postAdd(Request $request){
+       $this->validate($request,
+        [
+            'txtName' => 'required|unique:list_services,name',
+        ],[
+            'txtName.unique'=>'The service has already exists.',
+        ]);
+
+        $services = new list_services();
+        $services->name = $request->txtName;
+        $services->description = $request->txtDesc;
+        $services->save();
+        return redirect('services')->with('thongbao','Bạn đã thêm thành công');
     }
 
     /**
@@ -62,10 +81,24 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function getSua($id)
     {
-        //
+        $services = list_services::find($id);
+        return view('page/services/edit',['list_services'=>$services]);
     }
+    public function postSua(Request $request ,$id){
+      $this->validate($request,
+       [
+           'txtName' => 'required ',
+           'txtDesc' => 'required ',
+       ]);
+
+       $services = list_services::find($id);
+       $services->name = $request->txtName;
+       $services->description = $request->txtDesc;
+       $services->save();
+        return redirect('services/edit/'.$id)->with('thongbao','Sửa thành công');
+      }
 
     /**
      * Update the specified resource in storage.
