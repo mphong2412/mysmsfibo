@@ -14,7 +14,7 @@ class PageController extends Controller
     {
       $this->middleware('auth');
     }
-
+    //check role and save session
     public function getIndex(){
       // $a = session()->get('user');
       // dd($a);
