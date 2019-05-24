@@ -16,6 +16,7 @@
  	return view('welcome');
  });
 Route::get('/index','PageController@getIndex');
+Route::get('/','PageController@getIndex');
 
 
 Auth::routes(['register' => false]);
