@@ -1,6 +1,7 @@
 @extends('master')
 @section('content')
 <!-- Begin Page Content -->
+<form action="{{route('index')}}">
 <div class="container-fluid">
 
   <!-- Page Heading -->
@@ -258,5 +259,6 @@
 <!-- /.container-fluid -->
 
 </div>
+</form>
 <!-- End of Main Content -->
 @endsection

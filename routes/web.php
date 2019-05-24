@@ -12,24 +12,29 @@
 */
 
 
+ Route::get('/home', function () {
+ 	return view('welcome');
+ });
+Route::get('/','PageController@getIndex');
 
-Route::get('index',['as'=>'trang-chu','uses'=>'PageController@getIndex']);
+Auth::routes(['register' => false]);
 
-Route::get('templates',['as'=>'template','uses'=>'PageController@getTemplates']);
-Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
+// Route::get('/index', 'HomeController@index')->name('index');
+Route::get('/logout', 'UserController@getLogout')->name('logout');
+Route::get('/index', 'PageController@getIndex')->name('index');
+Route::get('/compose', 'PageController@getCompose')->name('compose');
+// Route::get('login','HomeController@getLogin');
+// Route::get('login','HomeController@postLogin');
 
-Route::get('login','UserController@getLoginAdmin');
-Route::post('login','UserController@postLoginAdmin');
+// Route::get('index',['as'=>'trang-chu','uses'=>'HomeController@index']);
+
 
 Route::get('register','UserController@getRegisterAdmin');
 Route::post('register','UserController@postRegisterAdmin');
 
-Route::get('templates',['as'=>'templates','uses'=>'PageController@getTemplates']);
-Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
-
+  Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
 
   Route::group(['prefix'=>'templates'],function(){
-
         // xóa templates
       Route::get('xoa/{id}','TemplateController@getXoa');
 

@@ -45,7 +45,7 @@
                       {{session('thongbao')}}
                     @endif
                   </div><br>
-                  <form action="login" method="post">
+                  <form action="login1" method="post">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="form-group">
                       <input type="email" name="email" id = "email" class="form-control form-control-user"  placeholder="Enter Email Address...">

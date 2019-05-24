@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller{
 
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
   public function getLoginAdmin(){
      return view('page.login');
   }
@@ -25,12 +29,12 @@ class UserController extends Controller{
           'password.min'=>'Password phai co it nhat 6 ky tu',
         ]);
         // $credentials = array('email'=>$request->email,'password'=>$request->password);
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,]))
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status' => 1]))
         {
           return redirect('index');
-        // }elseif(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=> 0]))
-        // {
-        //   return redirect('login')->with('thongbao','DeActive');
+         }elseif(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status'=> 0]))
+         {
+           return redirect('login')->with('thongbao','DeActive');
         }
         else{
           return redirect('login')->with('thongbao','Đăng nhập không thành công');
@@ -64,6 +68,11 @@ class UserController extends Controller{
     $user->phone = $request->phone;
     $user->address = $request->address;
     $user->save();
-    return redirect()->back()->with('thongbao','Tạo tài khoản thành công');
+    return redirect('login');
+  }
+
+  public function getLogout(){
+    Auth::logout();
+    return redirect()->route('login');
   }
 }

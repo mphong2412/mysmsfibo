@@ -1,5 +1,6 @@
 @extends('master')
 @section('content')
+<form action="{{route('compose')}} method="post"">
 <div class="">
   <div style="background-color: white; padding-bottom: 0px">
     <ul class="">
@@ -42,4 +43,5 @@
 
     </div>
 </div>
+</form>
 @endsection()

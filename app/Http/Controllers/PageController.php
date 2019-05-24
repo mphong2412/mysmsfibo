@@ -10,18 +10,27 @@ use session;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function getIndex(){
-      if (Gate::allows('create_compose', 'aaaaa')) {
-          abort(403, 'Unauthorized action.');
+      // $a = session()->get('user');
+      // dd($a);
+      // $a = session()->get('da');
+      // dd($a);
+      if (Gate::allows('check_status')) {
+          return view('page.error.deactive');
       }
       return view('page.trangchu');
     }
-    public function getTemplates(){
-      $template = templates::all();
-      return view('page.templates',compact('template'));
-    }
 
     public function getCompose(){
+      if (Gate::allows('check_role')) {
+          return view('page.error.403');
+        }else{
       return view('page.compose');
+      }
     }
 }

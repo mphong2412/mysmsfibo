@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -24,15 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        Gate::define('create_compose', function ($user) {
-          if($user->status == 1){
-            return true;
-          }else{
-            return false;
-          }
+        //bien session
+        Gate::define('check_role', function ($user) {
+          if($user->role == 3 ){
+              return true;
+            }else{
+              return false;
+            }
         });
-
 
     }
 }
