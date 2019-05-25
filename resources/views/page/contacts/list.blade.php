@@ -19,14 +19,14 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
-        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <form action="searchc" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
           <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
+            <input type="search" name="key" class="form-control bg-light border-0 small" placeholder="Search for..."/>
             <div class="input-group-append" style="margin-bottom: 10px">
-              <button class="btn btn-primary" type="button" style="margin-left: 10px">
+              <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
-              <a href=""><button class="btn btn-success" type="button" style="margin-left: 10px" >
+              <a href="contacts/add"><button class="btn btn-success" type="button" style="margin-left: 10px" >
                 <i class="fas fa-plus fa-sm"> Add New</i>
               </button></a>
               <button class="btn btn-success" type="button" style="margin-left: 10px" >
@@ -55,10 +55,11 @@
               <th id="birth" style="display:none">Date Of Birth</th>
               <th id="cre" style="display:none">Create Date</th>
               <th id="upd" style="display:none">Update Date</th>
+              <th>Group</th>
               <th>Actions</th>
             </tr>
           </thead>
-          @foreach($contact as $t)
+          @foreach($contacts as $t)
           <tbody>
             <tr id="test2">
               <td>{{$t->id}}</td>
@@ -68,6 +69,7 @@
               <td class="birth1" style="display:none">{{$t->birthday}}</td>
               <td class="cre1" style="display:none">{{$t->created_at}}</td>
               <td class="upd1" style="display:none">{{$t->updated_at}}</td>
+              <td>{{$t->contact_groups->name}}</td>
               <td>
                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='templates/sua/{{$t->id}}'">
                   <i class="fas fa-edit"></i>
@@ -80,7 +82,7 @@
           </tbody>
           @endforeach
         </table>
-        <p class="pull-left">Total {{count($contact)}} contact.</p>
+        <p class="pull-left">Total {{count($contacts)}} contact.</p>
       </div>
     </div>
   </div>

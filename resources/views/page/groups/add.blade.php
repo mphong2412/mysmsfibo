@@ -20,7 +20,7 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
           <!-- <label for="fname">Service: </label> -->
           <div class="col-sm-12">Group Name:
-          <input type="text"  name="txtGroup" size="80px"  pattern="[a-Z]{1,15}"></div><br>
+          <input type="text"  name="txtGroup" size="80px"  pattern="[a-Z]{0,15}"></div><br>
 
           <label for="lname" style="margin-left: 10px">Description: </label>
           <input type="textarea" name="txtDesc" style="margin-left: 10px" size="80px"><br>

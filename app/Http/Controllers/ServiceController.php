@@ -59,10 +59,12 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function searchs(Request $request)
+     {
+         $searchs = $request->get('key');
+         $service = list_services::orderBy('id')->where('name','like','%'.$searchs.'%')->paginate(10);
+         return view('page.services',compact('service'));
+     }
 
     /**
      * Display the specified resource.
@@ -97,7 +99,7 @@ class ServiceController extends Controller
        $services->name = $request->txtName;
        $services->description = $request->txtDesc;
        $services->save();
-        return redirect('services/edit/'.$id)->with('thongbao','Sửa thành công');
+        return redirect('services')->with('thongbao','Sửa thành công');
       }
 
     /**

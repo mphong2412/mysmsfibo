@@ -25,7 +25,13 @@ Route::get('templates',['as'=>'template','uses'=>'PageController@getTemplates'])
 
 Route::get('notices',['as'=>'notice','uses'=>'NoticeController@index']);
 
+Route::get('searcht',['as'=>'searcht','uses'=>'TemplateController@searcht']);
 
+Route::get('searchg',['as'=>'searchg','uses'=>'GroupController@searchg']);
+
+Route::get('searchs',['as'=>'searchs','uses'=>'ServiceController@searchs']);
+
+Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
 
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
@@ -81,5 +87,7 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
   Route::group(['prefix'=>'contacts'],function(){
 
       Route::get('list','ContactController@index');
+
+      Route::get('add','ContactController@getThem');
 
   });

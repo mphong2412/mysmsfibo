@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\contacts;
+use App\contact_groups;
 
 class ContactController extends Controller
 {
@@ -14,8 +15,9 @@ class ContactController extends Controller
      */
     public function index()
     {
+        $groups = contact_groups::all();
         $contact = contacts::all();
-        return view('page.contacts.list',compact('contact'));
+        return view('page.contacts.list',['contacts'=>$contact,'contact_groups'=>$groups]);
     }
 
     /**
@@ -34,20 +36,25 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function searchc(Request $request)
+     {
+         $key = $request->get('key');
+         $contact = contacts::orderBy('id')->where('phone','like','%'.$key.'%')->paginate(10);
+         $contact = contacts::orderBy('id')->where('full_name','like','%'.$key.'%')->paginate(10);
+         return view('page.contacts.list',['contacts'=>$contact]);
+     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function getThem()
     {
-        //
+        $groups = contact_groups::all();
+        $contact = contacts::all();
+        return view('page/contacts/add',['contact'=>$contact,'contact_groups'=>$groups]);
     }
 
     /**
