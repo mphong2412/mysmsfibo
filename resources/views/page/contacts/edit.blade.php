@@ -12,10 +12,10 @@
     <div class="alert alert-success">
       {{session('thongbao')}}</div>
     @endif
-<form action="contacts/add" method="POST">
+<form action="contacts/edit/{{$contacts->id}}" method="POST">
 
   <div id="content" class="container">
-      <center><h2>Add New Contact</h2></center>
+      <center><h2>Edit Contact</h2></center>
       <!-- <form action="" method="POST"> -->
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-md-12">
@@ -33,36 +33,53 @@
         <div class="col-md-10" id="input" style="float:right">
             <select name="gname" id="gname" style="width:200px" >
             <option ></option>
-            @foreach($contact_groups as $g)
-            <option value="{{$g->id}}">{{$g->name}}</option>
-            @endforeach
-            </select><br>
+             @foreach($contact_groups as $g)
+             <option
+             @if($contacts->contact_groups->id == $g->id)
+             {{"selected"}}
+            @endif
+                value="{{$g->id}}">{{$g->name}}</option>
+             @endforeach
+         </select><br>
 
-            <input type="text" id="phone" name="txtPhone" size="50px" style="margin-top:5px" pattern="{0-9}" title="Please enter phone number."/><br>
+            <input type="text" id="phone" name="txtPhone" value="{{$contacts->phone}}" size="50px" style="margin-top:5px" pattern="[0-9}" title="Please enter phone number."/><br>
 
-            <input type="text" id="name" name="txtName" style="margin-top:5px" size="50px"/><br>
+            <input type="text" id="name" name="txtName" value="{{$contacts->full_name}}" style="margin-top:5px" size="50px"/><br>
 
             <input type="radio" name="gender" value="0" style="margin-top:5px"> Male |
             <input type="radio" name="gender" value="1" style="margin-top:5px"> Female<br>
 
-            <input type="email" id="email" name="email" size="50px" style="margin-top:5px"><br>
+            <input type="email" id="email" name="email" size="50px" style="margin-top:5px" value="{{$contacts->email}}"><br>
 
-            <input type="date" id="doB" name="doB" placeholder="Choose" style="margin-top:5px; width:200px"><br>
+            <input type="date" id="doB" value="{{$contacts->birthday}}" name="doB" placeholder="Choose" style="margin-top:5px; width:200px"><br>
 
             <select name="city" id="city" style="width:200px;margin-top:5px">
+            <option></option>
              @foreach($city as $t)
-             <option value="{{$t->id}}">{{$t->name}}</option>
+             <option
+             @if($contacts->city_id == $t->id)
+             {{"selected"}}
+             @endif
+              value="{{$t->id}}">{{$t->name}}</option>
              @endforeach
             </select><br>
 
-            <input type="text" name="address" id="address" size="50px" style="margin-top:5px"/><br>
+            <input type="text" name="address" value="{{$contacts->address}}" id="address" size="50px" style="margin-top:5px"/><br>
 
             <select name="status" id="status" style="width:200px;margin-top:5px">
+            @if($contacts->status == 1)
              <option value="1">Using</option>
+            @endif
+
+            @if($contacts->status == 2)
              <option value="2">Paused</option>
+            @endif
+
+            @if($contacts->status == 3)
              <option value="3">Stopped</option>
-            </select><br>
-            </div>
+             @endif
+         </select><br>
+        </div>
         </div>
   </div>
 

@@ -25,9 +25,11 @@ class PageController extends Controller
       // }
       return view('page.trangchu');
     }
+
     public function getTemplates(){
-      $templates = templates::orderBy('id')->paginate(10);
-      return view('page.templates',['templates'=>$templates]);
+        $service = list_services::all();
+        $templates = templates::orderBy('id')->paginate(10);
+        return view('page.templates',['templates'=>$templates]);
     }
 
 
