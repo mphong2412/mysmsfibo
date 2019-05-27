@@ -8,6 +8,20 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                  <div>
+                    @if(count($errors) > 0)
+                    <div class="elert alert-danger">
+                      @foreach($errors->all() as $err)
+                        {{$err}} <br>
+                      @endforeach
+                    </div>
+                    @endif
+                    @if(session('thongbao'))
+                    <div class="elert alert-danger">
+                      {{session('thongbao')}}
+                    </div>
+                    @endif
+                  </div><br>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

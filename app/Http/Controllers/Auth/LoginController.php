@@ -40,12 +40,24 @@ class LoginController extends Controller
     }
 
 
+    /**
+    * Check status = 1 get Login,
+    * status = 1 active account and status = 0 deactive.
+    */
+    protected function authenticated(Request $request){
+       session::put(['check_role' => $request->user]);
+       session()->save();
+      if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status' => 0])){
+        Auth::logout();
+        //$request->session()->flash('alert-danger', 'Your Account is not activated yet.');
+        return redirect('login')->with('thongbao','DeActive');
+      }else
+      return redirect()->intended($this->redirectPath());
+    }
 
-    // protected function authenticated(Request $request){
-    //   if(Auth::check() && auth()->user()->status == 1){
-    //     Auth::logout();
-    //     return redirect()->route('login');
-    //   }
-    //   return $next($request);
+    // protected function credentials(\Illuminate\Http\Request $request)
+    // {
+    //     //return $request->only($this->username(), 'password');
+    //     return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status' => 1];
     // }
 }
