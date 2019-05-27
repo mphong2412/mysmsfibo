@@ -19,11 +19,11 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
-        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <form action="searchs" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
           <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+            <input type="search" name="key" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append" style="margin-bottom: 10px">
-              <button class="btn btn-primary" type="button" style="margin-left: 10px">
+              <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
               <button class="btn btn-success" type="button" style="margin-left: 10px" onclick="window.location.href='services/add'">

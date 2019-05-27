@@ -20,7 +20,7 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
 
           <div class="col-sm-12">Service:
-          <input type="text" id="myInput" name="txtService" size="80px" pattern="[A-Z]{1,15}" title="Please enter capital letters or enter number."></div><br>
+          <input type="text" id="myInput" name="txtService" size="80px" pattern="[A-Z]{0,15}" title="Please enter capital letters or enter number."></div><br>
 
           <label for="lname">Template: </label>
           <input type="textarea" id="Template" name="txtTemplate" size="80px" pattern="[a-Z]{1,15}"><br>
@@ -39,6 +39,17 @@
       <th>Action</th>
     </tr>
   </thead>
+  <tbody>
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+      <td>a</td>
+      <td>
+        <button class="btn btn-danger btn-circle btn-sm">
+            <i class="fas fa-trash"></i>
+        </button>
+        </td>
+  </tbody>
 </table><br>
 
 <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='templates'">
@@ -49,8 +60,18 @@
 </form>
 </div><br>
 <form action="" method="post" id="myDIV" style="display: none">
-    <input type="text" placeholder="abc"/>
-    <button type="submit" id="btnsearch">Search User</button>
+    <center><input type="text" placeholder="abc"/>
+    <button type="submit" id="btnsearch">Search User</button><center><br>
+    <table class="table table-bordered" id="add1" width="100%">
+        <thead>
+            <th>Seq</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </thead>
+
+    </table>
 </form><br>
 
 <script>
@@ -63,7 +84,6 @@
             x.style.display = "none";
         }
     }
-
 </script>
 
 

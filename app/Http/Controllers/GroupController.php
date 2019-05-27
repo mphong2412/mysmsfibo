@@ -51,10 +51,12 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+     public function searchg(Request $request)
+     {
+         $searchg = $request->get('key');
+         $groups= contact_groups::orderBy('id')->where('name','like','%'.$searchg.'%')->paginate(10);
+         return view('page.group',compact('groups'));
+     }
 
     /**
      * Display the specified resource.

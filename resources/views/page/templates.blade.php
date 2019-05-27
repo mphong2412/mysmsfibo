@@ -19,11 +19,11 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <div class="table-responsive">
-        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/templates">
+        <form action="searcht" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
           <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" name="key" aria-label="Search" aria-describedby="basic-addon2">
+            <input type="search" class="form-control bg-light border-0 small" name="key" aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append" style="margin-bottom: 10px">
-              <button class="btn btn-primary" type="button" style="margin-left: 10px">
+              <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
               <a href="templates/them"><button class="btn btn-success" type="button" style="margin-left: 10px" >
@@ -31,9 +31,9 @@
               </button></a>
             </div>
           </div>
-        </form>
+      </form><br>
 
-        <div class="md-4">Show
+        <!-- <div class="md-4">Show
         <label>
         <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
           <option value="5">5/page</option>
@@ -42,9 +42,9 @@
           <option value="50">50/page</option>
           <option value="100">100/page</option>
         </select>
-      </label> entries.</div>
+      </label> entries.</div> -->
 
-        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0" >
+        <br><table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0" >
           <thead>
             <tr>
               <th>Seq</th>

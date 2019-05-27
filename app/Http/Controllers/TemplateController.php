@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\templates;
 use App\list_services;
 use Validator;
-use App;
 
 class TemplateController extends Controller
 {
@@ -41,7 +40,7 @@ class TemplateController extends Controller
      $templates->template= $request->txtTemplate;
      $templates->save();
 
-     return redirect('templates/sua/'.$id)->with('thongbao','Sửa thành công');
+     return redirect('templates')->with('thongbao','Sửa thành công');
  }
 
  // thêm template
@@ -66,4 +65,13 @@ class TemplateController extends Controller
      $templates->save();
      return redirect('templates')->with('thongbao','Bạn đã thêm thành công');
  }
+
+ public function searcht(Request $request)
+ {
+     $searcht = $request->get('key');
+     $templates = templates::orderBy('id')->where('service','like','%'.$searcht.'%')->paginate(10);
+     $templates = templates::orderBy('id')->where('template','like','%'.$searcht.'%')->paginate(10);
+     return view('page.templates',compact('templates'));
+ }
+
 }
