@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\templates;
 use App\list_services;
-use session;
+use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
@@ -16,20 +16,18 @@ class PageController extends Controller
     }
     //check role and save session
     public function getIndex(){
-      // $a = session()->get('user');
+      $a = Session::get('key_function');
       // dd($a);
-      // $a = session()->get('da');
-      // dd($a);
-      // if (Gate::allows('check_status')) {
-      //     return view('page.error.deactive');
-      // }
+      if (Gate::denies('enable_function', 'compose')) {
+          return view('page.error.deactive');
+      }
       return view('page.trangchu');
     }
+
     public function getTemplates(){
       $templates = templates::orderBy('id')->paginate(10);
       return view('page.templates',['templates'=>$templates]);
     }
-
 
     public function getCompose(){
       if (Gate::allows('check_role')) {

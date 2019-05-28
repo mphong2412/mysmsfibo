@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,11 +27,24 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        //bien session
-        Gate::define('check_role', function ($user) {
-          if($user->role == 3 ){
+        //$check = session::get('check_rolee');
+        // Gate::define('check_feature', function ($check) {
+        //   if($check->role == 1 || $check->role == 2 || $check->role == 3){
+        //       return false;
+        //     }else{
+        //       return true;
+        //     }
+        // });
+
+        //Test
+        //$check = Session::get('key_function');
+
+        Gate::define('enable_function', function ($user, $result) {
+          $result = Session::get('key_function');
+          //dd($result);
+          if($result == 'compose'){
               return true;
-            }else{
+            } else {
               return false;
             }
         });

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use DB;
 
 class LoginController extends Controller
 {
@@ -45,13 +47,23 @@ class LoginController extends Controller
     * status = 1 active account and status = 0 deactive.
     */
     protected function authenticated(Request $request){
-       session::put(['check_role' => $request->user]);
-       session()->save();
       if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status' => 0])){
         Auth::logout();
         //$request->session()->flash('alert-danger', 'Your Account is not activated yet.');
         return redirect('login')->with('thongbao','DeActive');
       }else
+      $iduser = auth()->id();
+
+      $result = DB::table('authorization')
+                ->join('users', 'authorization.user_id', '=', 'users.id')
+                ->join('list_function','authorization.function_id', '=', 'list_function.id')
+                ->where('users.id', '=', $iduser)
+                ->select('function_name')->get();
+      //dd($iduser);
+      //query get authen
+      // Session::put('check_rolee', Auth::user());
+
+      Session::put('key_function', $result);
       return redirect()->intended($this->redirectPath());
     }
 

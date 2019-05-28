@@ -38,7 +38,9 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item active @if (Gate::denies('enable_function', 'compose')) {
+           d-none
+      } @endif">
         <a class="nav-link" href="index">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Statistics</span></a>
