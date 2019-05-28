@@ -17,10 +17,6 @@ class PageController extends Controller
     //check role and save session
     public function getIndex(){
       $a = Session::get('key_function');
-      // dd($a);
-      if (Gate::denies('enable_function', 'compose')) {
-          return view('page.error.deactive');
-      }
       return view('page.trangchu');
     }
 
@@ -31,10 +27,6 @@ class PageController extends Controller
     }
 
     public function getCompose(){
-      if (Gate::allows('check_role')) {
-          return view('page.error.403');
-        }else{
-      return view('page.compose');
-      }
+      return view('page.sms.compose');
     }
 }

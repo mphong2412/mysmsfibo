@@ -18,6 +18,7 @@
 
   <!-- Custom styles for this template-->
   <link href="source/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="source/css/style.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="source/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -38,9 +39,7 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active @if (Gate::denies('enable_function', 'compose')) {
-           d-none
-      } @endif">
+      <li class="nav-item active ">
         <a class="nav-link" href="index">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Statistics</span></a>
@@ -50,12 +49,16 @@
       <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <div class="sidebar-heading">
+      <div class="sidebar-heading @if (Gate::denies('enable_function', 'compose')) {
+           d-none
+      } @endif">
         Sms Managerment
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item @if (Gate::denies('enable_function', 'compose')) {
+           d-none
+      } @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>Components</span>
@@ -73,10 +76,14 @@
       <hr class="sidebar-divider">
 
       <!-- templates -->
-      <div class="sidebar-heading">
+      <div class="sidebar-heading @if (Gate::denies('enable_function', 'template')) {
+           d-none
+      } @endif">
         templates
       </div>
-      <li class="nav-item">
+      <li class="nav-item @if (Gate::denies('enable_function', 'template')) {
+           d-none
+      } @endif">
         <a class="nav-link collapsed" href="templates">
           <i class="fas fa-fw fa-folder"></i>
           <span>Managerment</span>
@@ -84,10 +91,14 @@
       </li>
 
       <!-- Services -->
-      <div class="sidebar-heading">
+      <div class="sidebar-heading @if (Gate::denies('enable_function', 'service')) {
+           d-none
+      } @endif">
         Services
       </div>
-      <li class="nav-item">
+      <li class="nav-item @if (Gate::denies('enable_function', 'service')) {
+           d-none
+      } @endif">
         <a class="nav-link collapsed" href="services">
           <i class="fas fa-fw fa-folder"></i>
           <span>Managerment</span>
@@ -95,10 +106,14 @@
       </li>
 
       <!-- Contacts -->
-      <div class="sidebar-heading">
+      <div class="sidebar-heading @if (Gate::denies('enable_function', 'contact')) {
+           d-none
+      } @endif">
         Contacts
       </div>
-      <li class="nav-item">
+      <li class="nav-item @if (Gate::denies('enable_function', 'contact')) {
+           d-none
+      } @endif">
         <a class="nav-link collapsed" href="group">
           <i class="fas fa-fw fa-folder"></i>
           <span>Groups Managerment</span>
@@ -110,10 +125,14 @@
       </li>
 
       <!-- Schedulle -->
-      <div class="sidebar-heading">
+      <div class="sidebar-heading  @if (Gate::denies('enable_function', 'schedule')) {
+           d-none
+      } @endif">
         Schedules
       </div>
-      <li class="nav-item">
+      <li class="nav-item  @if (Gate::denies('enable_function', 'schedule')) {
+           d-none
+      } @endif">
         <a class="nav-link collapsed" href="#">
           <i class="fas fa-fw fa-folder"></i>
           <span>Schedules Managerment</span>
@@ -123,19 +142,25 @@
 
 
       <!-- Heading -->
-      <div class="sidebar-heading">
+      <div class="sidebar-heading @if (Gate::denies('enable_function', 'userconfig')) {
+           d-none
+      } @endif">
         Account
       </div>
 
       <!-- Account -->
-      <li class="nav-item">
+      <li class="nav-item @if (Gate::denies('enable_function', 'userconfig')) {
+           d-none
+      } @endif">
         <a class="nav-link" href="">
           <i class="fas fa-fw fa-user"></i>
           <span>User Config</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+      <li class="nav-item @if (Gate::denies('enable_function', 'noticeconfig')) {
+           d-none
+      } @endif">
         <a class="nav-link">
           <i class="fas fa-fw fa-bell"></i>
           <span>Notice Config</span></a>

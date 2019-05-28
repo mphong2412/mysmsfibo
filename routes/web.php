@@ -25,6 +25,7 @@ Route::get('templates',['as'=>'template','uses'=>'PageController@getTemplates'])
 
 Route::get('notices',['as'=>'notice','uses'=>'NoticeController@index']);
 
+
 Route::get('searcht',['as'=>'searcht','uses'=>'TemplateController@searcht']);
 
 Route::get('searchg',['as'=>'searchg','uses'=>'GroupController@searchg']);
@@ -35,8 +36,9 @@ Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
 
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
-Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
 Route::get('/logout','UserController@getLogout')->name('logout');
+Route::get('/compose','PageController@getCompose')->name('compose');
+
 
 
 Route::get('them','TemplateController@getThem');

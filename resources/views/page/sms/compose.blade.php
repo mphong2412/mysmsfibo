@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-<form action="{{route('compose')}} method="post"">
+<form action="{{route('compose')}}" method="post">
 <div class="">
   <div style="background-color: white; padding-bottom: 0px">
     <ul class="">
@@ -32,9 +32,9 @@
         </div>
       </h5>
       <label>Input Phone Number</label><br>
-      <textarea type="text" name="phonenumber" placeholder="Input phone number" value="" style="width: 70%"></textarea><br>
-      <button> Submit</button>
-      <br>
+      <textarea class="form-control bg-light border-0 small" type="text" name="phonenumber" placeholder="Input phone number" value="" style="width: 70%"></textarea><br>
+      <button> Submit</button></br> 
+
       <button >Import form excel</button>
       <label>Import form group</label><select><option></option></select>
       </div>

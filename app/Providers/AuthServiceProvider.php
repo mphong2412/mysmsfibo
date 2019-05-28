@@ -39,15 +39,14 @@ class AuthServiceProvider extends ServiceProvider
         //Test
         //$check = Session::get('key_function');
 
-        Gate::define('enable_function', function ($user, $result) {
+        Gate::define('enable_function', function ($user, $code) {
           $result = Session::get('key_function');
-          //dd($result);
-          if($result == 'compose'){
-              return true;
-            } else {
+          foreach($result as $rs)
+          if($rs == $code){
               return false;
-            }
+            }else {
+              return true;
+          }
         });
-
     }
 }
