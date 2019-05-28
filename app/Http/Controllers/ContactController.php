@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\contacts;
 use App\contact_groups;
 use App\city;
+use App\Imports\ContactsImport;
+use Excel;
+use App\Exports\ContactsExport;
 
 class ContactController extends Controller
 {
@@ -20,6 +23,7 @@ class ContactController extends Controller
         $contact = contacts::orderBy('id')->paginate(10);
         return view('page.contacts.list',['contacts'=>$contact,'contact_groups'=>$groups]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -60,6 +64,26 @@ class ContactController extends Controller
         return redirect('contacts/list')->with('thongbao','Cập nhật thông tin thành công');
     }
 
+    public function contactExport(){
+        $contact = contacts::select('phone','full_name')->get();
+        return Excel::download(new ContactsExport,'data.xlsx');
+    }
+
+    public function ContactsImport(Request $request){
+        if($request->hasFile('file')){
+            $path = $request->file('file')->getRealPath();
+            $data = Excel::import($path,function($reader){})->get();
+                if(!empty($data) && $data->count()){
+                    foreach ($data as $key => $value) {
+                        $contact = new contacts();
+                        $contact->phone = $value->phone;
+                        $contact->name = $value->name;
+                        $contact->save();
+                    }
+                }
+        }
+        return back();
+    }
 
 
     /**
@@ -77,7 +101,6 @@ class ContactController extends Controller
      }
 
     /**
-     * Display the specified resource.
      *
      * @param
      * @return \Illuminate\Http\Response

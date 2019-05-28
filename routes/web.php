@@ -98,4 +98,6 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
       Route::get('xoa/{id}','ContactController@destroy');
 
+      Route::get('export','ContactController@contactExport')->name('contact.export');
+      Route::get('import','ContactController@ContactsImport')->name('contact.import');
   });

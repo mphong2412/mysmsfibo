@@ -26,7 +26,7 @@ class TemplateController extends Controller
    public function getSua($id){
        $services = list_services::all();
        $templates = templates::find($id);
-       return view('page/templates/sua',['templates'=>$templates,'list_services'=>$service]);
+       return view('page/templates/sua',['templates'=>$templates,'list_services'=>$services]);
    }
  public function postSua(Request $request ,$id){
      $this->validate($request,
