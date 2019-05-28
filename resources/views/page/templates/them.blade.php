@@ -39,7 +39,7 @@
       <th>Action</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody style="display:none">
       <td>a</td>
       <td>a</td>
       <td>a</td>
@@ -188,7 +188,9 @@ function autocomplete(inp, arr) {
 }
 
 /*An array containing all the country names in the world:*/
-var countries = ["FIBO","LONGCODE"];
+@foreach($list_services as $a)
+var countries = ["{{$a->list_service_name}}","LONGCODE"];
+@endforeach
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), countries);

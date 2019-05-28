@@ -71,10 +71,10 @@
               <td class="upd1" style="display:none">{{$t->updated_at}}</td>
               <td>{{$t->contact_groups->name}}</td>
               <td>
-                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='templates/sua/{{$t->id}}'">
+                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='contacts/edit/{{$t->id}}'">
                   <i class="fas fa-edit"></i>
                 </button>
-                <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
+                <a href="contacts/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                   <i class="fas fa-trash"></i>
                 </a>
                 </td>
@@ -83,6 +83,7 @@
           @endforeach
         </table>
         <p class="pull-left">Total {{count($contacts)}} contact.</p>
+        {{$contacts->links()}}
       </div>
     </div>
   </div>

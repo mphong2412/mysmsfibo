@@ -24,9 +24,9 @@ class TemplateController extends Controller
 
  //
    public function getSua($id){
-       // $list_services = list_services::all();
+       $services = list_services::all();
        $templates = templates::find($id);
-       return view('page/templates/sua',['templates'=>$templates]);
+       return view('page/templates/sua',['templates'=>$templates,'list_services'=>$service]);
    }
  public function postSua(Request $request ,$id){
      $this->validate($request,
@@ -46,7 +46,8 @@ class TemplateController extends Controller
  // thêm template
  public function getThem(){
     $templates = templates::all();
-     return view('page/templates/them',['templates'=>$templates]);
+    $services = list_services::all();
+    return view('page/templates/them',['templates'=>$templates,'list_services'=>$services]);
  }
  public function postThem(Request $request){
     $this->validate($request,

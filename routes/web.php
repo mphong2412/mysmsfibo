@@ -89,5 +89,11 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       Route::get('list','ContactController@index');
 
       Route::get('add','ContactController@getThem');
+      Route::post('add','ContactController@postThem');
+
+      Route::get('edit/{id}','ContactController@getSua');
+      Route::post('edit/{id}','ContactController@postSua');
+
+      Route::get('xoa/{id}','ContactController@destroy');
 
   });
