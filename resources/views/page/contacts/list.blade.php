@@ -20,30 +20,44 @@
     <div class="card-body">
       <div class="table-responsive">
         <form action="searchc" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-          <div class="input-group">
+         <div class="input-group">
             <input type="search" name="key" class="form-control bg-light border-0 small" placeholder="Search for..."/>
             <div class="input-group-append" style="margin-bottom: 10px">
+
               <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
+
               <a href="contacts/add"><button class="btn btn-success" type="button" style="margin-left: 10px" >
                 <i class="fas fa-plus fa-sm"> Add New</i>
               </button></a>
-              <button class="btn btn-success" type="button" style="margin-left: 10px" >
+
+              <button type="button" class="btn btn-success" id="showmore" style="margin-left: 10px" onclick="myFunction()">Add More Column</button>
+
+              <a href="{{route('contact.export')}}"><button class="btn btn-success" type="button" id="print" style="margin-left: 10px" >
                 <i class="fas fa-print fa-sm"> Export</i>
-              </button>
+              </button></a>
+
+              <button class="btn btn-success" type="button" onclick="myImp()" id="import" style="margin-left: 10px" >
+                <i class="fas fa-upload fa-sm"> Import</i>
+            </button>
             </div>
         </div>
+        <!-- Hiển thị cột ẩn trong table -->
           <div class="col-md-12">
-              <button type="button" class="btn btn-success" id="showmore" onclick="myFunction()">Add More Column</button><br>
+              <br>
               <div class="col-md-12" id="showoption" style="display:none">
                   Email: <input type="checkbox" id="myCheck" onclick="addRow()" name="cb"> |
                   BirthDay: <input type="checkbox" id="myCheck1" onclick="addRow1()" name="cb1"> |
                   Create Date: <input type="checkbox" id="myCheck2" onclick="addRow2()" name="cb2"> |
                   Update Date: <input type="checkbox" id="myCheck3" onclick="addRow3()" name="cb3">
               </div>
-          </div><br>
+          </div>
         </form>
+        <div class="col-md-12" id="imp1" style="display:none">
+            <input type="file" name="input1">
+            <a href="{{route('contact.import')}}"><input type="submit" name="btn1" value="Import"></a>
+        </div><br />
 
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0" >
           <thead>
@@ -149,6 +163,14 @@ function myFunction() {
         } else {
             text.style.display = "none";
             $(".upd1").css("display", "none");
+        }
+    }
+    function myImp(){
+        var x = document.getElementById("imp1");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
         }
     }
 </script>
