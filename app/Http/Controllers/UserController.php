@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\account;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -75,4 +76,22 @@ class UserController extends Controller{
     Auth::logout();
     return redirect()->route('login');
   }
+
+  public function getlist(){
+      $userr = account::orderBy('id')->paginate(10);
+      return view('page.users.list',['account'=>$userr]);
+  }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  int  $id
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy($id){
+      $user = account::find($id);
+      $user ->delete();
+      return redirect('users/list')->with('thongbao','Bạn đã xóa tài khoản thành công.');
+  }
+
+  
 }

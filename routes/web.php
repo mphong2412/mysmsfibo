@@ -97,5 +97,20 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       Route::get('xoa/{id}','ContactController@destroy');
 
       Route::get('export','ContactController@contactExport')->name('contact.export');
-      Route::get('import','ContactController@ContactsImport')->name('contact.import');
+      Route::post('import','ContactController@contactImport')->name('contact.import');
+  });
+
+  Route::group(['prefix'=>'notices'],function(){
+
+      Route::get('notices','NoticeController@getThem');
+      Route::post('notices','NoticeController@postThem');
+
+  });
+
+  Route::group(['prefix'=>'users'],function(){
+
+      Route::get('list','UserController@getlist');
+
+      Route::get('xoa/{id}','UserController@destroy')->name('users.xoa');
+
   });

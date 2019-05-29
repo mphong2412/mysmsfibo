@@ -14,18 +14,19 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notice = notices::all();
+        $notices = notices::all();
         return view('page.notices');
     }
 
     /**
-     * Show the form for creating a new resource.
      *
+     * @param
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getThem()
     {
-        //
+        $notice = notices::all();
+        return view('page/notices',['notices'=>$notices]);
     }
 
     /**
@@ -34,51 +35,12 @@ class NoticeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postThem(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getedit($id)
-    {
-        $notice = notices::all();
-        return view('notices');
-    }
-    public function postedit(Request $request, $id)
-    {
-         $notice = notices::find($id);
-         $notice->notice = $request->txtNotice;
-         $notice->save();
-         return redirect('noitices')->with('thongbao','Cập nhật thành công.');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-
+        $notices = new notices();
+        $notices->notice = $request->txtNotice;
+        $notices->save();
+        return view('page/notices')->with('thongbao','Hiển thị thành công.');
     }
 
     /**

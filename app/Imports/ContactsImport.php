@@ -6,6 +6,7 @@ use App\contacts;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
 
+
 class ContactsImport implements ToModel
 {
     /**
