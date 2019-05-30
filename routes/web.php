@@ -37,7 +37,9 @@ Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('/logout','UserController@getLogout')->name('logout');
+
 Route::get('/compose','PageController@getCompose')->name('compose');
+Route::post('/compose','PageController@postCompose')->name('compose');
 
 
 

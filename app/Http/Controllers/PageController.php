@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\templates;
 use App\list_services;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Input;
 
 class PageController extends Controller
 {
@@ -28,5 +29,17 @@ class PageController extends Controller
 
     public function getCompose(){
       return view('page.sms.compose');
+    }
+
+
+
+      public function postCompose(Request $request){
+      $this->validate($request,[
+        'mobile' => 'required|size:10|regex:/(09|01[2|6|8|9])+([0-9]{8})\b/g'
+      ],[
+        'mobile.required' => 'Input phone now !',
+        'mobile.size' => 'Ivali'
+      ]);
+      return redirect('compose')->with('errPhone','number valid');
     }
 }
