@@ -28,7 +28,7 @@
                 <i class="fas fa-search fa-sm"> Search</i>
               </button>
 
-              <a href="contacts/add"><button class="btn btn-success" type="button" style="margin-left: 10px" >
+              <a href="users/add"><button class="btn btn-success" type="button" style="margin-left: 10px" >
                 <i class="fas fa-plus fa-sm"> Add New</i>
               </button></a>
             </div>
