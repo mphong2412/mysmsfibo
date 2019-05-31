@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Contact Managerment</h1>
+  <h1 class="h3 mb-2 text-gray-800">Users Managerment</h1>
   @if(count($errors) > 0)
   <div class="elert alert-danger">
     @foreach($errors->all() as $err)

@@ -20,19 +20,19 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-md-12">
         <div class="col-md-2" id="label" style="float:left">
-            <label style="margin-top:2px">Staus:</label><br>
-            <label style="margin-top:2px">* Username:</label><br>
-            <label style="margin-top:2px">* Fullname:</label><br>
-            <label style="margin-top:2px">* Password: </label><br>
-            <label>New password: </label><br>
-            <label>Confirm password</label><br>
-            <label style="margin-top:2px">Api user: </label><br>
-            <label style="margin-top:2px">Api Password: </label><br>
-            <label style="margin-top:2px">* Email : </label><br>
-            <label style="margin-top:2px">* Phone: </label><br>
-            <label style="margin-top:2px">Company: </label><br>
-            <label style="margin-top:2px">Address: </label><br>
-            <label style="margin-top:2px">Limit SMS: </label>
+            <label style="margin-top:3px">Staus:</label><br>
+            <label style="margin-top:3px">* Username:</label><br>
+            <label style="margin-top:3px">* Fullname:</label><br>
+            <label style="margin-top:3px">* Password: </label><br>
+            <label style="margin-top:3px">New password: </label><br>
+            <label style="margin-top:3px">Confirm password</label><br>
+            <label style="margin-top:3px">Api user: </label><br>
+            <label style="margin-top:3px">Api Password: </label><br>
+            <label style="margin-top:3px">* Email : </label><br>
+            <label style="margin-top:3px">* Phone: </label><br>
+            <label style="margin-top:3px">Company: </label><br>
+            <label style="margin-top:3px">Address: </label><br>
+            <label style="margin-top:3px">Limit SMS: </label>
         </div>
         <div class="col-md-10" id="input" style="float:right">
 
@@ -49,9 +49,9 @@
 
             <input type="password" name="txtPass" value="" placeholder="enter your old password" style="margin-top:5px" size="50px"><br>
 
-            <input type="text" name="newpass" value="" style="margin-top:5px" size="50px"><br>
-            
-            <input type="text" name="renewpass" value="" style="margin-top:5px" size="50px"><br>
+            <input type="password" name="newpass" id="npass" value="" style="margin-top:5px" size="50px" disabled><br>
+
+            <input type="password" name="renewpass" id="rnpass" value="" style="margin-top:5px" size="50px" disabled><br>
 
             <input type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:5px" size="50px"><br>
 
@@ -76,29 +76,29 @@
   <i class="fas fa-times fa-sm"> Cancel</i>
 </button>
   <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
-<button class="btn btn-info" type="button" name="btnPass" id="btnPass" onclick="myP()">Change Password</button><br />
-<center>
-    <div class="col-sm-8" id="p1" style="display:none">
-        <div class="col-sm-3" style="float">
-            <label>Old password: </label><br>
-
-        </div>
-        <div class="col-sm-5">
-
-        </div>
-    </div>
-</center>
+  <input type="checkbox" name="pupil" id="pupil" onclick="myP()">Change password
+<!-- <button class="btn btn-info" type="button" name="btnPass" id="btnPass" onclick="myP()">Change Password</button><br /> -->
 </form>
 </div>
 <script type="text/javascript">
 
 function myP(){
-    var x = document.getElementById("p1");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
+    $().ready(function() {
+
+
+        $('#clicker').click(function() {
+            $('input').each(function() {
+                if ($(this).attr('disabled')) {
+                    $(this).removeAttr('disabled');
+                }
+                else {
+                    $(this).attr({
+                        'disabled': 'disabled'
+                    });
+                }
+            });
+        });
+    });
 }
 </script>
 @endsection
