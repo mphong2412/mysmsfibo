@@ -83,22 +83,16 @@
 <script type="text/javascript">
 
 function myP(){
-    $().ready(function() {
-
-
-        $('#clicker').click(function() {
-            $('input').each(function() {
-                if ($(this).attr('disabled')) {
-                    $(this).removeAttr('disabled');
-                }
-                else {
-                    $(this).attr({
-                        'disabled': 'disabled'
-                    });
-                }
-            });
-        });
-    });
+if (document.getElementById('pupil').checked == true)
+  {
+	document.getElementById('npass').removeAttribute('disabled');
+    document.getElementById('rnpass').removeAttribute('disabled');
+ }
+else
+  {
+   	document.getElementById('npass').removeAttribute('disabled','disabled');
+ 	document.getElementById('rnpass').removeAttribute('disabled','disabled');
+}
 }
 </script>
 @endsection
