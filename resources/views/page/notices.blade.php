@@ -10,15 +10,16 @@
   </div>
   @endif
   @if(session('thongbao'))
-  <div class="alert alert-success">
+  <div class="alert alert-success alert-block">
+      
     {{session('thongbao')}}</div>
   @endif
   <h1>Notice Config</h1>
-  <form action="notices" method="post">
+  <form action="notice" method="post">
       <input type="hidden" name="_token" value="{{csrf_token()}}">
       <div class="col-sm-12">
               <label>Notice: </label><br />
-              <textarea name="input1" rows="3" cols="90"></textarea>
+              <input type="textarea" name="txtNotice" id="txtNotice"  style="width:40%;height: 80px">
       </div>
 
       <button class="btn btn-success" type="button" style="margin: 10px" onclick="window.location.href='notices'">

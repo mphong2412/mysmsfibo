@@ -44,6 +44,9 @@ Route::get('/logout','UserController@getLogout')->name('logout');
 Route::get('them','TemplateController@getThem');
 Route::post('them','TemplateController@postThem');
 
+Route::get('notice',['as'=>'notices','uses'=>'NoticeController@getThem']);
+Route::post('notice',['as'=>'notices','uses'=>'NoticeController@postThem']);
+
 Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
 
@@ -102,12 +105,6 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       Route::post('import','ContactController@contactImport')->name('contact.import');
   });
 
-  Route::group(['prefix'=>'notices'],function(){
-
-      Route::get('notices','NoticeController@getThem');
-      Route::post('notices','NoticeController@postThem');
-
-  });
 
   Route::group(['prefix'=>'users'],function(){
 

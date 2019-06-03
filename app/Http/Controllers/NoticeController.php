@@ -23,10 +23,10 @@ class NoticeController extends Controller
      * @param
      * @return \Illuminate\Http\Response
      */
-    public function getThem()
+    public function getThem($id)
     {
-        $notice = notices::all();
-        return view('page/notices',['notices'=>$notices]);
+        $notice = notices::find($id='1');
+        return view('notices',['notices'=>$notices]);
     }
 
     /**
@@ -35,12 +35,12 @@ class NoticeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postThem(Request $request)
+    public function postThem(Request $request,$id)
     {
-        $notices = new notices();
-        $notices->notice = $request->txtNotice;
+        $notices = notices::find($id='1');
+        $notices->name = $request->txtNotice;
         $notices->save();
-        return view('page/notices')->with('thongbao','Hiển thị thành công.');
+        return redirect('notices')->with('thongbao','Cập nhật thông báo thành công.');
     }
 
     /**

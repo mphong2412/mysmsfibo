@@ -281,12 +281,10 @@
   <script src="source/js/sb-admin-2.min.js"></script>
 
 
-  <!-- Page level plugins -->
-  <script src="source/vendor/chart.js/Chart.min.js"></script>
+
 
 
   <!-- Page level custom scripts -->
-  <script src="source/js/demo/chart-area-demo.js"></script>
   <script src="source/js/demo/chart-pie-demo.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

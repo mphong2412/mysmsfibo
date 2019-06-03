@@ -4,13 +4,10 @@
     @if(count($errors) > 0)
     <div class="elert alert-danger">
       @foreach($errors->all() as $err)
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{$err}} <br>
       @endforeach
     </div>
-    @endif
-    @if(session('thongbao'))
-    <div class="alert alert-success">
-      {{session('thongbao')}}</div>
     @endif
 <form action="users/add" method="POST">
 
@@ -20,17 +17,18 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-md-12">
         <div class="col-md-2" id="label" style="float:left">
-            <label style="margin-top:2px">Staus:</label><br>
-            <label style="margin-top:2px">* Username:</label><br>
-            <label style="margin-top:2px">* Fullname:</label><br>
-            <label style="margin-top:2px">* Password: </label><br>
-            <label style="margin-top:2px">Api user: </label><br>
-            <label style="margin-top:2px">Api Password: </label><br>
-            <label style="margin-top:2px">* Email : </label><br>
-            <label style="margin-top:2px">* Phone: </label><br>
-            <label style="margin-top:2px">Company: </label><br>
-            <label style="margin-top:2px">Address: </label><br>
-            <label style="margin-top:2px">Remaining SMS Number: </label>
+            <label style="margin-top:3px">Staus:</label><br>
+            <label style="margin-top:3px">* Username:</label><br>
+            <label style="margin-top:3px">* Fullname:</label><br>
+            <label style="margin-top:3px">* Password: </label><br>
+            <label style="margin-top:3px">Api user: </label><br>
+            <label style="margin-top:3px">Api Password: </label><br>
+            <label style="margin-top:3px">* Email : </label><br>
+            <label style="margin-top:3px">* Phone: </label><br>
+            <label style="margin-top:3px">Company: </label><br>
+            <label style="margin-top:3px">Address: </label><br>
+            <label style="margin-top:3px">Limit SMS: </label><br>
+            <label style="margin-top:3px">Authority: </label>
         </div>
         <div class="col-md-10" id="input" style="float:right">
 
@@ -59,6 +57,12 @@
 
             <input type="number" name="txtLimit" min="0" style="margin-top:5px" size="50px"><br>
 
+            <select name="role" id="role" style="width:200px;margin-top:5px">
+                <option></option>
+                <option value="1">Admin</option>
+                <option value="2">User</option>
+                <option value="3">Sub user</option>
+            </select>
             </div>
         </div>
   </div>

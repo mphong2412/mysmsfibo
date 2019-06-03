@@ -133,7 +133,7 @@ class UserController extends Controller{
      $user = new account();
      $user->username = $request->txtUname;
      $user->fullname = $request->txtFname;
-     $user->password = $request->txtPass;
+     $user->password = Hash::make($request->txtPass);
      $user->user_api = $request->txtApiU;
      $user->user_pass = $request->txtApiP;
      $user->email = $request->txtEmail;
@@ -142,6 +142,7 @@ class UserController extends Controller{
      $user->address = $request->txtAddress;
      $user->limit_sms = $request->txtLimit;
      $user->status = $request->status;
+     $user->role = $request->role;
      $user->save();
      return redirect('users/list')->with('thongbao','Bạn đã thêm tài khoản thành công.');
   }
@@ -154,7 +155,6 @@ class UserController extends Controller{
    public function postSua(Request $request,$id){
        $this->validate($request,[
           'txtFname'=>'required',
-          'txtPass'=>'required|min:6|max:20',
           'txtEmail'=>'required',
           'txtPhone'=>'required|min:8|max:12',
       ],[
@@ -170,7 +170,9 @@ class UserController extends Controller{
 
     $user = account::find($id);
     $user->fullname = $request->txtFname;
-    $user->password = $request->txtPass;
+    if(!empty($password)){
+        $user->password = Hash::make($request->resetpass);
+    }
     $user->user_api = $request->txtApiU;
     $user->user_pass = $request->txtApiP;
     $user->email = $request->txtEmail;
@@ -179,6 +181,7 @@ class UserController extends Controller{
     $user->address = $request->txtAddress;
     $user->limit_sms = $request->txtLimit;
     $user->status = $request->status;
+    $user->role = $request->role;
     $user->save();
     return redirect('users/list')->with('thongbao','Bạn đã cập nhật tài khoản thành công.');
     }
@@ -190,4 +193,6 @@ class UserController extends Controller{
         // $user = account::orderBy('id')->where('phone','like','%'.$key.'%')->paginate(10);
         return view('page.users.list',['account'=>$user]);
     }
+
+
 }

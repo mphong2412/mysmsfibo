@@ -9,11 +9,12 @@
     @foreach($errors->all() as $err)
       {{$err}} <br>
     @endforeach
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
   </div>
   @endif
   @if(session('thongbao'))
-  <div class="alert alert-success">
-    {{session('thongbao')}}</div>
+  <div class="alert alert-success"><strong>{{session('thongbao')}}</strong>
+  <button type="button" class="close" data-dismiss="alert">&times;</button></div>
   @endif
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
@@ -77,5 +78,4 @@
 
 <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="source/js/demo/datatables-demo.js"></script>
-
 @endsection

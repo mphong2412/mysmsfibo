@@ -12,7 +12,7 @@
     <div class="alert alert-success">
       {{session('thongbao')}}</div>
     @endif
-<form action="users/edit/{$account->id}" method="POST">
+<form action="users/profile/{$account->id}" method="POST">
 
   <div id="content" class="container">
       <center><h2>Edit user information</h2></center>
@@ -24,6 +24,8 @@
             <label style="margin-top:3px">* Username:</label><br>
             <label style="margin-top:3px">* Fullname:</label><br>
             <label style="margin-top:3px">* Password: </label><br>
+            <label style="margin-top:3px">New password: </label><br>
+            <label style="margin-top:3px">Confirm password</label><br>
             <label style="margin-top:3px">Api user: </label><br>
             <label style="margin-top:3px">Api Password: </label><br>
             <label style="margin-top:3px">* Email : </label><br>
@@ -37,20 +39,20 @@
 
             <select name="status" id="status" style="width:200px;margin-top:5px">
             @if($account->status == 1)
-             <option value="1">Active</option>
-             <option value="2">Unactive</option>@endif
-            @if($account->status == 2)
-             <option value="2">Unactive</option>
              <option value="1">Active</option>@endif
-
-
+            @if($account->status == 2)
+             <option value="2">Unactive</option>@endif
             </select><br>
 
             <input type="text" name="txtUname" value="{{$account->username}}" style="margin-top:5px" size="50px" readonly><br>
 
             <input type="text" name="txtFname" value="{{$account->fullname}}" style="margin-top:5px" size="50px"><br>
 
-            <input type="password" name="txtPass" value="" style="margin-top:5px" size="50px"><br>
+            <input type="password" name="txtPass" value="" placeholder="enter your old password" style="margin-top:5px" size="50px"><br>
+
+            <input type="password" name="newpass" id="npass" value="" style="margin-top:5px" size="50px" disabled><br>
+
+            <input type="password" name="renewpass" id="rnpass" value="" style="margin-top:5px" size="50px" disabled><br>
 
             <input type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:5px" size="50px"><br>
 
@@ -66,20 +68,13 @@
 
             <input type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:5px" size="50px"><br>
 
-            <select name="role" id="role" style="width:200px;margin-top:10px">
-                @if($account->role == 1)
-                 <option value="1">Admin</option>
-                 <option></option>
-                 <option value="2">User</option>
-                 <option value="3">Sub user</option>@endif
-                @if($account->role == 2)
-                 <option value="2">User</option>
-                 <option></option>
-                 <option value="3">Sub user</option>@endif
-                 @if($account->role == 3)
-                  <option value="3">Sub user</option>
-                  <option></option>
-                  <option value="2">User</option>@endif
+            <select name="role" id="role" style="width:200px;margin-top:10px" disabled>
+                @if($account->status == 1)
+                 <option value="1">Admin</option>@endif
+                @if($account->status == 2)
+                 <option value="2">User</option>@endif
+                 @if($account->status == 3)
+                  <option value="3">Sub user</option>@endif
             </select>
 
             </div>
@@ -91,28 +86,23 @@
   <i class="fas fa-times fa-sm"> Cancel</i>
 </button>
   <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
-  <!-- <input type="checkbox" name="pupil" id="pupil" onclick="myP()">Change password -->
-<a href="#btnPass" role="button" class="btn btn-sm btn-primary" data-toggle="modal">Reset Password</a>
+  <input type="checkbox" name="pupil" id="pupil" onclick="myP()">Change password
+<!-- <button class="btn btn-info" type="button" name="btnPass" id="btnPass" onclick="myP()">Change Password</button><br /> -->
 </form>
 </div>
-<div id="btnPass" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">New password</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Password</p>
-                    <input type="password" name="resetpass" id="resetpass" value="">
-                    <p class="text-secondary"><small>Enter new password.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<script type="text/javascript">
 
+function myP(){
+if (document.getElementById('pupil').checked == true)
+  {
+	document.getElementById('npass').removeAttribute('disabled');
+    document.getElementById('rnpass').removeAttribute('disabled');
+ }
+else
+  {
+   	document.getElementById('npass').removeAttribute('disabled','disabled');
+ 	document.getElementById('rnpass').removeAttribute('disabled','disabled');
+}
+}
+</script>
 @endsection
