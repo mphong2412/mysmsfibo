@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Custom styles for this template-->
   <link href="source/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="source/css/style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <!-- Custom styles for this page -->
   <link href="source/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -61,11 +61,16 @@
       } @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
+          <span>SMS</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
+            <h6 class="collapse-header">Compose</h6>
+            <a class="collapse-item" href="compose">Compose</a>
+            <a class="collapse-item" href="#">Sent</a>
+            <a class="collapse-item" href="#">Draft</a>
+            <a class="collapse-item" href="#">Outbox</a>
+            <a class="collapse-item" href="#">Errors</a>
           </div>
         </div>
       </li>
@@ -326,7 +331,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="source/vendor/jquery/jquery.min.js"></script>
+  <!-- <script src="source/vendor/jquery/jquery.min.js"></script> -->
   <script src="source/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -337,14 +342,15 @@
 
 
   <!-- Page level plugins -->
-  <script src="source/vendor/chart.js/Chart.min.js"></script>
+  <!-- <script src="source/vendor/chart.js/Chart.min.js"></script> -->
+
   <script src="source/js/plugins/compose.js" type="text/javascript">
 
   </script>
 
 
   <!-- Page level custom scripts -->
-  <script src="source/js/demo/chart-area-demo.js"></script>
+  <!-- <script src="source/js/demo/chart-area-demo.js"></script> -->
   <script src="source/js/demo/chart-pie-demo.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

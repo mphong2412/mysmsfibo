@@ -1,6 +1,7 @@
 @extends('master')
 @section('content')
-<form action="{{route('compose')}}" method="post">
+<link href="source/css/style.css" rel="stylesheet">
+<form action="{{route('compose')}}">
   @csrf
   @if(count($errors))
 			<div class="alert alert-danger">
@@ -13,6 +14,11 @@
 				</ul>
 			</div>
 	@endif
+  @if(session()->has('success'))
+  <script>
+        alert({{ session()->get('success')}});
+  </script>
+  @endif
 <div class="">
   <div style="background-color: white; padding-bottom: 0px">
     <ul class="">
@@ -33,22 +39,22 @@
       </div>
     </div></br>
 
-    <textarea  placeholder="Input phone number" rows="20" name="mobile" id="mobile" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea>
-    <button class="myButton checkmobile">Submit</button>
+    <textarea  placeholder="Input phone number" rows="20" name="mobile" id="comment_text" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea>
+    <button class="myButton" id="button1">Submit</button>
 
     <!--  -->
     <div class="input-container textForm">
       <input type="file" id="real-input">
-        <button class="browse-btn">
+        <button class="browse-btn" >
           Browse Files
         </button>
         <span class="file-info">Upload a file</span>
-        <input class="myButton" type="submit" value="Submit">
+        <input class="myButton" type="submit" value="Submit" id="inputExcel">
     </div>
 
     <div class="select-box">
       <label for="select-box1" class="label select-box1"><span class="label-desc">Choose your country</span> </label>
-      <input class="myButton" type="submit" value="Submit">
+      <input class="myButton" type="submit" value="Submit" id="inputGroup">
       <select id="select-box1" class="select">
         <option value="Choice 1">Falkland Islands</option>
         <option value="Choice 2">Germany</option>
@@ -57,7 +63,7 @@
     </div>
 
     <div class="table-wrapper">
-      <table class="fl-table" name="listcontact" border="1">
+      <table class="fl-table" name="listcontact" id="tableid" border="1">
         <thead>
           <tr>
             <th>Check</th>
@@ -67,13 +73,14 @@
             <th>Address</th>
           </tr>
         </thead>
-        <tbody required>
+
+        <tbody>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td type="checkbox" id="check" name="result" ></td>
+            <td name="phone" id="phone"></td>
+            <td id="name"></td>
+            <td id="birthday"></td>
+            <td id="address"></td>
           </tr>
         <tbody>
       </table>
@@ -85,22 +92,43 @@
   </div>
   </div>
 </form>
-<script type="text/javascript">
+
+<button type="button" name="button" onclick="Test()"> Click</button>
+<script>
 $(document).ready(function() {
-    $('body').on('click','.checkmobile', function() {
-    var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-    var mobile = $('#mobile').val();
-    if(mobile !==''){
-        if (vnf_regex.test(mobile) == false)
-        {
-            alert('Số điện thoại của bạn không đúng định dạng!');
-        }else{
-            alert('Số điện thoại của bạn hợp lệ!');
-        }
-    }else{
-        alert('Bạn chưa điền số điện thoại!');
-    }
-    });
+
 });
+
+function Test() {
+  var a = $('#comment_text').val();
+  var invalidPhone = "";
+
+ if(a.search(',') != '-1') {
+   var s = a.split(',');
+   s.forEach(function(element) {
+     var isnum = /^\d+$/.test(element);
+     var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(element);
+     if(isnum == true && isphone == true){
+      $('#tableid').append('<tr>'
+                                +'<td><input type="checkbox" ></td>'
+                                + '<td>' + element + '</td>' + '</tr>');
+    }else{
+      invalidPhone += element+',';
+
+    }
+  });
+  alert('Check again number Phone:'+invalidPhone);
+
+ } else {
+   var isnum = /^\d+$/.test(a);
+   var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(a);
+    if(isnum == true && isphone == true) {
+      $('#phone').text(a);
+    }else {
+      alert('Phone valid:' + a);
+    }
+ }
+
+}
 </script>
-@endsection()
+@endsection

@@ -28,18 +28,23 @@ class PageController extends Controller
     }
 
     public function getCompose(){
+
       return view('page.sms.compose');
     }
 
 
-
       public function postCompose(Request $request){
       $this->validate($request,[
-        'mobile' => 'required|size:10|regex:/(09|01[2|6|8|9])+([0-9]{8})\b/g'
+        'mobile' => 'required|digits:10|numeric',
+        'mobile' => array('regex:/((09|03|07|08|05)+([0-9]{8})\b)/')
       ],[
         'mobile.required' => 'Input phone now !',
-        'mobile.size' => 'Ivali'
+        'mobile.numeric' => 'Input number',
+        'mobile.digits' => 'Ivali',
       ]);
-      return redirect('compose')->with('errPhone','number valid');
+      $phone = $request->input('mobile');
+      // Session::put('phone', $phone);
+      // return view('page.sms.compose',compact('phone'));
+      return redirect('compose')->with('success','wellcome');
     }
 }

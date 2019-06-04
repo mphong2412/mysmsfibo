@@ -12,4 +12,8 @@ class contact_groups extends Model
       return $this->hasMany('App\contacts','contact_groups_id','id');
     }
 
+    public function composes(){
+      
+    }
+
 }
