@@ -157,7 +157,7 @@
       <li class="nav-item @if (Gate::denies('enable_function', 'userconfig')) {
            d-none
       } @endif">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="users/list">
           <i class="fas fa-fw fa-user"></i>
           <span>User Config</span></a>
       </li>
@@ -166,7 +166,7 @@
       <li class="nav-item @if (Gate::denies('enable_function', 'noticeconfig')) {
            d-none
       } @endif">
-        <a class="nav-link">
+        <a class="nav-link" href="notices">
           <i class="fas fa-fw fa-bell"></i>
           <span>Notice Config</span></a>
       </li>
@@ -199,17 +199,7 @@
             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 15rem;" src="source/img/logo.png" alt="">
           </a>
 
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -234,21 +224,6 @@
               </div>
             </li>
 
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-              </a>
-            </li>
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <!-- <span class="badge badge-danger badge-counter">7</span> -->
-              </a>
-            </li>
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -256,7 +231,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 @if(Auth::check())
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello, {{Auth::user()->role}}
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello, {{Auth::user()->fullname}}
                 </span>
                 @endif
               </a>
@@ -290,10 +265,6 @@
         @yield('content')
       </div>
 
-      <!-- Footer -->
-
-      <!-- End of Footer -->
-
     </div>
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
@@ -303,7 +274,15 @@
       </div>
     </footer>
     <!-- End of Content Wrapper -->
-
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Mobile Marketing &copy; Your Website 2019</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
   </div>
   <!-- End of Page Wrapper -->
 
@@ -325,16 +304,12 @@
   <script src="source/js/sb-admin-2.min.js"></script>
 
 
-  <!-- Page level plugins -->
-  <!-- <script src="source/vendor/chart.js/Chart.min.js"></script> -->
 
   <script src="source/js/plugins/compose.js" type="text/javascript">
 
   </script>
 
 
-  <!-- Page level custom scripts -->
-  <!-- <script src="source/js/demo/chart-area-demo.js"></script> -->
   <script src="source/js/demo/chart-pie-demo.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 

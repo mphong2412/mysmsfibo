@@ -54,10 +54,14 @@
               </div>
           </div>
         </form>
-        <div class="col-md-12" id="imp1" style="display:none">
-            <input type="file" name="input1">
-            <a href="{{route('contact.import')}}"><input type="submit" name="btn1" value="Import"></a>
-        </div><br />
+        <form class="form-horizontal" id="imp1" action="{{route('contact.import')}}" method="post" style="display:none"  enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="input1" id="input1">
+
+            <input type="submit" name="btnimp" value="Import">
+            <a href="source/data.xlsx">Example import</a>
+
+        </form><br />
 
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0" >
           <thead>

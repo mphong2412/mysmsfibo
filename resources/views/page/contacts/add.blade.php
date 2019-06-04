@@ -38,7 +38,7 @@
             @endforeach
             </select><br>
 
-            <input type="text" id="phone" name="txtPhone" size="50px" style="margin-top:5px" pattern="{0-9}" title="Please enter phone number."/><br>
+            <input type="tel" id="phone" name="txtPhone" size="50px" style="margin-top:5px" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Please enter phone number."/><br>
 
             <input type="text" id="name" name="txtName" style="margin-top:5px" size="50px"/><br>
 

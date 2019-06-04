@@ -66,23 +66,24 @@ class ContactController extends Controller
 
     public function contactExport(){
         $contact = contacts::select('phone','full_name')->get();
-        return Excel::download(new ContactsExport,'data.xlsx');
+        return Excel::download(new ContactsExport,'contacts.xlsx');
     }
 
-    public function ContactsImport(Request $request){
-        if($request->hasFile('file')){
-            $path = $request->file('file')->getRealPath();
-            $data = Excel::import($path,function($reader){})->get();
-                if(!empty($data) && $data->count()){
+    public function contactImport(Request $request){
+        if($request->hasFile('input1')){
+            $path = $request->file('input1')->getRealPath();
+            $data = Excel::import(new ContactsImport,$path);
+                if(!empty($data)){
                     foreach ($data as $key => $value) {
                         $contact = new contacts();
                         $contact->phone = $value->phone;
-                        $contact->name = $value->name;
+                        $contact->full_name = $value->full_name;
+                        $contact->contact_groups_id = $request->lgname;
                         $contact->save();
                     }
                 }
         }
-        return back();
+        return redirect('contacts/list')->with('thongbao','Import thông tin thành công');
     }
 
 
@@ -96,7 +97,8 @@ class ContactController extends Controller
      {
          $key = $request->get('key');
          $contact = contacts::orderBy('id')->where('phone','like','%'.$key.'%')->paginate(10);
-         $contact = contacts::orderBy('id')->where('full_name','like','%'.$key.'%')->paginate(10);
+         // $contact = contacts::orderBy('id')->where('full_name','like','%'.$key.'%')->paginate(10);
+         // $groups = contact_groups::orderBy('id')->where('name','like','%'.$key.'%')->paginate(10);
          return view('page.contacts.list',['contacts'=>$contact]);
      }
 

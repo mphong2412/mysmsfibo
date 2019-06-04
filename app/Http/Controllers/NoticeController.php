@@ -14,18 +14,19 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notice = notices::all();
+        $notices = notices::all();
         return view('page.notices');
     }
 
     /**
-     * Show the form for creating a new resource.
      *
+     * @param
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getThem($id)
     {
-        //
+        $notice = notices::find($id='1');
+        return view('notices',['notices'=>$notices]);
     }
 
     /**
@@ -34,51 +35,12 @@ class NoticeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function postThem(Request $request,$id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getedit($id)
-    {
-        $notice = notices::all();
-        return view('notices');
-    }
-    public function postedit(Request $request, $id)
-    {
-         $notice = notices::find($id);
-         $notice->notice = $request->txtNotice;
-         $notice->save();
-         return redirect('noitices')->with('thongbao','Cập nhật thành công.');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-
+        $notices = notices::find($id='1');
+        $notices->name = $request->txtNotice;
+        $notices->save();
+        return redirect('notices')->with('thongbao','Cập nhật thông báo thành công.');
     }
 
     /**

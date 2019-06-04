@@ -4,10 +4,13 @@ namespace App\Imports;
 
 use App\contacts;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
 
-class ContactsImport implements ToModel
+
+class ContactsImport implements ToModel, WithHeadingRow
 {
+
     /**
     * @param array $row
     *
@@ -17,12 +20,14 @@ class ContactsImport implements ToModel
     {
 
         return new contacts([
-            'phone' =>$row[0],
-            'full_name' =>$row[1],
-            'gender' =>$row[2],
-            'email' =>$row[3],
-            'birthday' =>$row[4],
-            'address' =>$row[5],
+            'phone' =>$row['phone'],
+            'full_name' =>$row['full_name'],
+            'contact_groups_id' =>$row['contact_groups_id'],
         ]);
     }
+    public function headingRow(): int
+    {
+        return 1;
+    }
+
 }

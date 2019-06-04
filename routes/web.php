@@ -34,6 +34,8 @@ Route::get('searchs',['as'=>'searchs','uses'=>'ServiceController@searchs']);
 
 Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
 
+Route::get('searchu',['as'=>'searchu','uses'=>'UserController@searchu']);
+
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('/logout','UserController@getLogout')->name('logout');
@@ -43,6 +45,9 @@ Route::post('/compose','PageController@postCompose')->name('compose');
 
 Route::get('them','TemplateController@getThem');
 Route::post('them','TemplateController@postThem');
+
+Route::get('notice',['as'=>'notices','uses'=>'NoticeController@getThem']);
+Route::post('notice',['as'=>'notices','uses'=>'NoticeController@postThem']);
 
 Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
@@ -99,5 +104,20 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       Route::get('xoa/{id}','ContactController@destroy');
 
       Route::get('export','ContactController@contactExport')->name('contact.export');
-      Route::get('import','ContactController@ContactsImport')->name('contact.import');
+      Route::post('import','ContactController@contactImport')->name('contact.import');
+  });
+
+
+  Route::group(['prefix'=>'users'],function(){
+
+      Route::get('list','UserController@getlist');
+
+      Route::get('xoa/{id}','UserController@destroy')->name('users.xoa');
+
+      Route::get('add','UserController@getThem');
+      Route::post('add','UserController@postThem');
+
+      Route::get('edit/{id}','UserController@getSua');
+      Route::post('edit/{id}','UserController@postSua');
+
   });
