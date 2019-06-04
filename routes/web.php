@@ -41,8 +41,6 @@ Route::get('/logout','UserController@getLogout')->name('logout');
 Route::get('/compose','PageController@getCompose')->name('compose');
 Route::post('/compose','PageController@postCompose')->name('compose');
 
-
-
 Route::get('them','TemplateController@getThem');
 Route::post('them','TemplateController@postThem');
 

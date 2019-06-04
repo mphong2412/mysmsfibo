@@ -38,8 +38,6 @@ class AuthServiceProvider extends ServiceProvider
 
         //Test
         //$check = Session::get('key_function');
-
-
         Gate::define('enable_function', function ($user, $code) {
           $result = Session::get('key_function');
           foreach($result as $rs)
