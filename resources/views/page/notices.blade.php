@@ -11,10 +11,13 @@
   @endif
   @if(session('thongbao'))
   <div class="alert alert-success alert-block">
-      
+
     {{session('thongbao')}}</div>
   @endif
   <h1>Notice Config</h1>
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="table-responsive">
   <form action="notice" method="post">
       <input type="hidden" name="_token" value="{{csrf_token()}}">
       <div class="col-sm-12">
@@ -27,6 +30,9 @@
       </button>
       <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
   </form>
+</div>
+</div>
+</div>
 </div>
 <!-- /.container-fluid -->
 @endsection

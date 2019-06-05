@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-</div>
+
 <!-- /.container-fluid -->
 <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="source/js/demo/datatables-demo.js"></script>

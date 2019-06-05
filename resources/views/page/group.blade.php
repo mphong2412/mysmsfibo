@@ -32,16 +32,6 @@
             </div>
           </div>
         </form>
-        <!-- <div class="md-4">Show
-        <label>
-        <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-          <option value="5">5/page</option>
-          <option value="10">10/page</option>
-          <option value="25">25/page</option>
-          <option value="50">50/page</option>
-          <option value="100">100/page</option>
-        </select>
-    </label> entries.</div><br> -->
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
@@ -75,8 +65,6 @@
     </div>
   </div>
 
-</div>
+
 <!-- /.container-fluid -->
-<script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="source/js/demo/datatables-demo.js"></script>
 @endsection

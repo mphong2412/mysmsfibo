@@ -36,8 +36,11 @@ Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
 Route::get('searchu',['as'=>'searchu','uses'=>'UserController@searchu']);
 
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
+
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
+
 Route::get('compose',['as'=>'compose','uses'=>'PageController@getCompose']);
+
 Route::get('/logout','UserController@getLogout')->name('logout');
 
 

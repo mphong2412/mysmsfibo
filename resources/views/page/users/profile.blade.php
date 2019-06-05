@@ -1,21 +1,26 @@
 @extends('master')
 @section('content')
-<div class="md-6" style="border:solid">
+    <div class="container-fluid">
+        <h2 class="h3 mb-2 text-gray-800">Account information</h2>
+        <div class="md-6" >
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+        <div class="alert alert-danger">
       @foreach($errors->all() as $err)
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{$err}} <br>
       @endforeach
-    </div>
+        </div>
     @endif
     @if(session('thongbao'))
-    <div class="alert alert-success">
+        <div class="alert alert-success">
       {{session('thongbao')}}</div>
     @endif
-<form action="users/profile/{{$account->id}}" method="POST">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive">
 
+                    <form action="users/profile/{{$account->id}}" method="POST">
   <div id="content" class="container">
-      <center><h2>Account information</h2></center>
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-md-12">
         <div class="col-md-2" id="label" style="float:left">
@@ -25,6 +30,8 @@
             <label style="margin-top:5%">Api Password: </label><br>
             <label style="margin-top:5%">* Email : </label><br>
             <label style="margin-top:5%">Limit SMS: </label><br>
+            <label style="margin-top:5%;display:none" id="oldpass">Old password: </label><br>
+            <label style="margin-top:5%;display:none" id="newpa" >New password: </label><br>
         </div>
         <div class="col-md-10" id="input" style="float:right">
 
@@ -39,42 +46,38 @@
             <input type="email" name="txtEmail" value="{{$account->email}}" style="margin-top:1%" size="50%"><br>
 
             <input type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:1%" size="50%" disabled><br>
+
+            <input type="password" name="txtPass" id="txtPass"style="margin-top:1% ;display:none" placeholder="enter your old password" size="50%" ><br>
+
+            <input type="password" name="newpass" id="newpass" style="margin-top:1%;display:none" id="npass" size="50%" >
             </div>
         </div>
   </div>
 
-
-<button class="btn btn-warning" type="reset" style="margin: 10px" onclick="window.location.href='index'">
+  <button class="btn btn-warning" type="reset" style="margin: 10px" onclick="window.location.href='index'">
   <i class="fas fa-times fa-sm"> Cancel</i>
-</button>
-  <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
-  <a href="#myModal" role="button" class="btn btn-md btn-primary" data-toggle="modal">Change password</a>
+    </button>
+    <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
+    <input type="checkbox" name="btnrpass" id="btnrpass">Change password
 </form>
-</div>
-
-<div id="myModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Change Password</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <label>Old password</label>
-                    <input type="password" name="txtPass" value="" placeholder="enter your old password" size="50%">
-
-                    <label>New password</label>
-                    <input type="password" name="newpass" id="npass" value="" size="50%">
-
-                    <br /><label>Confirm password</label>
-                    <input type="password" name="renewpass" id="rnpass" value="" size="50%">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+<script type="text/javascript">
 
+    document.getElementById('btnrpass').onchange = function() {
+        if(this.checked){
+            document.getElementById('oldpass').style.display = '';
+            document.getElementById('newpa').style.display = '';
+            document.getElementById('txtPass').style.display = '';
+            document.getElementById('newpass').style.display = '';
+        }else {
+            document.getElementById('oldpass').style.display = 'none';
+            document.getElementById('newpa').style.display = 'none';
+            document.getElementById('txtPass').style.display = 'none';
+            document.getElementById('newpass').style.display = 'none';
+        }
+    };
+</script>
 @endsection

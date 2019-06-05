@@ -200,19 +200,23 @@ class UserController extends Controller{
         $user = account::find($id);
         return view('page/users/profile',['account'=>$user]);
     }
-    public function postInfo(Request $request,$id){
+    public function postInfo(Request $request){
         $this->validate($request,[
-            'txtPass' => 'required|min:6',
-            'newpass' => 'required|string|min:6',
-            'renewpass' => 'required|same:password',
-        ],[
-            'txtPass.required' => 'Old password is required',
-            'txtPass.min' => 'Old password needs to have at least 6 characters',
-            'newpass.required' => 'Password is required',
-            'newpass.min' => 'Password needs to have at least 6 characters',
-            'renewpass.required' => 'Passwords do not match'
+            'txtPass' => 'min:6',
+            'newpass' => 'string|min:6',
         ]);
 
+        if(!Hash::check($request->get('txtPass'),Auth::user()->password)){
+            return redirect()->back()->with('thongbao','Your current password does not matches with the password you provided. Please try again.');
+        }
+
+        $user = Auth::user();
+        if(isset($request->txtPass)) {
+            if($request->newpass){
+            $user->password = Hash::make($request->newpass);}
+        }
+        $user->save();
+        return redirect()->back()->with('thongbao','ok nha hihi');
     }
 
 }
