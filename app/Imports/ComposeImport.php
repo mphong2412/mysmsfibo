@@ -2,13 +2,12 @@
 
 namespace App\Imports;
 
-use App\contacts;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
 
 
-class ContactsImport implements ToModel, WithHeadingRow
+class ComposeImport implements ToModel, WithHeadingRow
 {
 
     /**
@@ -19,15 +18,11 @@ class ContactsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
 
-        return new contacts([
+        return new compose([
             'phone' =>$row['phone'],
-            'full_name' =>$row['full_name'],
-            'contact_groups_id' =>$row['contact_groups_id'],
+            'birthday' =>$row['birthday'],
+            'name' =>$row['fullname'],
         ]);
-    }
-    public function headingRow(): int
-    {
-        return 1;
     }
 
     public function headingRowPhone(): int

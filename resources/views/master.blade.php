@@ -275,13 +275,6 @@
     </footer>
     <!-- End of Content Wrapper -->
     <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Mobile Marketing &copy; Your Website 2019</span>
-        </div>
-      </div>
-    </footer>
     <!-- End of Footer -->
   </div>
   <!-- End of Page Wrapper -->
@@ -303,7 +296,8 @@
   <!-- Custom scripts for all pages-->
   <script src="source/js/sb-admin-2.min.js"></script>
 
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
 
   <script src="source/js/plugins/compose.js" type="text/javascript">
 
@@ -311,7 +305,7 @@
 
 
   <script src="source/js/demo/chart-pie-demo.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
 
 
 </body>

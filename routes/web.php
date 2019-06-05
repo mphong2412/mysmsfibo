@@ -37,19 +37,15 @@ Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
 Route::get('searchu',['as'=>'searchu','uses'=>'UserController@searchu']);
 
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
+
 Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('/logout','UserController@getLogout')->name('logout');
 
 Route::get('/compose','PageController@getCompose')->name('compose');
-Route::post('/compose','PageController@postCompose')->name('compose');
 
-Route::get('them','TemplateController@getThem');
-Route::post('them','TemplateController@postThem');
+Route::post('/compose','ExcelController@readImport')->name('compose.import');
 
-Route::get('notice',['as'=>'notices','uses'=>'NoticeController@getThem']);
-Route::post('notice',['as'=>'notices','uses'=>'NoticeController@postThem']);
 
-Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
 
 
   Route::group(['prefix'=>'templates'],function(){

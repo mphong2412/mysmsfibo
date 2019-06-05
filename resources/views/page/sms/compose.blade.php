@@ -1,24 +1,7 @@
 @extends('master')
 @section('content')
 <link href="source/css/style.css" rel="stylesheet">
-<form action="{{route('compose')}}" method="post" autocomplete="off" class="formCompose" id="formCompose">
-  @csrf
-  @if(count($errors))
-			<div class="alert alert-danger">
-				<strong>Whoops!</strong> There were some problems with your input.
-				<br/>
-				<ul>
-					@foreach($errors->all() as $error)
-					<li>{{ $error }}</li>
-					@endforeach
-				</ul>
-			</div>
-	@endif
-  @if(session()->has('success'))
-  <script>
-        alert({{ session()->get('success')}});
-  </script>
-  @endif
+<div class="formCompose">
 <div class="">
   <div style="background-color: white; padding-bottom: 0px">
     <ul class="">
@@ -39,22 +22,46 @@
       </div>
     </div></br>
 
+    <form action="" method="post" autocomplete="off" id="formCompose">
+      @csrf
+      @if(count($errors))
+    			<div class="alert alert-danger">
+    				<strong>Whoops!</strong> There were some problems with your input.
+    				<br/>
+    				<ul>
+    					@foreach($errors->all() as $error)
+    					<li>{{ $error }}</li>
+    					@endforeach
+    				</ul>
+    			</div>
+    	@endif
+      @if(session()->has('success'))
+      <script>
+            alert({{ session()->get('success')}});
+      </script>
+      @endif
+
     <div class="toggle-input">Input Phone Number</div>
     <div class="input-phone">
       <textarea  placeholder="Input phone number" rows="20" name="mobile" id="comment_text" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea><br>
       <button class="myButton" id="comment_text" onclick="Test()">Submit</button>
     </div>
+  </form>
 
     <!--  -->
+  <form action="{{route('compose.import')}}" method="post" id="formCompose" enctype="multipart/form-data">
+    @csrf
     <div class="toggle-excel">Input From Excel</div>
     <div class="input-excel">
       <div "example-import">
-        <input type="file" class="file" name="zip_file_import" />
-        <button type="submit" class="myButton" id="inputExcel">Submit</button>
-        <a class="example-import" href="/source/data">Sample Template</a>
+        <input type="file" class="file" id="inputfile" name="inputfile" />
+        <button type="submit" id="btnImport" nam="btnImport" class="myButton" >Submit</button>
+        <a class="example-import" href="/source/data.xlsx">Sample Template</a>
       </div>
     </div>
+  </form>
 
+  <form action="" id="formCompose">
     <div class="toggle-group">Input From Group</div>
     <div class="select-box">
       <label for="select-box1" class="label select-box1"><span class="label-desc">Choose your country</span> </label>
@@ -65,6 +72,7 @@
         <option value="Choice 3">Neverland</option>
       </select>
     </div>
+  </form>
 
     <div class="table-wrapper">
       <table class="fl-table" name="listcontact" id="tableid" border="1">
@@ -95,7 +103,7 @@
       <a href="#" class="next">Next &raquo;</a>
   </div>
   </div>
-</form>
+</div>
 
 <!-- <button type="button" name="button" onclick="Test()"> Click</button> -->
 <script>
@@ -141,7 +149,6 @@ $('#formCompose').submit(function(event) {
         data: form.serialize()
       });
     });
-
 
 $(".toggle-input").click(function(){
   $(".input-phone").toggle(400);
