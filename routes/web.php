@@ -118,4 +118,6 @@ Route::get('services',['as'=>'service','uses'=>'ServiceController@getList']);
       Route::get('edit/{id}','UserController@getSua');
       Route::post('edit/{id}','UserController@postSua');
 
+      Route::get('profile/{id}','UserController@getInfo')->name('users/profile');
+      Route::post('profile/{id}','UserController@postInfo');
   });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\account;
+use App;
+use validator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -116,7 +118,7 @@ class UserController extends Controller{
          'txtUname'=>'required',
          'txtFname'=>'required',
          'txtPass'=>'required|min:6|max:20',
-         'txtEmail'=>'required',
+         'txtEmail'=>'required|unique:users,email',
          'txtPhone'=>'required|min:8|max:12',
      ],[
          'txtUname.required'=>'Please enter your user name.',
@@ -125,6 +127,7 @@ class UserController extends Controller{
          'txtPass.min'=>'Password minimum 6 characters.',
          'txtPass.max'=>'Password maximum 20 characters.',
          'txtEmail.required'=>'Please enter your email.',
+         'txtEmail.unique'=>'This email has already exists.',
          'txtPhone.required'=>'Please enter your phone number.',
          'txtPhone.min'=>'This phone number has invalid.',
          'txtPhone.max'=>'This phone number has invalid.',
@@ -159,9 +162,6 @@ class UserController extends Controller{
           'txtPhone'=>'required|min:8|max:12',
       ],[
           'txtFname.required'=>'Please enter your full name.',
-          'txtPass.required'=>'Please enter your password.',
-          'txtPass.min'=>'Password minimum 6 characters.',
-          'txtPass.max'=>'Password maximum 20 characters.',
           'txtEmail.required'=>'Please enter your email.',
           'txtPhone.required'=>'Please enter your phone number.',
           'txtPhone.min'=>'This phone number has invalid.',
@@ -169,9 +169,11 @@ class UserController extends Controller{
       ]);
 
     $user = account::find($id);
+    $user->username = $request->txtUname;
     $user->fullname = $request->txtFname;
-    if(!empty($password)){
-        $user->password = Hash::make($request->resetpass);
+    // Kiểm tra có tồn tại hay không.
+    if(isset($request->txtPass)) {
+        $user->password = Hash::make($request->txtPass);
     }
     $user->user_api = $request->txtApiU;
     $user->user_pass = $request->txtApiP;
@@ -194,5 +196,23 @@ class UserController extends Controller{
         return view('page.users.list',['account'=>$user]);
     }
 
+    public function getInfo($id){
+        $user = account::find($id);
+        return view('page/users/profile',['account'=>$user]);
+    }
+    public function postInfo(Request $request,$id){
+        $this->validate($request,[
+            'txtPass' => 'required|min:6',
+            'newpass' => 'required|string|min:6',
+            'renewpass' => 'required|same:password',
+        ],[
+            'txtPass.required' => 'Old password is required',
+            'txtPass.min' => 'Old password needs to have at least 6 characters',
+            'newpass.required' => 'Password is required',
+            'newpass.min' => 'Password needs to have at least 6 characters',
+            'renewpass.required' => 'Passwords do not match'
+        ]);
+
+    }
 
 }

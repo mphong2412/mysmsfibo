@@ -2,7 +2,7 @@
 @section('content')
 <div class="md-6" style="border:solid">
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+    <div class="alert alert-danger">
       @foreach($errors->all() as $err)
       <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{$err}} <br>
