@@ -15,12 +15,11 @@
         <div class="alert alert-success">
       {{session('thongbao')}}</div>
     @endif
-        <div class="card shadow">
-            <div class="card-body">
-                <div class="table-responsive">
-
-                    <form action="users/profile/{{$account->id}}" method="POST">
-  <div id="content" class="container">
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+    <form action="users/profile" method="POST">
+        <div id="content" class="container">
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-md-12">
         <div class="col-md-2" id="label" style="float:left">
@@ -60,10 +59,11 @@
     <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
     <input type="checkbox" name="btnrpass" id="btnrpass">Change password
 </form>
-                </div>
             </div>
         </div>
-        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     document.getElementById('btnrpass').onchange = function() {
