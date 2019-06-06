@@ -77,7 +77,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="templates">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Managerment</span>
+          <span>Management</span>
         </a>
       </li>
 
@@ -88,7 +88,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="services">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Managerment</span>
+          <span>Management</span>
         </a>
       </li>
 
@@ -99,11 +99,11 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="group">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Groups Managerment</span>
+          <span>Groups Management</span>
         </a>
         <a class="nav-link collapsed" href="contacts/list">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Contacts Managerment</span>
+          <span>Contacts Management</span>
         </a>
       </li>
 
@@ -114,7 +114,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Schedules Managerment</span>
+          <span>Schedules Management</span>
         </a>
       </li>
 
@@ -166,7 +166,7 @@
           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index" >
             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 15rem;" src="source/img/logo.png" alt="">
           </a>
-
+          
 
 
           <!-- Topbar Navbar -->
