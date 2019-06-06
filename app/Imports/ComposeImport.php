@@ -2,32 +2,21 @@
 
 namespace App\Imports;
 
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\Importable;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
-
-class ComposeImport implements ToModel, WithHeadingRow
+class ComposeImport implements ToCollection
 {
-
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
+    * @param Collection $collection
     */
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-
-        return new compose([
-            'phone' =>$row['phone'],
-            'birthday' =>$row['birthday'],
-            'name' =>$row['fullname'],
-        ]);
+        return $rows;
     }
 
-    public function headingRowPhone(): int
+    public function headingRow(): int
     {
-        return 1;
+    return 1;
     }
-
 }

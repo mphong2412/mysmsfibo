@@ -30,9 +30,4 @@ class ContactsImport implements ToModel, WithHeadingRow
         return 1;
     }
 
-    public function headingRowPhone(): int
-    {
-        return 1;
-    }
-
 }

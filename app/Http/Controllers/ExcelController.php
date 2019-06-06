@@ -16,15 +16,22 @@ class ExcelController extends Controller
   public function readImport(Request $request) {
       if($request->hasFile('inputfile')) {
         $path = $request->file('inputfile')->getRealPath();
-        $data = Excel::import(new ComposerImport, $path)->get();
-        dd($data);
-        if(!empty($data) && $data->count()) {
-             foreach($data->toArray() as $key=>$value) {
-               if(!empty($value)) {
-
-               }
-             }
-        }
+        $data = Excel::import(new ComposeImport, $path);
+        $reader = array($data);
+        // dd($request->all());
+        // foreach($reader as $value){
+        //   $arr[] = [
+        //     'phone' => $value->phone,
+        //     'birhtday' => $value->birthday,
+        //     'name' => $value->name
+        //   ];
+        // }
+        // if(!empty($data)) {
+        //   foreach($data as $d) {dd($value);
+        //     if(!empty($value)) {
+        //     }
+        //   }
+        // }
       }
   }
 }
