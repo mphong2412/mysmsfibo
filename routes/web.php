@@ -13,28 +13,27 @@
 
 
  Route::get('/home', function () {
- 	return view('welcome');
+     return view('welcome');
  });
-Route::get('/index','PageController@getIndex');
-Route::get('/','PageController@getIndex');
+Route::get('/index', 'PageController@getIndex');
+Route::get('/', 'PageController@getIndex');
 
 
 Auth::routes(['register' => false]);
 
-Route::get('templates',['as'=>'template','uses'=>'PageController@getTemplates']);
+Route::get('templates', ['as'=>'template','uses'=>'PageController@getTemplates']);
 
-Route::get('notices',['as'=>'notice','uses'=>'NoticeController@index']);
-
+Route::get('notices', ['as'=>'notice','uses'=>'NoticeController@index']);
 
 Route::get('searcht',['as'=>'searcht','uses'=>'TemplateController@searcht']);
 
-Route::get('searchg',['as'=>'searchg','uses'=>'GroupController@searchg']);
+Route::get('searchg', ['as'=>'searchg','uses'=>'GroupController@searchg']);
 
-Route::get('searchs',['as'=>'searchs','uses'=>'ServiceController@searchs']);
+Route::get('searchs', ['as'=>'searchs','uses'=>'ServiceController@searchs']);
 
-Route::get('searchc',['as'=>'searchc','uses'=>'ContactController@searchc']);
+Route::get('searchc', ['as'=>'searchc','uses'=>'ContactController@searchc']);
 
-Route::get('searchu',['as'=>'searchu','uses'=>'UserController@searchu']);
+Route::get('searchu', ['as'=>'searchu','uses'=>'UserController@searchu']);
 
 Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
 
@@ -47,73 +46,79 @@ Route::post('/compose','ExcelController@readImport')->name('compose.import');
 
 
 
+Route::get('them', 'TemplateController@getThem');
+Route::post('them', 'TemplateController@postThem');
 
-  Route::group(['prefix'=>'templates'],function(){
-        // xóa templates
-      Route::get('xoa/{id}','TemplateController@getXoa');
+Route::get('notice', ['as'=>'notices','uses'=>'NoticeController@getThem']);
+Route::post('notice', ['as'=>'notices','uses'=>'NoticeController@postThem']);
 
-        // sửa template
-      Route::get('sua/{id}','TemplateController@getSua');
-      Route::post('sua/{id}','TemplateController@postSua');
+Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
 
-        //thêm template
-      Route::get('them','TemplateController@getThem');
-      Route::post('them','TemplateController@postThem');
+
+  Route::group(['prefix'=>'templates'], function () {
+      // xóa templates
+      Route::get('xoa/{id}', 'TemplateController@getXoa');
+
+      // sửa template
+      Route::get('sua/{id}', 'TemplateController@getSua');
+      Route::post('sua/{id}', 'TemplateController@postSua');
+
+      //thêm template
+      Route::get('them', 'TemplateController@getThem');
+      Route::post('them', 'TemplateController@postThem');
   });
 
-  Route::group(['prefix'=>'services'],function(){
+  Route::group(['prefix'=>'services'], function () {
 
         // xóa template
-      Route::get('xoa/{id}','ServiceController@destroy');
+      Route::get('xoa/{id}', 'ServiceController@destroy');
 
       //   // sửa template
-      Route::get('edit/{id}','ServiceController@getSua');
-      Route::post('edit/{id}','ServiceController@postSua');
+      Route::get('edit/{id}', 'ServiceController@getSua');
+      Route::post('edit/{id}', 'ServiceController@postSua');
 
       //   //thêm template
-      Route::get('add','ServiceController@getadd');
-      Route::post('add','ServiceController@postadd');
+      Route::get('add', 'ServiceController@getadd');
+      Route::post('add', 'ServiceController@postadd');
   });
 
-  Route::group(['prefix'=>'groups'],function(){
+  Route::group(['prefix'=>'groups'], function () {
+      Route::get('add', 'GroupController@getThem');
+      Route::post('add', 'GroupController@postThem');
 
-    Route::get('add','GroupController@getThem');
-    Route::post('add','GroupController@postThem');
+      Route::get('edit/{id}', 'GroupController@getSua');
+      Route::post('edit/{id}', 'GroupController@postSua');
 
-    Route::get('edit/{id}','GroupController@getSua');
-    Route::post('edit/{id}','GroupController@postSua');
-
-    Route::get('xoa/{id}','GroupController@destroy');
-
+      Route::get('xoa/{id}', 'GroupController@destroy');
   });
 
-  Route::group(['prefix'=>'contacts'],function(){
+  Route::group(['prefix'=>'contacts'], function () {
+      Route::get('list', 'ContactController@index');
 
-      Route::get('list','ContactController@index');
+      Route::get('add', 'ContactController@getThem');
+      Route::post('add', 'ContactController@postThem');
 
-      Route::get('add','ContactController@getThem');
-      Route::post('add','ContactController@postThem');
+      Route::get('edit/{id}', 'ContactController@getSua');
+      Route::post('edit/{id}', 'ContactController@postSua');
 
-      Route::get('edit/{id}','ContactController@getSua');
-      Route::post('edit/{id}','ContactController@postSua');
+      Route::get('xoa/{id}', 'ContactController@destroy');
 
-      Route::get('xoa/{id}','ContactController@destroy');
-
-      Route::get('export','ContactController@contactExport')->name('contact.export');
-      Route::post('import','ContactController@contactImport')->name('contact.import');
+      Route::get('export', 'ContactController@contactExport')->name('contact.export');
+      Route::post('import', 'ContactController@contactImport')->name('contact.import');
   });
 
 
-  Route::group(['prefix'=>'users'],function(){
+  Route::group(['prefix'=>'users'], function () {
+      Route::get('list', 'UserController@getlist');
 
-      Route::get('list','UserController@getlist');
+      Route::get('xoa/{id}', 'UserController@destroy')->name('users.xoa');
 
-      Route::get('xoa/{id}','UserController@destroy')->name('users.xoa');
+      Route::get('add', 'UserController@getThem');
+      Route::post('add', 'UserController@postThem');
 
-      Route::get('add','UserController@getThem');
-      Route::post('add','UserController@postThem');
+      Route::get('edit/{id}', 'UserController@getSua');
+      Route::post('edit/{id}', 'UserController@postSua');
 
-      Route::get('edit/{id}','UserController@getSua');
-      Route::post('edit/{id}','UserController@postSua');
-
+      Route::get('profile', ['as'=>'account','uses'=>'UserController@getInfo']);
+      Route::post('profile', ['as'=>'account','uses'=>'UserController@postInfo']);
   });

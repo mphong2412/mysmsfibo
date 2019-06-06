@@ -1,18 +1,22 @@
 @extends('master')
 @section('content')
-<div class="md-6" style="border:solid">
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Add New User</h1>
+<div class="md-6">
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+    <div class="alert alert-danger">
       @foreach($errors->all() as $err)
       <button type="button" class="close" data-dismiss="alert">&times;</button>
         {{$err}} <br>
       @endforeach
     </div>
     @endif
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <div class="table-responsive">
 <form action="users/add" method="POST">
 
   <div id="content" class="container">
-      <center><h2>Add New User</h2></center>
       <!-- <form action="" method="POST"> -->
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
         <div class="col-md-12">
@@ -75,5 +79,7 @@
 
 </form>
 </div>
-
+</div>
+</div>
+</div>
 @endsection

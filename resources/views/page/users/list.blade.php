@@ -66,16 +66,10 @@
           </tbody>
           @endforeach
         </table>
-
         <p class="pull-left">Total {{count($account)}} contact.</p>
         {{$account->links()}}
       </div>
     </div>
   </div>
-
-</div>
 <!-- /.container-fluid -->
-
-<script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="source/js/demo/datatables-demo.js"></script>
 @endsection

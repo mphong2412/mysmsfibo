@@ -1,6 +1,7 @@
 @extends('master')
 @section('content')
-<div class="md-6" style="border:solid">
+<div class="container-fluid">
+<div class="md-6">
     @if(count($errors) > 0)
     <div class="elert alert-danger">
       @foreach($errors->all() as $err)
@@ -12,6 +13,9 @@
     <div class="alert alert-success">
       {{session('thongbao')}}</div>
     @endif
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="table-responsive">
 <form action="templates/them" method="POST">
 
   <div class="container">
@@ -58,7 +62,10 @@
   <button type="submit" class="btn btn-success fas fa-save fa-sm"  style="margin: 10px"> Save</button>
 
 </form>
-</div><br>
+</div>
+</div>
+</div>
+<br>
 <form action="" method="post" id="myDIV" style="display: none">
     <center><input type="text" placeholder="abc"/>
     <button type="submit" id="btnsearch">Search User</button><center><br>
@@ -73,7 +80,7 @@
 
     </table>
 </form><br>
-
+</div>
 <script>
 
     function formadd(){

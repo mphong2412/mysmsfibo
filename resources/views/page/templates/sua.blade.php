@@ -1,6 +1,7 @@
 @extends('master')
 @section('content')
-<div class="md-6" style="border:solid">
+<div class="container-fluid">
+<div class="md-6">
   @if(count($errors) > 0)
   <div class="elert alert-danger">
     @foreach($errors->all() as $err)
@@ -12,6 +13,9 @@
   <div class="alert alert-success">
     {{session('thongbao')}}</div>
   @endif
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="table-responsive">
 <form action="templates/sua/{{$templates->id}}" method="POST" >
 
   <div class="container">
@@ -47,5 +51,7 @@
 
 </form>
 </div>
-
+</div>
+</div>
+</div>
 @endsection
