@@ -14,8 +14,8 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notices = notices::all();
-        return view('page.notices');
+        $notices = notices::orderBy('id')->paginate(5);
+        return view('page.notices', ['notices'=>$notices]);
     }
 
     /**
@@ -37,9 +37,13 @@ class NoticeController extends Controller
      */
     public function postThem(Request $request)
     {
+        $this->validate($request, [
+            'status'=>'required',
+        ]);
         $notices = new notices();
         if (isset($request->txtNotice)) {
             $notices->name = $request->txtNotice;
+            $notices->status = $request->status;
             $notices->save();
             return redirect('notices')->with('thongbao', 'Cập nhật thông báo thành công.');
         } else {
@@ -55,6 +59,8 @@ class NoticeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $notices = notices::find($id);
+        $notices->delete();
+        return redirect('notices')->with('thongbao', 'Xóa thành công.');
     }
 }

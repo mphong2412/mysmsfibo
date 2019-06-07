@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\templates;
 use App\list_services;
 use Validator;
+use App\notices;
 
 class TemplateController extends Controller
 {
@@ -26,9 +27,10 @@ class TemplateController extends Controller
     //
     public function getSua($id)
     {
+        $notices = notices::all();
         $services = list_services::all();
         $templates = templates::find($id);
-        return view('page/templates/sua', ['templates'=>$templates,'list_services'=>$services]);
+        return view('page/templates/sua', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices]);
     }
     public function postSua(Request $request, $id)
     {
@@ -55,9 +57,10 @@ class TemplateController extends Controller
     // thêm template
     public function getThem()
     {
+        $notices = notices::all();
         $templates = templates::all();
         $services = list_services::all();
-        return view('page/templates/them', ['templates'=>$templates,'list_services'=>$services]);
+        return view('page/templates/them', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices]);
     }
     public function postThem(Request $request)
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\contact_groups;
 use validator;
+use App\notices;
 
 class GroupController extends Controller
 {
@@ -15,8 +16,9 @@ class GroupController extends Controller
      */
     public function getGroup()
     {
+        $notices = notices::all();
         $groups = contact_groups::orderBy('id')->paginate(10);
-        return view('page.group', compact('groups'));
+        return view('page.group', compact('groups', 'notices'));
     }
 
     /**
@@ -26,17 +28,18 @@ class GroupController extends Controller
      */
     public function getThem()
     {
+        $notices = notices::all();
         $groups = contact_groups::all();
-        return view('page/groups/add');
+        return view('page/groups/add', compact('notices'));
     }
     public function postThem(Request $request)
     {
         $this->validate(
-           $request,
-           [
+            $request,
+            [
             'txtGroup' => 'required |unique:contact_groups,name',
         ],
-           [
+            [
             'txtGroup.required' => 'Please enter group name.',
             'txtGroup.unique' => 'This name has already exists.',
         ]
@@ -67,17 +70,6 @@ class GroupController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -85,17 +77,18 @@ class GroupController extends Controller
      */
     public function getSua($id)
     {
+        $notices = notices::all();
         $groups = contact_groups::find($id);
-        return view('page/groups/edit', ['contact_groups'=>$groups]);
+        return view('page/groups/edit', ['contact_groups'=>$groups,'notices'=>$notices]);
     }
     public function postSua(Request $request, $id)
     {
         $this->validate(
-           $request,
-           [
+            $request,
+            [
             'txtGroup' => 'required ',
         ],
-           [
+            [
             'txtGroup.require'=>'Please enter the group name.',
         ]
        );

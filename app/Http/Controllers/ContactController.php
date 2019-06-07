@@ -9,6 +9,7 @@ use App\city;
 use App\Imports\ContactsImport;
 use Excel;
 use App\Exports\ContactsExport;
+use App\notices;
 
 class ContactController extends Controller
 {
@@ -19,9 +20,10 @@ class ContactController extends Controller
      */
     public function index()
     {
+        $notices = notices::all();
         $groups = contact_groups::all();
         $contact = contacts::orderBy('id')->paginate(10);
-        return view('page.contacts.list', ['contacts'=>$contact,'contact_groups'=>$groups]);
+        return view('page.contacts.list', ['contacts'=>$contact,'contact_groups'=>$groups,'notices'=>$notices]);
     }
 
 
@@ -32,10 +34,11 @@ class ContactController extends Controller
      */
     public function getSua($id)
     {
+        $notices = notices::all();
         $contact = contacts::find($id);
         $groups = contact_groups::all();
         $city = city::all();
-        return view('page/contacts/edit', ['contacts'=>$contact,'contact_groups'=>$groups,'city'=>$city]);
+        return view('page/contacts/edit', ['contacts'=>$contact,'contact_groups'=>$groups,'city'=>$city,'notices'=>$notices]);
     }
 
     public function postSua(Request $request, $id)
@@ -117,10 +120,11 @@ class ContactController extends Controller
      */
     public function getThem()
     {
+        $notices = notices::all();
         $groups = contact_groups::all();
         $contact = contacts::all();
         $city = city::all();
-        return view('page/contacts/add', ['contact'=>$contact,'contact_groups'=>$groups,'city'=>$city]);
+        return view('page/contacts/add', ['contact'=>$contact,'contact_groups'=>$groups,'city'=>$city,'notices'=>$notices]);
     }
 
     public function postThem(Request $request)

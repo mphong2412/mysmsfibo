@@ -50,6 +50,8 @@ Route::post('them', 'TemplateController@postThem');
 Route::get('notice', ['as'=>'notices','uses'=>'NoticeController@getThem']);
 Route::post('notice', ['as'=>'notices','uses'=>'NoticeController@postThem']);
 
+Route::get('xoa/{id}', ['as'=>'notices','uses'=>'NoticeController@destroy']);
+
 Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
 
 

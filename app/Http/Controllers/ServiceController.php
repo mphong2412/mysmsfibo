@@ -7,6 +7,7 @@ use App\list_services;
 use App\templates;
 use session;
 use validator;
+use App\notices;
 
 class ServiceController extends Controller
 {
@@ -21,8 +22,9 @@ class ServiceController extends Controller
      */
     public function getList()
     {
+        $notices = notices::all();
         $service = list_services::orderBy('id')->paginate(10);
-        return view('page.services', compact('service'));
+        return view('page.services', compact('service', 'notices'));
     }
 
     /**
@@ -32,19 +34,20 @@ class ServiceController extends Controller
      */
     public function getadd()
     {
+        $notices = notices::all();
         $template = templates::all();
         $services = list_services::all();
-        return view('page/services/add', ['templates'=>$template,'list_services'=>$services]);
+        return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices]);
     }
 
     public function postAdd(Request $request)
     {
         $this->validate(
-           $request,
-           [
+            $request,
+            [
             'txtName' => 'required|unique:list_services,name',
         ],
-           [
+            [
             'txtName.unique'=>'The service has already exists.',
         ]
        );
@@ -74,17 +77,6 @@ class ServiceController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -92,16 +84,16 @@ class ServiceController extends Controller
      */
     public function getSua($id)
     {
+        $notices = notices::all();
         $services = list_services::find($id);
-        return view('page/services/edit', ['list_services'=>$services]);
+        return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices]);
     }
     public function postSua(Request $request, $id)
     {
         $this->validate(
-          $request,
-          [
+            $request,
+            [
            'txtName' => 'required ',
-           'txtDesc' => 'required ',
        ]
       );
 

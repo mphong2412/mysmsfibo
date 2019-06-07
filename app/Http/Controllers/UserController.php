@@ -7,6 +7,7 @@ use App\User;
 use App\account;
 use App;
 use validator;
+use App\notices;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -86,8 +87,9 @@ class UserController extends Controller
 
     public function getlist()
     {
+        $notices = notices::all();
         $user = account::orderBy('id')->paginate(10);
-        return view('page.users.list', ['account'=>$user]);
+        return view('page.users.list', ['account'=>$user,'notices'=>$notices]);
     }
 
     /**
@@ -111,8 +113,9 @@ class UserController extends Controller
      */
     public function getThem()
     {
+        $notices = notices::all();
         $user = account::all();
-        return view('page.users.add', ['account'=>$user]);
+        return view('page.users.add', ['account'=>$user,'notices'=>$notices]);
     }
 
     /**
@@ -161,8 +164,9 @@ class UserController extends Controller
 
     public function getSua($id)
     {
+        $notices = notices::all();
         $user = account::find($id);
-        return view('page/users/edit', ['account'=>$user]);
+        return view('page/users/edit', ['account'=>$user,'notices'=>$notices]);
     }
 
     public function postSua(Request $request, $id)
@@ -212,8 +216,9 @@ class UserController extends Controller
 
     public function getInfo()
     {
+        $notices = notices::all();
         $users = Auth::user();
-        return view('page/users/profile', ['account'=>$users]);
+        return view('page/users/profile', ['account'=>$users,'notices'=>$notices]);
     }
     public function postInfo(Request $request)
     {
