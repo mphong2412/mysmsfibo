@@ -39,7 +39,9 @@
             <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active ">
+      <li class="nav-item active @if (Gate::denies('enable_function', 'compose')) {
+           d-none
+      } @endif ">
         <a class="nav-link" href="index">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Statistics</span></a>
@@ -49,24 +51,30 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading @if (Gate::denies('enable_function', 'compose')) {
+           d-none } @endif">
                 Sms Managerment
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'compose')) {
+           d-none } @endif">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="compose">Compose</a>
-                        <a class="collapse-item" href="#">Sent</a>
-                        <a class="collapse-item" href="#">Draft</a>
-                        <a class="collapse-item" href="#">Outbox</a>
-                        <a class="collapse-item" href="#">Errors</a>
+                        <a class="collapse-item  @if (Gate::denies('enable_function', 'compose')) {
+                       d-none } @endif" href="compose">Compose</a>
+                        <a class="collapse-item  @if (Gate::denies('enable_function', 'sent')) {
+                       d-none } @endif" href="#">Sent</a>
+                        <a class="collapse-item  @if (Gate::denies('enable_function', 'draft')) {
+                       d-none } @endif" href="#">Draft</a>
+                        <a class="collapse-item  @if (Gate::denies('enable_function', 'outbox')) {
+                       d-none } @endif" href="#">Outbox</a>
+                        <a class="collapse-item  @if (Gate::denies('enable_function', 'error')) {
+                       d-none } @endif" href="#">Errors</a>
 
                     </div>
                 </div>
@@ -78,10 +86,12 @@
             <hr class="sidebar-divider">
 
             <!-- templates -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading @if (Gate::denies('enable_function', 'template')) {
+           d-none } @endif">
                 templates
             </div>
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'template')) {
+           d-none } @endif">
                 <a class="nav-link collapsed" href="templates">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Management</span>
@@ -89,10 +99,12 @@
             </li>
 
             <!-- Services -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading @if (Gate::denies('enable_function', 'service')) {
+           d-none } @endif">
                 Services
             </div>
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'service')) {
+           d-none } @endif">
                 <a class="nav-link collapsed" href="services">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Management</span>
@@ -100,10 +112,12 @@
             </li>
 
             <!-- Contacts -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading @if (Gate::denies('enable_function', 'contact')) {
+           d-none } @endif">
                 Contacts
             </div>
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'contact')) {
+           d-none } @endif">
                 <a class="nav-link collapsed" href="group">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Groups Management</span>
@@ -115,10 +129,13 @@
             </li>
 
             <!-- Schedulle -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading @if (Gate::denies('enable_function', 'schedule')) {
+              d-none
+            } @endif">
                 Schedules
             </div>
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'schedule')) {
+           d-none } @endif">
                 <a class="nav-link collapsed" href="#">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Schedules Management</span>
@@ -128,19 +145,22 @@
 
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading @if (Gate::denies('enable_function', 'userconfig')) {
+           d-none } @endif">
                 Account
             </div>
 
             <!-- Account -->
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'userconfig')) {
+           d-none } @endif">
                 <a class="nav-link" href="users/list">
                     <i class="fas fa-fw fa-user"></i>
                     <span>User Config</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <li class="nav-item @if (Gate::denies('enable_function', 'noticeconfig')) {
+           d-none } @endif">
                 <a class="nav-link" href="notices">
                     <i class="fas fa-fw fa-bell"></i>
                     <span>Notice Config</span></a>
@@ -236,13 +256,7 @@
             <!-- End of Content Wrapper -->
             <!-- Footer -->
         </div>
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Mobile Marketing &copy; Your Website 2019</span>
-                </div>
-            </div>
-        </footer>
+
         <!-- End of Footer -->
     </div>
     <!-- End of Page Wrapper -->
@@ -270,6 +284,13 @@
             </div>
         </div>
     </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Mobile Marketing &copy; Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap core JavaScript-->
     <script src="source/vendor/jquery/jquery.min.js"></script>

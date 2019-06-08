@@ -62,6 +62,7 @@ class LoginController extends Controller
       //dd($iduser);
       //query get authen
       // Session::put('check_rolee', Auth::user());
+      Session::put('test', 'compose');
 
       Session::put('key_function', $result);
       return redirect()->intended($this->redirectPath());

@@ -41,6 +41,7 @@ class PageController extends Controller
 
     public function getCompose()
     {
+      $a = Session::get('key_function');
       $notices = notices::all();
         if (Gate::allows('check_role')) {
             return view('page.error.403');
