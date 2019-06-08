@@ -41,10 +41,12 @@ class PageController extends Controller
 
     public function getCompose()
     {
+      $notices = notices::all();
         if (Gate::allows('check_role')) {
             return view('page.error.403');
         } else {
-            return view('page.compose');
+
+            return view('page.sms.compose', ['notices'=>$notices]);
         }
     }
 }

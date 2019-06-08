@@ -41,7 +41,6 @@ Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('/logout','UserController@getLogout')->name('logout');
 
 Route::get('/compose','PageController@getCompose')->name('compose');
-
 Route::post('/compose','ExcelController@readImport')->name('compose.import');
 
 
