@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Excel;
+use Validator;
 use App\Imports\ComposeImport;
 
 class ExcelController extends Controller
@@ -17,21 +18,15 @@ class ExcelController extends Controller
       if($request->hasFile('inputfile')) {
         $path = $request->file('inputfile')->getRealPath();
         $data = Excel::import(new ComposeImport, $path);
-        $reader = array($data);
-        // dd($request->all());
-        // foreach($reader as $value){
-        //   $arr[] = [
-        //     'phone' => $value->phone,
-        //     'birhtday' => $value->birthday,
-        //     'name' => $value->name
-        //   ];
-        // }
-        // if(!empty($data)) {
-        //   foreach($data as $d) {dd($value);
-        //     if(!empty($value)) {
-        //     }
-        //   }
-        // }
+        if(isset($data)){
+          foreach($data as $key => $value){
+            $rows[] = array(
+            $phone = 'phone'  => $value['phone'],
+            'birthday'   => $value['birthday'],
+            'name'   => $value['name']
+          );
+        }
+      }
       }
   }
 }

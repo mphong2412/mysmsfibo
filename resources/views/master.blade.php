@@ -52,7 +52,7 @@
       <div class="sidebar-heading @if (Gate::denies('enable_function', 'compose')) {
            d-none
       } @endif">
-        Sms Managerment
+        Sms Management
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -91,7 +91,7 @@
       } @endif">
         <a class="nav-link collapsed" href="templates">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Managerment</span>
+          <span>Management</span>
         </a>
       </li>
 
@@ -106,7 +106,7 @@
       } @endif">
         <a class="nav-link collapsed" href="services">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Managerment</span>
+          <span>Management</span>
         </a>
       </li>
 
@@ -121,11 +121,11 @@
       } @endif">
         <a class="nav-link collapsed" href="group">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Groups Managerment</span>
+          <span>Groups Management</span>
         </a>
         <a class="nav-link collapsed" href="contacts/list">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Contacts Managerment</span>
+          <span>Contacts Management</span>
         </a>
       </li>
 
@@ -140,7 +140,7 @@
       } @endif">
         <a class="nav-link collapsed" href="#">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Schedules Managerment</span>
+          <span>Schedules Management</span>
         </a>
       </li>
 

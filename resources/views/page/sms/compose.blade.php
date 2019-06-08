@@ -22,24 +22,26 @@
       </div>
     </div></br>
 
+    @csrf
+    @if(count($errors))
+        <div class="alert alert-danger">
+          <strong>Whoops!</strong> There were some problems with your input.
+          <br/>
+          <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+    @endif
+    @if(session()->has('success'))
+    <script>
+          alert({{ session()->get('success')}});
+    </script>
+    @endif
+    
     <form action="" method="post" autocomplete="off" id="formCompose">
-      @csrf
-      @if(count($errors))
-    			<div class="alert alert-danger">
-    				<strong>Whoops!</strong> There were some problems with your input.
-    				<br/>
-    				<ul>
-    					@foreach($errors->all() as $error)
-    					<li>{{ $error }}</li>
-    					@endforeach
-    				</ul>
-    			</div>
-    	@endif
-      @if(session()->has('success'))
-      <script>
-            alert({{ session()->get('success')}});
-      </script>
-      @endif
+
 
     <div class="toggle-input">Input Phone Number</div>
     <div class="input-phone">
@@ -67,9 +69,8 @@
       <label for="select-box1" class="label select-box1"><span class="label-desc">Choose your country</span> </label>
       <button class="myButton" type="submit"  id="inputGroup">Submit</button>
       <select id="select-box1" class="select">
-        <option value="Choice 1">Falkland Islands</option>
-        <option value="Choice 2">Germany</option>
-        <option value="Choice 3">Neverland</option>
+        <option value="Choice 1"></option>
+
       </select>
     </div>
   </form>
