@@ -7,6 +7,7 @@ use App\User;
 use App\account;
 use App;
 use validator;
+use App\notices;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,8 +27,9 @@ class UserController extends Controller
 
     public function getlist()
     {
+        $notices = notices::all();
         $user = account::orderBy('id')->paginate(10);
-        return view('page.users.list', ['account'=>$user]);
+        return view('page.users.list', ['account'=>$user,'notices'=>$notices]);
     }
 
     /**
@@ -51,8 +53,9 @@ class UserController extends Controller
      */
     public function getThem()
     {
+        $notices = notices::all();
         $user = account::all();
-        return view('page.users.add', ['account'=>$user]);
+        return view('page.users.add', ['account'=>$user,'notices'=>$notices]);
     }
 
     /**
@@ -70,16 +73,16 @@ class UserController extends Controller
          'txtEmail'=>'required|unique:users,email',
          'txtPhone'=>'required|min:8|max:12',
      ], [
-         'txtUname.required'=>'Please enter your user name.',
-         'txtFname.required'=>'Please enter your full name.',
-         'txtPass.required'=>'Please enter your password.',
-         'txtPass.min'=>'Password minimum 6 characters.',
-         'txtPass.max'=>'Password maximum 20 characters.',
-         'txtEmail.required'=>'Please enter your email.',
-         'txtEmail.unique'=>'This email has already exists.',
-         'txtPhone.required'=>'Please enter your phone number.',
-         'txtPhone.min'=>'This phone number has invalid.',
-         'txtPhone.max'=>'This phone number has invalid.',
+         'txtUname.required'=>'Vui lòng nhập tên đăng nhập.',
+         'txtFname.required'=>'Vui lòng nhập họ và tên.',
+         'txtPass.required'=>'Vui lòng nhập mật khẩu.',
+         'txtPass.min'=>'Mật khẩu phải có tối thiểu 6 ký tự.',
+         'txtPass.max'=>'Mật khẩu tối đa là 20 ký tự.',
+         'txtEmail.required'=>'Vui lòng nhập email.',
+         'txtEmail.unique'=>'Email này đã tồn tại.',
+         'txtPhone.required'=>'Vui lòng nhập số điện thoại.',
+         'txtPhone.min'=>'Số điện thoại này không hợp lệ.',
+         'txtPhone.max'=>'Số điện thoại này không hợp lệ.',
      ]);
 
         $user = new account();
@@ -96,13 +99,14 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->role = $request->role;
         $user->save();
-        return redirect('users/list')->with('thongbao', 'Bạn đã thêm tài khoản thành công.');
+        return redirect('users/list')->with('thongbao', 'Thêm tài khoản thành công.');
     }
 
     public function getSua($id)
     {
+        $notices = notices::all();
         $user = account::find($id);
-        return view('page/users/edit', ['account'=>$user]);
+        return view('page/users/edit', ['account'=>$user,'notices'=>$notices]);
     }
 
     public function postSua(Request $request, $id)
@@ -112,11 +116,11 @@ class UserController extends Controller
           'txtEmail'=>'required',
           'txtPhone'=>'required|min:8|max:12',
       ], [
-          'txtFname.required'=>'Please enter your full name.',
-          'txtEmail.required'=>'Please enter your email.',
-          'txtPhone.required'=>'Please enter your phone number.',
-          'txtPhone.min'=>'This phone number has invalid.',
-          'txtPhone.max'=>'This phone number has invalid.',
+          'txtFname.required'=>'Vui lòng nhập họ và tên.',
+          'txtEmail.required'=>'Vui lòng nhập email.',
+          'txtPhone.required'=>'Vui lòng nhập số điện thoại.',
+          'txtPhone.min'=>'Số điện thoại không hợp lệ.',
+          'txtPhone.max'=>'Số điện thoại không hợp lệ.',
       ]);
 
         $user = account::find($id);
@@ -136,20 +140,25 @@ class UserController extends Controller
         $user->status = $request->status;
         $user->role = $request->role;
         $user->save();
-        return redirect('users/list')->with('thongbao', 'Bạn đã cập nhật tài khoản thành công.');
+        return redirect('users/list')->with('thongbao', 'Cập nhật tài khoản thành công.');
     }
 
     public function searchu(Request $request)
     {
         $key = $request->get('key');
-        $user = account::orderBy('id')->where('username', 'like', '%'.$key.'%')->orWhere('email', 'like', '%'.$key.'%')->orWhere('phone', 'like', '%'.$key.'%')->paginate(10);
-        return view('page.users.list', ['account'=>$user]);
+        if ($key != null) {
+            $user = account::orderBy('id')->where('username', 'like', '%'.$key.'%')->orWhere('email', 'like', '%'.$key.'%')->orWhere('phone', 'like', '%'.$key.'%')->paginate(10);
+            return view('page.users.list', ['account'=>$user]);
+        } else {
+            return redirect('users/list');
+        }
     }
 
     public function getInfo()
     {
+        $notices = notices::all();
         $users = Auth::user();
-        return view('page/users/profile', ['account'=>$users]);
+        return view('page/users/profile', ['account'=>$users,'notices'=>$notices]);
     }
     public function postInfo(Request $request)
     {
@@ -160,17 +169,17 @@ class UserController extends Controller
                 'txtPass' => 'min:6',
                 'newpass' => 'string|min:6',
             ], [
-                'txtPass.min'=>'Your current password is less than 6 characters.',
-                'newpass.min'=>'Your new password is less than 6 characters.'
+                'txtPass.min'=>'Mật khẩu hiện tại phải ít nhất 6 ký tự.',
+                'newpass.min'=>'Mật khẩu mới phải có ít nhất 6 ký tự.'
             ]);
             if (!Hash::check($request->get('txtPass'), Auth::user()->password)) {
-                return redirect()->back()->with('thongbao', 'Your current password does not matches with the password you provided. Please try again.');
+                return redirect()->back()->with('thongbao', 'Mật khẩu hiện tại của bạn không trùng khớp. Vui lòng thử lại.');
             }
             if ($request->newpass) {
                 $user->password = Hash::make($request->newpass);
             }
         }
         $user->save();
-        return redirect()->back()->with('thongbao', 'ok nha hihi');
+        return redirect()->back()->with('thongbao', 'Cập nhật thông tin thành công.');
     }
 }

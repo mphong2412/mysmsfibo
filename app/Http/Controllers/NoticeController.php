@@ -14,8 +14,8 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notices = notices::all();
-        return view('page.notices');
+        $notices = notices::orderBy('id')->paginate(5);
+        return view('page.notices', ['notices'=>$notices]);
     }
 
     /**
@@ -23,10 +23,10 @@ class NoticeController extends Controller
      * @param
      * @return \Illuminate\Http\Response
      */
-    public function getThem($id)
+    public function getThem()
     {
-        $notice = notices::find($id='1');
-        return view('notices',['notices'=>$notices]);
+        $notices = notices::all();
+        return view('notices', ['notices'=>$notices]);
     }
 
     /**
@@ -35,12 +35,20 @@ class NoticeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postThem(Request $request,$id)
+    public function postThem(Request $request)
     {
-        $notices = notices::find($id='1');
-        $notices->name = $request->txtNotice;
-        $notices->save();
-        return redirect('notices')->with('thongbao','Cập nhật thông báo thành công.');
+        $this->validate($request, [
+            'status'=>'required',
+        ]);
+        $notices = new notices();
+        if (isset($request->txtNotice)) {
+            $notices->name = $request->txtNotice;
+            $notices->status = $request->status;
+            $notices->save();
+            return redirect('notices')->with('thongbao', 'Cập nhật thông báo thành công.');
+        } else {
+            return redirect('notices');
+        }
     }
 
     /**
@@ -51,6 +59,8 @@ class NoticeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $notices = notices::find($id);
+        $notices->delete();
+        return redirect('notices')->with('thongbao', 'Xóa thành công.');
     }
 }

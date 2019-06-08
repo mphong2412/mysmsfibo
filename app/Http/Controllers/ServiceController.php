@@ -7,13 +7,13 @@ use App\list_services;
 use App\templates;
 use session;
 use validator;
+use App\notices;
 
 class ServiceController extends Controller
 {
-
     public function __construct()
     {
-      $this->middleware('auth');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -22,8 +22,9 @@ class ServiceController extends Controller
      */
     public function getList()
     {
-      $service = list_services::orderBy('id')->paginate(10);
-      return view('page.services',compact('service'));
+        $notices = notices::all();
+        $service = list_services::orderBy('id')->paginate(10);
+        return view('page.services', compact('service', 'notices'));
     }
 
     /**
@@ -33,24 +34,29 @@ class ServiceController extends Controller
      */
     public function getadd()
     {
-      $template = templates::all();
-      $services = list_services::all();
-      return view('page/services/add',['templates'=>$template,'list_services'=>$services]);
+        $notices = notices::all();
+        $template = templates::all();
+        $services = list_services::all();
+        return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices]);
     }
 
-    public function postAdd(Request $request){
-       $this->validate($request,
-        [
+    public function postAdd(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
             'txtName' => 'required|unique:list_services,name',
-        ],[
+        ],
+            [
             'txtName.unique'=>'The service has already exists.',
-        ]);
+        ]
+       );
 
         $services = new list_services();
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
         $services->save();
-        return redirect('services')->with('thongbao','Bạn đã thêm thành công');
+        return redirect('services')->with('thongbao', 'Bạn đã thêm thành công');
     }
 
     /**
@@ -59,22 +65,15 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function searchs(Request $request)
-     {
-         $searchs = $request->get('key');
-         $service = list_services::orderBy('id')->where('name','like','%'.$searchs.'%')->paginate(10);
-         return view('page.services',compact('service'));
-     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function searchs(Request $request)
     {
-        //
+        $searchs = $request->get('key');
+        if ($searchs != null) {
+            $service = list_services::orderBy('id')->where('name', 'like', '%'.$searchs.'%')->paginate(10);
+            return view('page.services', compact('service'));
+        } else {
+            return redirect('services');
+        }
     }
 
     /**
@@ -85,22 +84,25 @@ class ServiceController extends Controller
      */
     public function getSua($id)
     {
+        $notices = notices::all();
         $services = list_services::find($id);
-        return view('page/services/edit',['list_services'=>$services]);
+        return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices]);
     }
-    public function postSua(Request $request ,$id){
-      $this->validate($request,
-       [
+    public function postSua(Request $request, $id)
+    {
+        $this->validate(
+            $request,
+            [
            'txtName' => 'required ',
-           'txtDesc' => 'required ',
-       ]);
+       ]
+      );
 
-       $services = list_services::find($id);
-       $services->name = $request->txtName;
-       $services->description = $request->txtDesc;
-       $services->save();
-        return redirect('services')->with('thongbao','Sửa thành công');
-      }
+        $services = list_services::find($id);
+        $services->name = $request->txtName;
+        $services->description = $request->txtDesc;
+        $services->save();
+        return redirect('services')->with('thongbao', 'Sửa thành công');
+    }
 
     /**
      * Update the specified resource in storage.
@@ -122,8 +124,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-      $service = list_services::find($id);
-       $service->delete();
-       return redirect('services')->with('thongbao','Xóa thành công');
+        $service = list_services::find($id);
+        $service->delete();
+        return redirect('services')->with('thongbao', 'Xóa thành công');
     }
 }

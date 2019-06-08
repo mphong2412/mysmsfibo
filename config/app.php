@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('title', 'Fibo-Mobile Marketing'),
+    'name1' => env('Fibo', 'Fibo'),
 
     /*
     |--------------------------------------------------------------------------
