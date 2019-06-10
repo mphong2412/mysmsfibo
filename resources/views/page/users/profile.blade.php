@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 <div class="container-fluid">
-    <h2 class="h3 mb-2 text-gray-800">Account information</h2>
+    <h2 class="h3 mb-2 text-gray-800">Thông tin tài khoản</h2>
     <div class="md-6">
         @if(count($errors) > 0)
         <div class="alert alert-danger">
@@ -13,7 +13,7 @@
         @endif
         @if(session('thongbao'))
         <div class="alert alert-success">
-            {{session('thongbao')}}</div>
+            {{session('thongbao')}}<button type="button" class="close" data-dismiss="alert">&times;</button></div>
         @endif
         <div class="card shadow">
             <div class="card-body">
@@ -23,41 +23,41 @@
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <div class="col-md-12">
                                 <div class="col-md-2" id="label" style="float:left">
-                                    <label style="margin-top:5%">* Username:</label><br>
-                                    <label style="margin-top:5%">* Fullname:</label><br>
-                                    <label style="margin-top:5%">Api user: </label><br>
-                                    <label style="margin-top:5%">Api Password: </label><br>
-                                    <label style="margin-top:5%">* Email : </label><br>
-                                    <label style="margin-top:5%">Limit SMS: </label><br>
-                                    <label style="margin-top:5%;display:none" id="oldpass">Old password: </label><br>
-                                    <label style="margin-top:5%;display:none" id="newpa">New password: </label><br>
+                                    <label style="margin-top:10%">(*)Tên đăng nhập:</label><br>
+                                    <label style="margin-top:10%">(*)Họ tên:</label><br>
+                                    <label style="margin-top:10%">Api người dùng: </label><br>
+                                    <label style="margin-top:10%">Mật khẩu api: </label><br>
+                                    <label style="margin-top:10%">(*)Email : </label><br>
+                                    <label style="margin-top:10%">Số lượng tin nhắn: </label><br>
+                                    <label style="margin-top:10%;display:none" id="oldpass">Mật khẩu hiện tại: </label><br>
+                                    <label style="margin-top:10%;display:none" id="newpa">Mật khẩu mới: </label><br>
                                 </div>
                                 <div class="col-md-10" id="input" style="float:right">
 
-                                    <input type="text" name="txtUname" value="{{$account->username}}" style="margin-top:1%" size="50%" disabled><br>
+                                    <input type="text" name="txtUname" value="{{$account->username}}" style="margin-top:2%" size="50%" disabled><br>
 
-                                    <input type="text" name="txtFname" value="{{$account->fullname}}" style="margin-top:1%" size="50%"><br>
+                                    <input type="text" name="txtFname" value="{{$account->fullname}}" style="margin-top:2%" size="50%"><br>
 
-                                    <input type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:1%" size="50%" disabled><br>
+                                    <input type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:2%" size="50%" disabled><br>
 
-                                    <input type="password" name="txtApiP" value="{{$account->user_pass}}" style="margin-top:1%" size="50%" disabled><br>
+                                    <input type="password" name="txtApiP" value="{{$account->user_pass}}" style="margin-top:2%" size="50%" disabled><br>
 
-                                    <input type="email" name="txtEmail" value="{{$account->email}}" style="margin-top:1%" size="50%"><br>
+                                    <input type="email" name="txtEmail" value="{{$account->email}}" style="margin-top:2%" size="50%"><br>
 
-                                    <input type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:1%" size="50%" disabled><br>
+                                    <input type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:2%" size="50%" disabled><br>
 
-                                    <input type="password" name="txtPass" id="txtPass" style="margin-top:1% ;display:none" placeholder="enter your old password" size="50%"><br>
+                                    <input type="password" name="txtPass" id="txtPass" style="margin-top:2% ;display:none" placeholder="nhập mật khẩu hiện tại" size="50%"><br>
 
-                                    <input type="password" name="newpass" id="newpass" style="margin-top:1%;display:none" id="npass" size="50%">
+                                    <input type="password" name="newpass" id="newpass" style="margin-top:2%;display:none" placeholder="nhập mật khẩu mới" id="npass" size="50%">
                                 </div>
                             </div>
                         </div>
 
                         <button class="btn btn-warning" type="reset" style="margin: 10px" onclick="window.location.href='index'">
-                            <i class="fas fa-times fa-sm"> Cancel</i>
+                            <i class="fas fa-times fa-sm"> Hủy</i>
                         </button>
-                        <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Save</button>
-                        <input type="checkbox" name="btnrpass" id="btnrpass">Change password
+                        <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
+                        <input type="checkbox" name="btnrpass" id="btnrpass">Đổi mật khẩu
                     </form>
                 </div>
             </div>

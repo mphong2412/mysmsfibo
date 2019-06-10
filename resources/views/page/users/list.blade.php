@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Users Managerment</h1>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý tài khoản</h1>
     @if(count($errors) > 0)
     <div class="elert alert-danger">
         @foreach($errors->all() as $err)
@@ -26,24 +26,24 @@
                         <div class="input-group-append" style="margin-bottom: 10px">
 
                             <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                <i class="fas fa-search fa-sm"> Search</i>
+                                <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
 
                             <a href="users/add"><button class="btn btn-success" type="button" style="margin-left: 10px">
-                                    <i class="fas fa-plus fa-sm"> Add New</i>
+                                    <i class="fas fa-plus fa-sm"> Thêm mới</i>
                                 </button></a>
                         </div>
                     </div>
                 </form>
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr id="test">
-                            <th>Username</th>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                            <th>Phone number</th>
-                            <th>Created At</th>
-                            <th>Action</th>
+                            <th width="15%">Tên đăng nhập</th>
+                            <th width="15%">Họ tên</th>
+                            <th width="15%">Email</th>
+                            <th width="15%">Số điện thoại</th>
+                            <th width="15%">Ngày tạo</th>
+                            <th width="15%">Hành động</th>
                         </tr>
                     </thead>
                     @foreach($account as $t)
@@ -66,7 +66,7 @@
                     </tbody>
                     @endforeach
                 </table>
-                <p class="pull-left">Total {{count($account)}} contact.</p>
+                <p class="pull-left">Hiển thị {{count($account)}} người dùng.</p>
                 {{$account->links()}}
             </div>
         </div>
