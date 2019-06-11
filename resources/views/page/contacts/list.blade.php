@@ -5,11 +5,11 @@
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Quản lý danh bạ</h1>
   @if(count($errors) > 0)
-  <div class="elert alert-danger">
+  <div class="alert alert-danger">
     @foreach($errors->all() as $err)
-      {{$err}} <br>
+      {{$err}}<button type="button" class="close" data-dismiss="alert">&times;</button>
     @endforeach
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
+
   </div>
   @endif
   @if(session('thongbao'))
@@ -58,6 +58,12 @@
         </form>
         <form class="form-horizontal" id="imp1" action="{{route('contact.import')}}" method="post" style="display:none"  enctype="multipart/form-data">
             @csrf
+            Nhóm : <select name="abc" id="gr1">
+                <option ></option>
+                @foreach($contact_groups as $g)
+                <option value="{{$g->id}}">{{$g->name}}</option>
+                @endforeach
+            </select>
             <input type="file" name="input1" id="input1">
 
             <input type="submit" name="btnimp" value="Import">

@@ -27,19 +27,24 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        //$check = session::get('check_rolee');
+        // Gate::define('check_feature', function ($check) {
+        //   if($check->role == 1 || $check->role == 2 || $check->role == 3){
+        //       return false;
+        //     }else{
+        //       return true;
+        //     }
+        // });
 
-        Gate::define('enable_function', function($use, $code) {
+        //Test
+        //$check = Session::get('key_function');
+        Gate::define('enable_function', function ($user, $code) {
           $result = Session::get('key_function');
-          $check = 3;
-          foreach($result as $rs) {
-            if ($rs->function_name == $code) {
-              $check = 4;
-            }
-          }
-          if ($check == 3) {
-            return true;
-          } else {
-            return false;
+          foreach($result as $rs)
+          if($rs == $code){
+              return false;
+            }else {
+              return true;
           }
         });
     }

@@ -39,7 +39,7 @@
             <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <li class="nav-item active ">
         <a class="nav-link" href="index">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Statistics</span></a>
@@ -49,126 +49,102 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-
             <div class="sidebar-heading">
-                Quản lý SMS
+                Sms Managerment
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-
-            @if (Gate::denies('enable_function', 'sms'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>SMS</span>
+                    <span>Components</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                      @if (Gate::denies('enable_function', 'compose'))
-                        <a class="collapse-item " href="compose">Soạn tin</a>
-                      @endif
-                      @if (Gate::denies('enable_function', 'draft'))
-                        <a class="collapse-item " href="compose">Tin nháp</a>
-                      @endif
-                      @if (Gate::denies('enable_function', 'outbox'))
-                        <a class="collapse-item " href="compose">Tin chờ</a>
-                      @endif
-                      @if (Gate::denies('enable_function', 'sent'))
-                        <a class="collapse-item " href="compose">Đã gửi</a>
-                      @endif
-                      @if (Gate::denies('enable_function', 'error'))
-                        <a class="collapse-item " href="compose">Tin lỗi</a>
-                      @endif
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="compose">Compose</a>
+                        <a class="collapse-item" href="#">Sent</a>
+                        <a class="collapse-item" href="#">Draft</a>
+                        <a class="collapse-item" href="#">Outbox</a>
+                        <a class="collapse-item" href="#">Errors</a>
 
                     </div>
                 </div>
             </li>
-            @endif
+
             <!-- Nav Item - Utilities Collapse Menu -->
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- templates -->
-            @if (Gate::denies('enable_function', 'template'))
-            <div class="sidebar-heading ">
-                Mẫu tin
+            <div class="sidebar-heading">
+                templates
             </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="templates">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Quản lý mẫu tin</span>
+                    <span>Management</span>
                 </a>
             </li>
-            @endif
 
             <!-- Services -->
-            @if (Gate::denies('enable_function', 'service'))
             <div class="sidebar-heading">
-                Dịch vụ
+                Services
             </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="services">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Quản lý dịch vụ</span>
+                    <span>Management</span>
                 </a>
             </li>
-            @endif
 
             <!-- Contacts -->
-            @if (Gate::denies('enable_function', 'contact'))
             <div class="sidebar-heading">
                 Contacts
             </div>
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="group">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Quản lý nhóm</span>
+                    <span>Groups Management</span>
                 </a>
                 <a class="nav-link collapsed" href="contacts/list">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Quản lý danh bạ</span>
+                    <span>Contacts Management</span>
                 </a>
             </li>
-            @endif
 
             <!-- Schedulle -->
-            @if (Gate::denies('enable_function', 'schedule'))
             <div class="sidebar-heading">
-                Lịch hẹn
+                Schedules
             </div>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="schedules/list">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Quản lý lịch hẹn</span>
+                    <span>Schedules Management</span>
                 </a>
             </li>
-            @endif
 
 
 
             <!-- Heading -->
-            @if (Gate::denies('enable_function', 'userconfig'))
-            <div class="sidebar-heading ">
-                Tài khoản
+            <div class="sidebar-heading">
+                Account
             </div>
 
             <!-- Account -->
             <li class="nav-item">
                 <a class="nav-link" href="users/list">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>Cấu hình người dùng</span></a>
+                    <span>User Config</span></a>
             </li>
-            @endif
 
             <!-- Nav Item - Tables -->
-            @if (Gate::denies('enable_function', 'noticeconfig'))
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link" href="notices">
                     <i class="fas fa-fw fa-bell"></i>
-                    <span>Thông báo</span></a>
+                    <span>Notice Config</span></a>
             </li>
-            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -260,7 +236,13 @@
             <!-- End of Content Wrapper -->
             <!-- Footer -->
         </div>
-
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Mobile Marketing &copy; Your Website 2019</span>
+                </div>
+            </div>
+        </footer>
         <!-- End of Footer -->
     </div>
     <!-- End of Page Wrapper -->
@@ -288,13 +270,6 @@
             </div>
         </div>
     </div>
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Mobile Marketing &copy; Your Website 2019</span>
-            </div>
-        </div>
-    </footer>
 
 
     <!-- Bootstrap core JavaScript-->
