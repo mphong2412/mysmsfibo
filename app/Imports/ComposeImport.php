@@ -13,9 +13,9 @@ class ComposeImport implements ToCollection
     */
     public function collection(Collection $reader) {
 
-      
+
       foreach($reader as $key => $value){
-          $lists['phone'] = $value;
+          
       }dd($lists);
     }
 
