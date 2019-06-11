@@ -79,19 +79,25 @@ class ContactController extends Controller
 
     public function contactImport(Request $request)
     {
-        if ($request->hasFile('input1')) {
-            $path = $request->file('input1')->getRealPath();
-            $data = Excel::import(new ContactsImport, $path);
-            if (!empty($data)) {
-                foreach ($data as $key => $value) {
-                    $contact = new contacts();
-                    $contact->phone = $value->phone;
-                    $contact->full_name = $value->full_name;
-                    $contact->contact_groups_id = $request->lgname;
-                    $contact->save();
-                }
+        $this->validate($request, [
+            'input1'=>'required|mimes:xls,xlsx',
+        ], [
+            'input1.required'=>'Vui lòng chọn tập tin cần import.',
+            'input1.mimes'=>'Tập tin không hợp lệ, chúng tôi hỗ trợ định dạng xlsx.',
+        ]);
+
+        // if ($request->hasFile('input1')) {
+        $path = $request->file('input1')->getRealPath();
+        $data = Excel::import(new ContactsImport, $path);
+        if (!empty($data)) {
+            foreach ($data as $key => $value) {
+                $contact->phone = $value->phone;
+                $contact->full_name = $value->full_name;
+                $contact->contact_groups_id = $request->input('abc');
+                $contact->save();
             }
         }
+        // }
         return redirect('contacts/list')->with('thongbao', 'Import thông tin thành công');
     }
 

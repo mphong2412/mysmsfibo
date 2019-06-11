@@ -42,6 +42,7 @@
                             <th width="15%">Họ tên</th>
                             <th width="15%">Email</th>
                             <th width="15%">Số điện thoại</th>
+                            <th width="15%">Người tạo</th>
                             <th width="15%">Ngày tạo</th>
                             <th width="15%">Hành động</th>
                         </tr>
@@ -53,6 +54,7 @@
                             <td>{{$t->fullname}}</td>
                             <td>{{$t->email}}</td>
                             <td>{{$t->phone}}</td>
+                            <td>{{$t->created_by}}</td>
                             <td>{{$t->created_at}}</td>
                             <td>
                                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='users/edit/{{$t->id}}'">

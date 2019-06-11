@@ -124,3 +124,7 @@ Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
       Route::get('profile', ['as'=>'account','uses'=>'UserController@getInfo']);
       Route::post('profile', ['as'=>'account','uses'=>'UserController@postInfo']);
   });
+
+  Route::group(['prefix'=>'schedules'], function () {
+      Route::get('list', 'ScheduleController@index');
+  });
