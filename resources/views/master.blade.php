@@ -12,15 +12,15 @@
 
     <title>Fibo - Mobile Marketing</title>
 
-  <!-- Custom fonts for this template-->
-  <link href="source/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Custom styles for this template-->
-  <link href="source/css/sb-admin-2.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <!-- Custom styles for this page -->
-  <link href="source/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="source/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom styles for this template-->
+    <link href="source/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- Custom styles for this page -->
+    <link href="source/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -38,29 +38,45 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active ">
-        <a class="nav-link" href="index">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Statistics</span></a>
-      </li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active ">
+                <a class="nav-link" href="index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Statistics</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Sms Managerment
+                Quản lý SMS
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            @if (Gate::denies('enable_function', 'sms'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>SMS</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        @if (Gate::denies('enable_function', 'compose'))
+                        <a class="collapse-item " href="compose">Soạn tin</a>
+                        @endif
+                        @if (Gate::denies('enable_function', 'draft'))
+                        <a class="collapse-item " href="compose">Tin nháp</a>
+                        @endif
+                        @if (Gate::denies('enable_function', 'outbox'))
+                        <a class="collapse-item " href="compose">Tin chờ</a>
+                        @endif
+                        @if (Gate::denies('enable_function', 'sent'))
+                        <a class="collapse-item " href="compose">Đã gửi</a>
+                        @endif
+                        @if (Gate::denies('enable_function', 'error'))
+                        <a class="collapse-item " href="compose">Tin lỗi</a>
+                        @endif
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="compose">Compose</a>
                         <a class="collapse-item" href="#">Sent</a>
@@ -71,6 +87,7 @@
                     </div>
                 </div>
             </li>
+            @endif
 
             <!-- Nav Item - Utilities Collapse Menu -->
 
@@ -78,73 +95,86 @@
             <hr class="sidebar-divider">
 
             <!-- templates -->
-            <div class="sidebar-heading">
-                templates
+            @if (Gate::denies('enable_function', 'template'))
+            <div class="sidebar-heading ">
+                Mẫu tin
             </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="templates">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Management</span>
+                    <span>Quản lý mẫu tin</span>
                 </a>
             </li>
+            @endif
 
             <!-- Services -->
+            @if (Gate::denies('enable_function', 'service'))
             <div class="sidebar-heading">
-                Services
+                Dịch vụ
             </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="services">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Management</span>
+                   <i class="fas fa-fw fa-folder"></i>
+                   <span>Quản lý dịch vụ</span>
                 </a>
             </li>
+            @endif
 
             <!-- Contacts -->
+            @if (Gate::denies('enable_function', 'contact'))
             <div class="sidebar-heading">
-                Contacts
+                Danh bạ
             </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="group">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Groups Management</span>
+                    <span>Quản lý nhóm</span>
                 </a>
                 <a class="nav-link collapsed" href="contacts/list">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Contacts Management</span>
+                    <span>Quản lý danh bạ</span>
                 </a>
             </li>
+            @endif
 
             <!-- Schedulle -->
-            <div class="sidebar-heading">
-                Schedules
-            </div>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="schedules/list">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Schedules Management</span>
-                </a>
-            </li>
+            @if (Gate::denies('enable_function', 'schedule'))
+           <div class="sidebar-heading">
+               Lịch hẹn
+           </div>
+           <li class="nav-item">
+               <a class="nav-link collapsed" href="schedules/list">
+                   <i class="fas fa-fw fa-folder"></i>
+                   <span>Quản lý lịch hẹn</span>
+               </a>
+           </li>
+           @endif
 
 
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Account
+            @if (Gate::denies('enable_function', 'userconfig'))
+            <div class="sidebar-heading ">
+                Tài khoản
             </div>
 
             <!-- Account -->
             <li class="nav-item">
                 <a class="nav-link" href="users/list">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>User Config</span></a>
+                    <span>Cấu hình người dùng</span></a>
             </li>
+            @endif
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="notices">
-                    <i class="fas fa-fw fa-bell"></i>
-                    <span>Notice Config</span></a>
-            </li>
+            @if (Gate::denies('enable_function', 'noticeconfig'))
+           <li class="nav-item ">
+           <li class="nav-item">
+               <a class="nav-link" href="notices">
+                   <i class="fas fa-fw fa-bell"></i>
+                   <span>Thông báo</span></a>
+           </li>
+           @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -282,12 +312,12 @@
     <!-- Custom scripts for all pages-->
     <script src="source/js/sb-admin-2.min.js"></script>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
 
-  <script src="source/js/plugins/compose.js" type="text/javascript">
+    <script src="source/js/plugins/compose.js" type="text/javascript">
 
-  </script>
+    </script>
 
 
     <!-- Page level custom scripts -->
