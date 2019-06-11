@@ -60,10 +60,11 @@ class GroupController extends Controller
      */
     public function searchg(Request $request)
     {
+        $notices = notices::all();
         $searchg = $request->get('key');
         if ($searchg != null) {
             $groups= contact_groups::orderBy('id')->where('name', 'like', '%'.$searchg.'%')->paginate(10);
-            return view('page.group', compact('groups'));
+            return view('page.group', compact('groups', 'notices'));
         } else {
             return redirect('group');
         }

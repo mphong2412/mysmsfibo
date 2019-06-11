@@ -145,10 +145,11 @@ class UserController extends Controller
 
     public function searchu(Request $request)
     {
+        $notices = notices::all();
         $key = $request->get('key');
         if ($key != null) {
             $user = account::orderBy('id')->where('username', 'like', '%'.$key.'%')->orWhere('email', 'like', '%'.$key.'%')->orWhere('phone', 'like', '%'.$key.'%')->paginate(10);
-            return view('page.users.list', ['account'=>$user]);
+            return view('page.users.list', ['account'=>$user,'notices'=>$notices]);
         } else {
             return redirect('users/list');
         }

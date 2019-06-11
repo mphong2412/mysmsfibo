@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Service Managerment</h1>
+    <h1 class="h3 mb-2 text-gray-800">Quản lý dịch vụ</h1>
     @if(count($errors) > 0)
     <div class="elert alert-danger">
         @foreach($errors->all() as $err)
@@ -26,31 +26,21 @@
                         <input type="search" name="key" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append" style="margin-bottom: 10px">
                             <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                                <i class="fas fa-search fa-sm"> Search</i>
+                                <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
                             <button class="btn btn-success" type="button" style="margin-left: 10px" onclick="window.location.href='services/add'">
-                                <i class="fas fa-plus fa-sm"> Add New</i>
+                                <i class="fas fa-plus fa-sm"> Thêm mới</i>
                             </button>
                         </div>
                     </div>
                 </form>
-                <div class="md-4">Show
-                    <label>
-                        <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                            <option value="5">5/page</option>
-                            <option value="10">10/page</option>
-                            <option value="25">25/page</option>
-                            <option value="50">50/page</option>
-                            <option value="100">100/page</option>
-                        </select>
-                    </label> entries.</div>
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Seq</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Actions</th>
+                            <th width="25%">STT</th>
+                            <th width="25%">Dịch vụ</th>
+                            <th width="25%">Mô tả</th>
+                            <th width="25%">Hành động</th>
                         </tr>
                     </thead>
                     @foreach($service as $t)
@@ -71,13 +61,11 @@
                     </tbody>
                     @endforeach
                 </table>
-                <p class="pull-left">Total {{count($service)}} services.</p>
+                <p class="pull-left">Hiển thị {{count($service)}} dịch vụ.</p>
                 {{$service->links()}}
             </div>
         </div>
     </div>
 
     <!-- /.container-fluid -->
-    <script src="source/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="source/js/demo/datatables-demo.js"></script>
     @endsection

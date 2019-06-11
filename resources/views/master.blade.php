@@ -296,6 +296,7 @@
         </div>
     </footer>
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="source/vendor/jquery/jquery.min.js"></script>
     <script src="source/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

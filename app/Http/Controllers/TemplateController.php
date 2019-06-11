@@ -85,10 +85,11 @@ class TemplateController extends Controller
 
     public function searcht(Request $request)
     {
+        $notices = notices::all();
         $searcht = $request->get('key');
         if ($searcht != null) {
             $templates = templates::orderBy('id')->where('service', 'like', '%'.$searcht.'%')->orWhere('template', 'like', '%'.$searcht.'%')->paginate(10);
-            return view('page.templates', compact('templates'));
+            return view('page.templates', compact('templates', 'notices'));
         } else {
             return redirect('templates');
         }

@@ -37,12 +37,12 @@
                 </form><br>
                 <br>
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
-                            <th>STT</th>
-                            <th>Dịch vụ</th>
-                            <th>Mẫu tin</th>
-                            <th>Hành động</th>
+                            <th width="25%">STT</th>
+                            <th width="25%">Dịch vụ</th>
+                            <th width="25%">Mẫu tin</th>
+                            <th width="25%">Hành động</th>
                         </tr>
                     </thead>
                     @foreach($templates as $t)

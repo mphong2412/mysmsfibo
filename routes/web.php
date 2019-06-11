@@ -25,7 +25,7 @@ Route::get('templates', ['as'=>'template','uses'=>'PageController@getTemplates']
 
 Route::get('notices', ['as'=>'notice','uses'=>'NoticeController@index']);
 
-Route::get('searcht',['as'=>'searcht','uses'=>'TemplateController@searcht']);
+Route::get('searcht', ['as'=>'searcht','uses'=>'TemplateController@searcht']);
 
 Route::get('searchg', ['as'=>'searchg','uses'=>'GroupController@searchg']);
 
@@ -35,15 +35,15 @@ Route::get('searchc', ['as'=>'searchc','uses'=>'ContactController@searchc']);
 
 Route::get('searchu', ['as'=>'searchu','uses'=>'UserController@searchu']);
 
-Route::get('group',['as'=>'group','uses'=>'GroupController@getGroup']);
+Route::get('group', ['as'=>'group','uses'=>'GroupController@getGroup']);
 
-Route::get('contact',['as'=>'contact','uses'=>'ContactController@index']);
-Route::get('/logout','UserController@getLogout')->name('logout');
+Route::get('contact', ['as'=>'contact','uses'=>'ContactController@index']);
+Route::get('/logout', 'UserController@getLogout')->name('logout');
 
-Route::get('/compose','PageController@getCompose')->name('compose');
-Route::post('/compose','ExcelController@readImport')->name('compose.import');
+Route::get('/compose', 'PageController@getCompose')->name('compose');
+Route::post('/compose', 'ExcelController@readImport')->name('compose.import');
 
-
+Route::get('autocomplete', 'TemplateController@autocomplete')->name('autocomplete');
 
 Route::get('them', 'TemplateController@getThem');
 Route::post('them', 'TemplateController@postThem');
@@ -54,6 +54,7 @@ Route::post('notice', ['as'=>'notices','uses'=>'NoticeController@postThem']);
 Route::get('xoa/{id}', ['as'=>'notices','uses'=>'NoticeController@destroy']);
 
 Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
+
 
 
   Route::group(['prefix'=>'templates'], function () {

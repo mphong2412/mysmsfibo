@@ -67,10 +67,11 @@ class ServiceController extends Controller
      */
     public function searchs(Request $request)
     {
+        $notices = notices::all();
         $searchs = $request->get('key');
         if ($searchs != null) {
             $service = list_services::orderBy('id')->where('name', 'like', '%'.$searchs.'%')->paginate(10);
-            return view('page.services', compact('service'));
+            return view('page.services', compact('service', 'notices'));
         } else {
             return redirect('services');
         }

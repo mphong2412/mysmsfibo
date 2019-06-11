@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Contact Managerment</h1>
+  <h1 class="h3 mb-2 text-gray-800">Quản lý danh bạ</h1>
   @if(count($errors) > 0)
   <div class="elert alert-danger">
     @foreach($errors->all() as $err)
@@ -27,21 +27,21 @@
             <div class="input-group-append" style="margin-bottom: 10px">
 
               <button class="btn btn-primary" type="submit" style="margin-left: 10px">
-                <i class="fas fa-search fa-sm"> Search</i>
+                <i class="fas fa-search fa-sm"> Tìm Kiếm</i>
               </button>
 
               <a href="contacts/add"><button class="btn btn-success" type="button" style="margin-left: 10px" >
-                <i class="fas fa-plus fa-sm"> Add New</i>
+                <i class="fas fa-plus fa-sm"> Thêm Mới</i>
               </button></a>
 
-              <button type="button" class="btn btn-success" id="showmore" style="margin-left: 10px" onclick="myFunction()">Add More Column</button>
+              <button type="button" class="btn btn-success" id="showmore" style="margin-left: 10px" onclick="myFunction()">Thêm cột dữ liệu</button>
 
               <a href="{{route('contact.export')}}"><button class="btn btn-success" type="button" id="print" style="margin-left: 10px" >
-                <i class="fas fa-print fa-sm"> Export</i>
+                <i class="fas fa-print fa-sm"> Xuất File</i>
               </button></a>
 
               <button class="btn btn-success" type="button" onclick="myImp()" id="import" style="margin-left: 10px" >
-                <i class="fas fa-upload fa-sm"> Import</i>
+                <i class="fas fa-upload fa-sm"> Nhập File</i>
             </button>
             </div>
         </div>
@@ -50,9 +50,9 @@
               <br>
               <div class="col-md-12" id="showoption" style="display:none">
                   Email: <input type="checkbox" id="myCheck" onclick="addRow()" name="cb"> |
-                  BirthDay: <input type="checkbox" id="myCheck1" onclick="addRow1()" name="cb1"> |
-                  Create Date: <input type="checkbox" id="myCheck2" onclick="addRow2()" name="cb2"> |
-                  Update Date: <input type="checkbox" id="myCheck3" onclick="addRow3()" name="cb3">
+                  Sinh Nhật: <input type="checkbox" id="myCheck1" onclick="addRow1()" name="cb1"> |
+                  Ngày Tạo: <input type="checkbox" id="myCheck2" onclick="addRow2()" name="cb2"> |
+                  Ngày Update: <input type="checkbox" id="myCheck3" onclick="addRow3()" name="cb3">
               </div>
           </div>
         </form>
@@ -61,22 +61,22 @@
             <input type="file" name="input1" id="input1">
 
             <input type="submit" name="btnimp" value="Import">
-            <a href="source/data.xlsx">Example import</a>
+            <a href="source/data.xlsx">File mẫu</a>
 
         </form><br />
 
         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0" >
-          <thead>
+          <thead class="thead-dark">
             <tr id="test">
-              <th>Seq</th>
-              <th>Phone</th>
-              <th>Full Name</th>
-              <th id="template" style="display:none">Email</th>
-              <th id="birth" style="display:none">Date Of Birth</th>
-              <th id="cre" style="display:none">Create Date</th>
-              <th id="upd" style="display:none">Update Date</th>
-              <th>Group</th>
-              <th>Actions</th>
+              <th width="10%">STT</th>
+              <th width="10%">Sô điện thoại</th>
+              <th width="10%">Họ tên</th>
+              <th width="10%" id="template" style="display:none">Email</th>
+              <th width="10%" id="birth" style="display:none">Ngày sinh</th>
+              <th width="10%" id="cre" style="display:none">Ngày tạo</th>
+              <th width="10%" id="upd" style="display:none">Ngày update</th>
+              <th width="10%">Nhóm</th>
+              <th width="10%">Hành động</th>
             </tr>
           </thead>
           @foreach($contacts as $t)
@@ -102,7 +102,7 @@
           </tbody>
           @endforeach
         </table>
-        <p class="pull-left">Total {{count($contacts)}} contact.</p>
+        <p class="pull-left">Hiển thị {{count($contacts)}} danh bạ.</p>
         {{$contacts->links()}}
       </div>
     </div>

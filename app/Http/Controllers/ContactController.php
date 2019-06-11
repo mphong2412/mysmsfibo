@@ -104,10 +104,11 @@ class ContactController extends Controller
      */
     public function searchc(Request $request)
     {
+        $notices = notices::all();
         $key = $request->get('key');
         if ($key != null) {
             $contact = contacts::orderBy('id')->where('phone', 'like', '%'.$key.'%')->orWhere('full_name', 'like', '%'.$key.'%')->paginate(10);
-            return view('page.contacts.list', ['contacts'=>$contact]);
+            return view('page.contacts.list', ['contacts'=>$contact,'notices'=>$notices]);
         } else {
             return redirect('contacts/list');
         }

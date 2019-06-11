@@ -32,13 +32,13 @@
                     <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu lại</button>
                 </form><br>
                 <h2>Quản lý thông báo</h2>
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered table-hover " id="dataTable" width="100%" cellspacing="0">
+                    <thead class="thead-dark">
                         <tr>
-                            <th>Thông báo</th>
-                            <th>Trạng thái</th>
-                            <th>Ngày tạo</th>
-                            <th>Hành động</th>
+                            <th width="70%">Thông báo</th>
+                            <th width="10%">Trạng thái</th>
+                            <th width="10%">Ngày tạo</th>
+                            <th width="10%">Hành động</th>
                         </tr>
                     </thead>
                     @foreach($notices as $t)
