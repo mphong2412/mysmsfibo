@@ -16,20 +16,23 @@ class PageController extends Controller
     {
         $this->middleware('auth');
     }
+
     //check role and save session
     public function getIndex()
     {
-      $a = Session::get('key_function');
-        // $a = session()->get('user');
-        // dd($a);
-        // $a = session()->get('da');
-        // dd($a);
-        // if (Gate::allows('check_status')) {
-        //     return view('page.error.deactive');
-        // }
-        $notices = notices::all();
-        return view('page.trangchu', ['notices'=>$notices]);
+      $result = Session::get('key_function');
+      $notices = notices::all();
+      return view('page.trangchu', ['notices'=>$notices]);
     }
+
+    // public function getIndex(){
+    //   $a = Session::get('key_function');
+    //   // dd($a);
+    //   if (Gate::denies('enable_function', 'compose')) {
+    //       return view('page.error.deactive');
+    //   }
+    //   return view('page.trangchu');
+    // }
 
     public function getTemplates()
     {
@@ -41,6 +44,7 @@ class PageController extends Controller
 
     public function getCompose()
     {
+      $a = Session::get('key_function');
       $notices = notices::all();
         if (Gate::allows('check_role')) {
             return view('page.error.403');

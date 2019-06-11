@@ -39,7 +39,7 @@
           alert({{ session()->get('success')}});
     </script>
     @endif
-    
+
     <form action="" method="post" autocomplete="off" id="formCompose">
 
 

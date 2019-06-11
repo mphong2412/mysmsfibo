@@ -53,7 +53,6 @@ class LoginController extends Controller
         return redirect('login')->with('thongbao','DeActive');
       }else
       $iduser = auth()->id();
-
       $result = DB::table('authorization')
                 ->join('users', 'authorization.user_id', '=', 'users.id')
                 ->join('list_function','authorization.function_id', '=', 'list_function.id')
@@ -62,7 +61,6 @@ class LoginController extends Controller
       //dd($iduser);
       //query get authen
       // Session::put('check_rolee', Auth::user());
-
       Session::put('key_function', $result);
       return redirect()->intended($this->redirectPath());
     }
