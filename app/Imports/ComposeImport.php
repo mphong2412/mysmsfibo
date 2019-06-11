@@ -12,11 +12,10 @@ class ComposeImport implements ToCollection
     * @param Collection $collection
     */
     public function collection(Collection $reader) {
-
-
+      $phone = array();
       foreach($reader as $key => $value){
-          
-      }dd($lists);
+        $phone[] = $value[0];
+      }
     }
 
     public function headingRow(): int
