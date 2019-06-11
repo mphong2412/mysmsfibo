@@ -39,9 +39,7 @@
             <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active @if (Gate::denies('enable_function', 'compose')) {
-           d-none
-      } @endif ">
+      <li class="nav-item active">
         <a class="nav-link" href="index">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Statistics</span></a>
@@ -51,120 +49,126 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading @if (Gate::denies('enable_function', 'compose')) {
-           d-none } @endif">
-                Sms Managerment
+
+            <div class="sidebar-heading">
+                Quản lý SMS
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item @if (Gate::denies('enable_function', 'compose')) {
-           d-none } @endif">
+
+            @if (Gate::denies('enable_function', 'sms'))
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>SMS</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item  @if (Gate::denies('enable_function', 'compose')) {
-                       d-none } @endif" href="compose">Compose</a>
-                        <a class="collapse-item  @if (Gate::denies('enable_function', 'sent')) {
-                       d-none } @endif" href="#">Sent</a>
-                        <a class="collapse-item  @if (Gate::denies('enable_function', 'draft')) {
-                       d-none } @endif" href="#">Draft</a>
-                        <a class="collapse-item  @if (Gate::denies('enable_function', 'outbox')) {
-                       d-none } @endif" href="#">Outbox</a>
-                        <a class="collapse-item  @if (Gate::denies('enable_function', 'error')) {
-                       d-none } @endif" href="#">Errors</a>
+                      @if (Gate::denies('enable_function', 'compose'))
+                        <a class="collapse-item " href="compose">Soạn tin</a>
+                      @endif
+                      @if (Gate::denies('enable_function', 'draft'))
+                        <a class="collapse-item " href="compose">Tin nháp</a>
+                      @endif
+                      @if (Gate::denies('enable_function', 'outbox'))
+                        <a class="collapse-item " href="compose">Tin chờ</a>
+                      @endif
+                      @if (Gate::denies('enable_function', 'sent'))
+                        <a class="collapse-item " href="compose">Đã gửi</a>
+                      @endif
+                      @if (Gate::denies('enable_function', 'error'))
+                        <a class="collapse-item " href="compose">Tin lỗi</a>
+                      @endif
 
                     </div>
                 </div>
             </li>
-
+            @endif
             <!-- Nav Item - Utilities Collapse Menu -->
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- templates -->
-            <div class="sidebar-heading @if (Gate::denies('enable_function', 'template')) {
-           d-none } @endif">
-                templates
+            @if (Gate::denies('enable_function', 'template'))
+            <div class="sidebar-heading ">
+                Mẫu tin
             </div>
-            <li class="nav-item @if (Gate::denies('enable_function', 'template')) {
-           d-none } @endif">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="templates">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Management</span>
+                    <span>Quản lý mẫu tin</span>
                 </a>
             </li>
+            @endif
 
             <!-- Services -->
-            <div class="sidebar-heading @if (Gate::denies('enable_function', 'service')) {
-           d-none } @endif">
-                Services
+            @if (Gate::denies('enable_function', 'service'))
+            <div class="sidebar-heading">
+                Dịch vụ
             </div>
-            <li class="nav-item @if (Gate::denies('enable_function', 'service')) {
-           d-none } @endif">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="services">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Management</span>
+                    <span>Quản lý dịch vụ</span>
                 </a>
             </li>
+            @endif
 
             <!-- Contacts -->
-            <div class="sidebar-heading @if (Gate::denies('enable_function', 'contact')) {
-           d-none } @endif">
+            @if (Gate::denies('enable_function', 'contact'))
+            <div class="sidebar-heading">
                 Contacts
             </div>
-            <li class="nav-item @if (Gate::denies('enable_function', 'contact')) {
-           d-none } @endif">
+            <li class="nav-item ">
                 <a class="nav-link collapsed" href="group">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Groups Management</span>
+                    <span>Quản lý nhóm</span>
                 </a>
                 <a class="nav-link collapsed" href="contacts/list">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Contacts Management</span>
+                    <span>Quản lý danh bạ</span>
                 </a>
             </li>
+            @endif
 
             <!-- Schedulle -->
-            <div class="sidebar-heading @if (Gate::denies('enable_function', 'schedule')) {
-              d-none
-            } @endif">
-                Schedules
+            @if (Gate::denies('enable_function', 'schedule'))
+            <div class="sidebar-heading">
+                Lịch hẹn
             </div>
-            <li class="nav-item @if (Gate::denies('enable_function', 'schedule')) {
-           d-none } @endif">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Schedules Management</span>
+                    <span>Quản lý lịch hẹn</span>
                 </a>
             </li>
+            @endif
 
 
 
             <!-- Heading -->
-            <div class="sidebar-heading @if (Gate::denies('enable_function', 'userconfig')) {
-           d-none } @endif">
-                Account
+            @if (Gate::denies('enable_function', 'userconfig'))
+            <div class="sidebar-heading ">
+                Tài khoản
             </div>
 
             <!-- Account -->
-            <li class="nav-item @if (Gate::denies('enable_function', 'userconfig')) {
-           d-none } @endif">
+            <li class="nav-item">
                 <a class="nav-link" href="users/list">
                     <i class="fas fa-fw fa-user"></i>
-                    <span>User Config</span></a>
+                    <span>Cấu hình người dùng</span></a>
             </li>
+            @endif
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item @if (Gate::denies('enable_function', 'noticeconfig')) {
-           d-none } @endif">
+            @if (Gate::denies('enable_function', 'noticeconfig'))
+            <li class="nav-item ">
                 <a class="nav-link" href="notices">
                     <i class="fas fa-fw fa-bell"></i>
-                    <span>Notice Config</span></a>
+                    <span>Thông báo</span></a>
             </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

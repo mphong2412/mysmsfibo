@@ -28,13 +28,18 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('enable_function', function ($user, $code) {
+        Gate::define('enable_function', function($use, $code) {
           $result = Session::get('key_function');
-          foreach($result as $rs)
-          if($rs === $code) {
-              return false;
-            } else {
-              return true;
+          $check = 3;
+          foreach($result as $rs) {
+            if ($rs->function_name == $code) {
+              $check = 4;
+            }
+          }
+          if ($check == 3) {
+            return true;
+          } else {
+            return false;
           }
         });
     }
