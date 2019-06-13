@@ -27,6 +27,8 @@ Route::get('notices', ['as'=>'notice','uses'=>'NoticeController@index']);
 
 Route::get('searcht', ['as'=>'searcht','uses'=>'TemplateController@searcht']);
 
+Route::post('modaltu', ['as'=>'modaltu','uses'=>'TemplateController@modaltu']);
+
 Route::get('searchg', ['as'=>'searchg','uses'=>'GroupController@searchg']);
 
 Route::get('searchs', ['as'=>'searchs','uses'=>'ServiceController@searchs']);
@@ -126,5 +128,5 @@ Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
   });
 
   Route::group(['prefix'=>'schedules'], function () {
-      Route::get('list', 'ScheduleController@index');
+      Route::get('list', 'SchedulesController@index');
   });

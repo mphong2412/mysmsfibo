@@ -24,10 +24,10 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
           <!-- <label for="fname">Service: </label> -->
           <div class="col-sm-12">Tên nhóm:
-          <input type="text"  name="txtGroup" size="80px" value="{{$contact_groups->name}}" pattern="[a-Z]{0,15}"></div><br>
+          <input type="text" class="form-control"  name="txtGroup" size="80px" value="{{$contact_groups->name}}" pattern="[a-Z]{0,15}"></div><br>
 
-          <label for="lname" style="margin-left: 10px">Mô tả: </label>
-          <input type="textarea" name="txtDesc" style="margin-left: 10px" value="{{$contact_groups->description}}" size="80px"><br>
+          <div class="col-sm-12">Mô tả:
+          <input type="textarea" class="form-control" name="txtDesc" value="{{$contact_groups->description}}" size="80px"></div><br>
   </div>
 <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='group'">
   <i class="fas fa-times fa-sm"> Hủy</i>

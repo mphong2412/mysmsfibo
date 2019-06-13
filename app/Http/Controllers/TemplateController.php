@@ -9,6 +9,8 @@ use App\templates;
 use App\list_services;
 use Validator;
 use App\notices;
+use App\account;
+use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
@@ -24,7 +26,11 @@ class TemplateController extends Controller
         return redirect('templates')->with('thongbao', 'Xóa thành công');
     }
 
-    //
+    /**
+     * [getSua description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public function getSua($id)
     {
         $notices = notices::all();
@@ -32,6 +38,12 @@ class TemplateController extends Controller
         $templates = templates::find($id);
         return view('page/templates/sua', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices]);
     }
+    /**
+     * [postSua description]
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
     public function postSua(Request $request, $id)
     {
         $this->validate(
@@ -54,14 +66,23 @@ class TemplateController extends Controller
         return redirect('templates')->with('thongbao', 'Cập nhật thành công');
     }
 
-    // thêm template
+    /**
+     * [getThem description]
+     * @return [type] [description]
+     */
     public function getThem()
     {
+        $user = account::all();
         $notices = notices::all();
         $templates = templates::all();
         $services = list_services::all();
-        return view('page/templates/them', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices]);
+        return view('page/templates/them', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices,'account'=>$user]);
     }
+    /**
+     * [postThem description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function postThem(Request $request)
     {
         $this->validate(
@@ -79,10 +100,15 @@ class TemplateController extends Controller
         $templates = new templates();
         $templates->service = $request->txtService;
         $templates->template = $request->txtTemplate;
+        $templates->created_by=auth::user()->username;
         $templates->save();
         return redirect('templates')->with('thongbao', 'Thêm thành công');
     }
-
+    /**
+     * [searcht description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function searcht(Request $request)
     {
         $notices = notices::all();
@@ -92,6 +118,23 @@ class TemplateController extends Controller
             return view('page.templates', compact('templates', 'notices'));
         } else {
             return redirect('templates');
+        }
+    }
+
+    /**
+     * [modaltu description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function modaltu(Request $request)
+    {
+        $notices = notices::all();
+        $modaltu = $request->get('su');
+        if ($modaltu != null) {
+            $user = account::orderBy('id')->where('username', 'like', '%'.$modaltu.'%')->paginate(5);
+            return view('page/templates/them', ['account'=>$user,'notices'=>$notices]);
+        } else {
+            return redirect('templates/them');
         }
     }
 }

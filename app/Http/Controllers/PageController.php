@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Gate;
 use App\templates;
 use App\list_services;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\notices;
+use App\account;
 
 class PageController extends Controller
 {
@@ -19,7 +21,7 @@ class PageController extends Controller
     //check role and save session
     public function getIndex()
     {
-      $a = Session::get('key_function');
+        $a = Session::get('key_function');
         // $a = session()->get('user');
         // dd($a);
         // $a = session()->get('da');
@@ -36,16 +38,22 @@ class PageController extends Controller
         $notices = notices::all();
         $service = list_services::all();
         $templates = templates::orderBy('id')->paginate(10);
+        $a = Auth::user()->username;
+        if (Auth::user()->role == 2) {
+            $templates = templates::orderBy('id')->where('created_by', $a)->paginate(10);
+        }
+        if (Auth::user()->role == 3) {
+            $templates = templates::orderBy('id')->where('created_by', $a)->paginate(10);
+        }
         return view('page.templates', ['templates'=>$templates,'notices'=>$notices]);
     }
 
     public function getCompose()
     {
-      $notices = notices::all();
+        $notices = notices::all();
         if (Gate::allows('check_role')) {
             return view('page.error.403');
         } else {
-
             return view('page.sms.compose', ['notices'=>$notices]);
         }
     }
