@@ -40,7 +40,7 @@ class ExcelController extends Controller
           $check = preg_match('/((09|03|07|08|05)+([0-9]{8})\b)/', $listPhone);
           if($check == 0){
             array_push($phonefalse, $listPhone);
-            return redirect('compose')->with('phoneError',$phonefalse);
+            //return redirect('compose')->with('phoneError',$phonefalse);
           } else {
             // return redirect('page.sms.compose');
           }

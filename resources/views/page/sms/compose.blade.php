@@ -40,17 +40,7 @@
       <button type="button" class="close" data-dismiss="alert">&times;</button></div>
     @endif
 
-    @if(count($phonefalse) > 0)
-        <div class="alert alert-danger">
-          <strong>Whoops!</strong> Số điện thoại không đúng định dạng...
-          <br/>
-          <ul>
-            @foreach($phonefalse->all() as $phone)
-              {{$phone}}<button type="button" class="close" data-dismiss="alert">&times;</button>
-            @endforeach
-          </ul>
-        </div>
-    @endif
+  
 
     <form action="" method="post" autocomplete="off" id="formCompose">
 
