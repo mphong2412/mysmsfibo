@@ -29,6 +29,10 @@ class UserController extends Controller
     {
         $notices = notices::all();
         $user = account::orderBy('id')->paginate(10);
+        $a = Auth::user()->username;
+        if (Auth::user()->role == 2) {
+            $user = account::where('created_by', $a)->paginate(10);
+        }
         return view('page.users.list', ['account'=>$user,'notices'=>$notices]);
     }
 
@@ -98,7 +102,9 @@ class UserController extends Controller
         $user->limit_sms = $request->txtLimit;
         $user->status = $request->status;
         $user->role = $request->role;
+        $user->created_by=auth::user()->username;
         $user->save();
+        
         return redirect('users/list')->with('thongbao', 'Thêm tài khoản thành công.');
     }
 

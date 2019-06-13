@@ -10,6 +10,8 @@ use App\Imports\ContactsImport;
 use Excel;
 use App\Exports\ContactsExport;
 use App\notices;
+use Illuminate\Support\Facades\Auth;
+use App\account;
 
 class ContactController extends Controller
 {
@@ -23,12 +25,19 @@ class ContactController extends Controller
         $notices = notices::all();
         $groups = contact_groups::all();
         $contact = contacts::orderBy('id')->paginate(10);
+        $a = Auth::user()->username;
+        if (Auth::user()->role == 2) {
+            $contact = contacts::orderBy('id')->where('created_by', $a)->paginate(10);
+        }
+        if (Auth::user()->role == 3) {
+            $contact = contacts::orderBy('id')->where('created_by', $a)->paginate(10);
+        }
         return view('page.contacts.list', ['contacts'=>$contact,'contact_groups'=>$groups,'notices'=>$notices]);
     }
 
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for editting resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -40,7 +49,12 @@ class ContactController extends Controller
         $city = city::all();
         return view('page/contacts/edit', ['contacts'=>$contact,'contact_groups'=>$groups,'city'=>$city,'notices'=>$notices]);
     }
-
+    /**
+     * Cập nhật thông tin vào database
+     * @param  Request $request
+     * @param   $id
+     * @return [view danh sách]
+     */
     public function postSua(Request $request, $id)
     {
         $this -> validate(
@@ -70,13 +84,20 @@ class ContactController extends Controller
 
         return redirect('contacts/list')->with('thongbao', 'Cập nhật thông tin thành công');
     }
-
+    /**
+     * [contactExport : xuất dữ liệu ra file excel]
+     * @return \Illuminate\Http\Response
+     */
     public function contactExport()
     {
         $contact = contacts::select('phone', 'full_name')->get();
         return Excel::download(new ContactsExport, 'contacts.xlsx');
     }
-
+    /**
+     * [contactImport description]
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function contactImport(Request $request)
     {
         $this->validate($request, [
@@ -86,18 +107,18 @@ class ContactController extends Controller
             'input1.mimes'=>'Tập tin không hợp lệ, chúng tôi hỗ trợ định dạng xlsx.',
         ]);
 
-        // if ($request->hasFile('input1')) {
-        $path = $request->file('input1')->getRealPath();
-        $data = Excel::import(new ContactsImport, $path);
-        if (!empty($data)) {
-            foreach ($data as $key => $value) {
-                $contact->phone = $value->phone;
-                $contact->full_name = $value->full_name;
-                $contact->contact_groups_id = $request->input('abc');
-                $contact->save();
+        if ($request->hasFile('input1')) {
+            $path = $request->file('input1')->getRealPath();
+            $data = Excel::import(new ContactsImport, $path);
+            if (!empty($data)) {
+                foreach ($data as $key => $value) {
+                    $contact->phone = $value->phone;
+                    $contact->full_name = $value->full_name;
+                    $contact->contact_groups_id = $request->input('abc');
+                    $contact->save();
+                }
             }
         }
-        // }
         return redirect('contacts/list')->with('thongbao', 'Import thông tin thành công');
     }
 

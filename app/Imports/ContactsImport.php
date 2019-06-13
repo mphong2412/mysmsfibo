@@ -32,7 +32,15 @@ class ContactsImport implements ToModel, WithHeadingRow, WithValidation
     public function rules(): array
     {
         return[
-            'phone'=>['required','max:11','min:8'],
+            'phone'=>['required','digits:10'],
         ];
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+        'phone.required'=>'bị thiếu kìa ahihi',
+        'phone.digits' => 'tự sửa đi nha ahihi :D',
+    ];
     }
 }

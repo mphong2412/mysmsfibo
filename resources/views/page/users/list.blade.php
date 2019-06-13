@@ -54,7 +54,9 @@
                             <td>{{$t->fullname}}</td>
                             <td>{{$t->email}}</td>
                             <td>{{$t->phone}}</td>
-                            <td>{{$t->created_by}}</td>
+                            <td>
+                                {{$t->created_by}}
+                            </td>
                             <td>{{$t->created_at}}</td>
                             <td>
                                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='users/edit/{{$t->id}}'">

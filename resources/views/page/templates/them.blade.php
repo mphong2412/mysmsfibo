@@ -3,13 +3,12 @@
 <div class="container-fluid">
     <div class="md-6">
         @if(count($errors) > 0)
-            <div class="elert alert-danger">
-                @foreach($errors->all() as $err)
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    {{$err}} <br>
-                    @endforeach
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $err)
 
-            </div>
+                {{$err}}<button type="button" class="close" data-dismiss="alert">&times;</button> <br>
+                @endforeach
+        </div>
         @endif
         <div class="card shadow">
             <div class="card-body">
@@ -29,10 +28,10 @@
 
                             <button class="btn btn-success" type="button" style="margin: 5px" data-toggle="modal" data-target="#ModalAddUser">
                                 <i class="fas fa-plus fa-sm"> Thêm mới user</i>
-                            </button> <br>
+                            </button> <br><br>
                         </div>
                         <table class="table table-bordered" id="dataTable" width="100%">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr>
                                     <th width="20%">STT</th>
                                     <th width="20%">Tên</th>
@@ -41,11 +40,11 @@
                                     <th width="20%">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody style="display:none">
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td>
-                                <td>a</td>
+                            <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <button class="btn btn-danger btn-circle btn-sm">
                                         <i class="fas fa-trash"></i>
@@ -65,80 +64,77 @@
     </div>
 
     <div id="ModalAddUser" class="modal fade">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title">Login</h1>
-            </div>
-            <div class="modal-body">
-                <form role="form" method="POST" action="">
-                    <input type="hidden" name="_token" value="">
-                    <div class="form-group">
-                        <label class="control-label">E-Mail Address</label>
-                        <div>
-                            <input type="email" class="form-control input-lg" name="email" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Password</label>
-                        <div>
-                            <input type="password" class="form-control input-lg" name="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember"> Remember Me
-                                </label>
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Người dùng</h1>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="modaltu">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label">Tìm kiếm</label>
+                            <div>
+                                <input type="search" onkeyup="myFunction()" class="form-control input-lg" name="su" id="su">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <button type="submit" class="btn btn-success">Login</button>
+                        {{-- <div class="form-group">
+                            <div>
+                                <button type="submit" id="sbtu" class="btn btn-success">Tìm kiếm</button>
+                            </div>
+                        </div> --}}
+                    </form>
+                    <table class="table table-striped table-bordered table-md" id="tbUser" width="100%" height="10%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th width="25%">Tên</th>
+                                <th width="25%">Email</th>
+                                <th width="25%">Số điện thoại</th>
+                                <th width="25%">Hành động</th>
+                            </tr>
+                        </thead>
+                        @foreach ($account as $value)
+                        <tbody>
+                            <td>{{$value->username}}</td>
+                            <td>{{$value->email}}</td>
+                            <td>{{$value->phone}}</td>
+                            <td>
+                                <button class="btn btn-success btn-circle btn-sm" id="addtu" name="addtu" onclick="test( {{ "'" . $value->username . "'"}},   {{ "'" . $value->email . "'" }}, {{ "'" . $value->phone . "'" }})" >
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </td>
+                        </tbody>
+                        @endforeach
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
-                            <a class="btn btn-link" href="">Forgot Your Password?</a>
-                        </div>
-                    </div>
-                </form>
-                <h1>Or Signup!</h1>
-                <form role="form" method="POST" action="">
-                    <input type="hidden" name="_token" value="">
-                    <div class="form-group">
-                        <label class="control-label">Username</label>
-                        <div>
-                            <input type="text" class="form-control input-lg" name="name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">E-Mail Address</label>
-                        <div>
-                            <input type="email" class="form-control input-lg" name="email" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Password</label>
-                        <div>
-                            <input type="password" class="form-control input-lg" name="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Confirm Password</label>
-                        <div>
-                            <input type="password" class="form-control input-lg" name="password_confirmation">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div>
-                            <button type="submit" class="btn btn-success">
-                                Register
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-@endsection
+    <script type="text/javascript">
+        function myFunction() {
+            input = document.getElementById("su");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tbUser");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function test(name, phone, email) {
+            
+            console.log(name, phone, email);
+        }
+    </script>
+    @endsection
