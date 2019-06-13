@@ -77,12 +77,6 @@
                         @if (Gate::denies('enable_function', 'error'))
                         <a class="collapse-item " href="compose">Tin lỗi</a>
                         @endif
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="compose">Compose</a>
-                        <a class="collapse-item" href="#">Sent</a>
-                        <a class="collapse-item" href="#">Draft</a>
-                        <a class="collapse-item" href="#">Outbox</a>
-                        <a class="collapse-item" href="#">Errors</a>
 
                     </div>
                 </div>
@@ -266,13 +260,7 @@
             <!-- End of Content Wrapper -->
             <!-- Footer -->
         </div>
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Mobile Marketing &copy; Your Website 2019</span>
-                </div>
-            </div>
-        </footer>
+
         <!-- End of Footer -->
     </div>
     <!-- End of Page Wrapper -->
@@ -300,6 +288,13 @@
             </div>
         </div>
     </div>
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Mobile Marketing &copy; Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
 
 
     <!-- Bootstrap core JavaScript-->

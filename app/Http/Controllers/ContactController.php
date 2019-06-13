@@ -90,7 +90,7 @@ class ContactController extends Controller
         $path = $request->file('input1')->getRealPath();
         $data = Excel::import(new ContactsImport, $path);
         if (!empty($data)) {
-            foreach ($data as $key => $value) {
+            foreach ($data as $key => $value) dd($value); {
                 $contact->phone = $value->phone;
                 $contact->full_name = $value->full_name;
                 $contact->contact_groups_id = $request->input('abc');

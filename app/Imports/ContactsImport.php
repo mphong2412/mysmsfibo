@@ -21,7 +21,7 @@ class ContactsImport implements ToModel, WithHeadingRow, WithValidation
         return new contacts([
             'phone' =>$row['phone'],
             'full_name' =>$row['full_name'],
-            'contact_groups_id' =>$row['contact_groups_id'],
+            // 'contact_groups_id' =>$row['contact_groups_id'],
         ]);
     }
     public function headingRow(): int
