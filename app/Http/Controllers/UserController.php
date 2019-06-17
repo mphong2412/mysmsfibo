@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use App\account;
 use App;
+use DB;
 use validator;
 use App\notices;
+use App\list_function;
+use App\authorization;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -59,7 +62,23 @@ class UserController extends Controller
     {
         $notices = notices::all();
         $user = account::all();
-        return view('page.users.add', ['account'=>$user,'notices'=>$notices]);
+        $ab = list_function::all();
+        return view('page.users.add', ['account'=>$user,'notices'=>$notices,'list_function'=>$ab]);
+    }
+    // lưu id của list_function
+    public function funct()
+    {
+        $func = list_function::select('id', 'function_name')->get();
+        return $func;
+    }
+
+    // lưu thông tin vào authorization
+    public function saveAu($id, $function_id) //truyền vào id,function_id
+    {
+        $aut = new authorization;
+        $aut->user_id = $id;
+        $aut->function_id = $function_id;
+        $aut->save();
     }
 
     /**
@@ -104,7 +123,22 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->created_by=auth::user()->username;
         $user->save();
-        
+        $listFunction = $this->funct(); //gọi function
+        foreach ($listFunction as $key => $value) {
+            if ($request->role == 1) {
+                $this->saveAu($user->id, $value->id);
+            } elseif ($request->role == 2) {
+                if ($value->function_name == 'noticeconfig') {
+                    continue; // bỏ qua function_name cần bỏ qua
+                }
+                $this->saveAu($user->id, $value->id);
+            } elseif ($request->role == 3) {
+                if ($value->function_name == 'noticeconfig' || $value->function_name == 'userconfig') {
+                    continue;
+                }
+                $this->saveAu($user->id, $value->id);
+            }
+        }
         return redirect('users/list')->with('thongbao', 'Thêm tài khoản thành công.');
     }
 
