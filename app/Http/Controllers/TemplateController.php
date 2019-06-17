@@ -10,6 +10,7 @@ use App\list_services;
 use Validator;
 use App\notices;
 use App\account;
+use App\user_has_templates;
 use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
@@ -96,14 +97,16 @@ class TemplateController extends Controller
          'txtTemplate.required'=>'Vui lòng nhập mẫu tin.',
          'txtTemplate.unique'=>'Mẫu tin này đã tồn tại. ',
         ]
-    );
+        );
         $templates = new templates();
         $templates->service = $request->txtService;
         $templates->template = $request->txtTemplate;
+        $templates->status = $request->status;
         $templates->created_by=auth::user()->username;
         $templates->save();
         return redirect('templates')->with('thongbao', 'Thêm thành công');
     }
+
     /**
      * [searcht description]
      * @param  Request $request [description]
@@ -136,5 +139,18 @@ class TemplateController extends Controller
         } else {
             return redirect('templates/them');
         }
+    }
+
+    public function abc()
+    {
+        $fun = account::select('id', 'username')->get();
+        return $fun;
+    }
+    public function saveU($id, $user_id)
+    {
+        $h = new user_has_templates;
+        $h->template_id = $id;
+        $h->user_id = $user_id;
+        $h->save();
     }
 }

@@ -22,22 +22,19 @@
                             <h2>Thông tin dịch vụ</h2>
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <div class="col-sm-12">Dịch vụ:
-                                <input type="text" id="Service" name="txtName" size="80px" pattern="[A-Z]{0-9}" title="Vui lòng nhập chữ in hoa hoặc số."></div><br>
+                                <input class="form-control" type="text" id="Service" name="txtName" style="width:45%;margin:1%" pattern="[A-Z]{0-9}" title="Vui lòng nhập chữ in hoa hoặc số."></div>
 
                             <div class="col-sm-12">Mô tả:
-                                <input type="textarea" id="Template" style="margin-left:1%" name="txtDesc" size="80px"></div><br>
+                                <input class="form-control" type="textarea" id="Template" style="width:45%;margin:1%" name="txtDesc" size="80px"></div>
 
-                            Người dùng có thể sử dụng dịch vụ: <button class="btn btn-success" type="button" style="margin: 5px">
-                                <i class="fas fa-plus fa-sm"> Thêm user</i>
-                            </button> <br>
-
-
+                            Người dùng có thể sử dụng dịch vụ: <button class="btn btn-success" type="button" style="margin: 1%" data-toggle="modal" data-target="#ModalAddUser">
+                                <i class="fas fa-plus fa-sm"> Thêm mới user</i>
+                            </button>
                         </div>
 
                         <table class="table table-bordered" id="dataTable" width="100%">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th width="20%">STT</th>
                                     <th width="20%">Tên</th>
                                     <th width="20%">Email</th>
                                     <th width="20%">Số điện thoại</th>
@@ -56,4 +53,93 @@
             </div>
         </div>
     </div>
+    <div id="ModalAddUser" class="modal fade">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Người dùng</h1>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="modaltu">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label">Tìm kiếm</label>
+                            <div>
+                                <input type="search" onkeyup="myFunction()" class="form-control input-lg" name="su" id="su">
+                            </div>
+                        </div>
+                    </form>
+                    <table class="table table-striped table-bordered table-md" id="tbUser" width="100%" height="10%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th width="25%">Tên</th>
+                                <th width="25%">Email</th>
+                                <th width="25%">Số điện thoại</th>
+                                <th width="25%">Hành động</th>
+                            </tr>
+                        </thead>
+                        @foreach ($account as $value)
+                        <tbody>
+                            <td>{{$value->username}}</td>
+                            <td>{{$value->email}}</td>
+                            <td>{{$value->phone}}</td>
+                            <td>
+                                <button class="btn btn-success btn-circle btn-sm" id="addtu" name="addtu"
+                                    onclick="test({{ "'" . $value->id . "'"}}, {{ "'" . $value->username . "'"}},   {{ "'" . $value->email . "'" }}, {{ "'" . $value->phone . "'" }})">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </td>
+                        </tbody>
+                        @endforeach
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script type="text/javascript">
+        function myFunction() {
+            input = document.getElementById("su");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tbUser");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function test(id, name, email, phone) {
+            console.log(id, name, email, phone);
+            $('#dataTable').append('<tr>' +
+                '<td>' + name + '</td>' +
+                '<td>' + email + '</td>' +
+                '<td>' + phone + '</td>' +
+            "<td><img src='source/img/del.png' class='btnDelete'/></td>" +
+        '</tr>');
+            $(".btnDelete").bind("click", Delete);
+
+        }
+
+        function Delete() {
+            var par = $(this).parent().parent(); //tr
+            par.remove();
+        };
+
+        $(function(){
+    //Add, Save, Edit and Delete functions code
+
+    $(".btnDelete").bind("click", Delete);
+
+});
+    </script>
     @endsection

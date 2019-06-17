@@ -21,35 +21,26 @@
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
 
                             <div class="col-sm-12">Dịch vụ:
-                                <input class="typeahead form-control" type="text" id="txtService" name="txtService" size="80px" pattern="[A-Z]{0,15}" title="Please enter capital letters or enter number."></div><br>
+                                <input class="typeahead form-control" type="text" id="txtService" name="txtService" style="width:45%;margin:1%" pattern="[A-Z]{0,15}" title="Please enter capital letters or enter number."></div>
 
                             <div class="col-sm-12">Mẫu tin:
-                                <input class="form-control" type="textarea" id="Template" name="txtTemplate" size="80px" pattern="[a-Z]{1,15}"></div><br>
+                                <input class="form-control" type="textarea" id="Template" name="txtTemplate" style="width:45%;margin:1%" ></div>
+                            <input type="text" name="status" id="status" value="1" hidden>
 
-                            <button class="btn btn-success" type="button" style="margin: 5px" data-toggle="modal" data-target="#ModalAddUser">
+                            <button class="btn btn-success" type="button" style="margin: 1%" data-toggle="modal" data-target="#ModalAddUser">
                                 <i class="fas fa-plus fa-sm"> Thêm mới user</i>
-                            </button> <br><br>
+                            </button>
                         </div>
                         <table class="table table-bordered" id="dataTable" width="100%">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th width="20%">STT</th>
-                                    <th width="20%">Tên</th>
-                                    <th width="20%">Email</th>
-                                    <th width="20%">Số điện thoại</th>
-                                    <th width="20%">Hành động</th>
+                                    <th width="25%">Tên</th>
+                                    <th width="25%">Email</th>
+                                    <th width="25%">Số điện thoại</th>
+                                    <th width="25%">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button class="btn btn-danger btn-circle btn-sm">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
                             </tbody>
                         </table><br>
                         <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='templates'">
@@ -78,11 +69,6 @@
                                 <input type="search" onkeyup="myFunction()" class="form-control input-lg" name="su" id="su">
                             </div>
                         </div>
-                        {{-- <div class="form-group">
-                            <div>
-                                <button type="submit" id="sbtu" class="btn btn-success">Tìm kiếm</button>
-                            </div>
-                        </div> --}}
                     </form>
                     <table class="table table-striped table-bordered table-md" id="tbUser" width="100%" height="10%">
                         <thead class="thead-dark">
@@ -99,7 +85,8 @@
                             <td>{{$value->email}}</td>
                             <td>{{$value->phone}}</td>
                             <td>
-                                <button class="btn btn-success btn-circle btn-sm" id="addtu" name="addtu" onclick="test( {{ "'" . $value->username . "'"}},   {{ "'" . $value->email . "'" }}, {{ "'" . $value->phone . "'" }})" >
+                                <button class="btn btn-success btn-circle btn-sm" id="addtu" name="addtu"
+                                    onclick="test({{ "'" . $value->id . "'"}}, {{ "'" . $value->username . "'"}},   {{ "'" . $value->email . "'" }}, {{ "'" . $value->phone . "'" }})">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </td>
@@ -132,9 +119,28 @@
             }
         }
 
-        function test(name, phone, email) {
-            
-            console.log(name, phone, email);
+        function test(id, name, email, phone) {
+            console.log(id, name, email, phone);
+            $('#dataTable').append('<tr>' +
+                '<td>' + name + '</td>' +
+                '<td>' + email + '</td>' +
+                '<td>' + phone + '</td>' +
+            "<td><img src='source/img/del.png' class='btnDelete'/></td>" +
+        '</tr>');
+            $(".btnDelete").bind("click", Delete);
+
         }
+
+        function Delete() {
+            var par = $(this).parent().parent(); //tr
+            par.remove();
+        };
+
+        $(function(){
+    //Add, Save, Edit and Delete functions code
+
+    $(".btnDelete").bind("click", Delete);
+
+});
     </script>
     @endsection

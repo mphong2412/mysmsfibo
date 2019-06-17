@@ -32,40 +32,41 @@
                                     <label style="margin-top:10%">Công ty: </label><br>
                                     <label style="margin-top:10%">Địa chỉ: </label><br>
                                     <label style="margin-top:10%">Số lượng tin nhắn: </label><br>
-                                    <label style="margin-top:10%">Quyền: </label>
                                 </div>
                                 <div class="col-md-10" id="input" style="float:right">
 
-                                    <select name="status" id="status" style="width:200px;margin-top:2%">
+                                    <select class="form-control" name="status" id="status" style="width:20%;margin-top:1%">
                                         <option value="1">Kích hoạt</option>
                                         <option value="2">Không kích hoạt</option>
-                                    </select><br>
+                                    </select>
 
-                                    <input type="text" name="txtUname" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="text" name="txtUname" pattern="{a-Z}" title="Nhập tên đăng nhập" style="width:45%;margin-top:1%">
 
-                                    <input type="text" name="txtFname" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="text" name="txtFname" title="Nhập họ và tên"  style="width:45%;margin-top:1%">
 
-                                    <input type="password" name="txtPass" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="password" name="txtPass" title="Nhập mật khẩu" style="width:45%;margin-top:1%">
 
-                                    <input type="text" name="txtApiU" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="text" name="txtApiU" style="width:45%;margin-top:1%">
 
-                                    <input type="password" name="txtApiP" value="" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="password" name="txtApiP" value="" style="width:45%;margin-top:1%">
 
-                                    <input type="email" name="txtEmail" value="" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="email" name="txtEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" style="width:45%;margin-top:1%">
 
-                                    <input type="tel" id="phone" name="txtPhone" size="50px" style="margin-top:2%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Nhập số điện thoại." /><br>
+                                    <input class="form-control" type="tel" id="phone" title="Nhập số điện thoại" name="txtPhone" style="width:45%;margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Nhập số điện thoại." />
 
-                                    <input type="text" name="txtCompa" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="text" title="Nhập tên công ty" name="txtCompa" style="width:45%;margin-top:1%">
 
-                                    <input type="text" name="txtAddress" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="text" name="txtAddress" title="Nhập địa chỉ" style="width:45%;margin-top:1%">
 
-                                    <input type="number" name="txtLimit" min="0" style="margin-top:2%" size="50px"><br>
+                                    <input class="form-control" type="number" name="txtLimit" title="Nhập giới hạn sms" min="0" style="width:20%;margin-top:1%">
 
-                                    <select name="role" id="role" style="width:200px;margin-top:2%">
-                                        <option></option>
-                                        <option value="1">Admin</option>
-                                        <option value="2">Người dùng</option>
-                                        <option value="3">Người dùng phụ</option>
+                                    <select hidden name="role" id="role" >
+                                        @if (auth::user()->role == 1)
+                                            <option value="2">Người dùng</option>
+                                        @else
+                                            (auth::user()->role == 2)
+                                                <option value="3">Người dùng phụ</option>
+                                        @endif
                                     </select>
                                 </div>
                             </div>

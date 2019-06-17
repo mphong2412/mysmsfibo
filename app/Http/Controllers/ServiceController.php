@@ -7,7 +7,9 @@ use App\list_services;
 use App\templates;
 use session;
 use validator;
+use App\account;
 use App\notices;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -37,7 +39,8 @@ class ServiceController extends Controller
         $notices = notices::all();
         $template = templates::all();
         $services = list_services::all();
-        return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices]);
+        $user = account::all();
+        return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices,'account'=>$user]);
     }
 
     public function postAdd(Request $request)
@@ -48,6 +51,7 @@ class ServiceController extends Controller
             'txtName' => 'required|unique:list_services,name',
         ],
             [
+            'txtName.require'=>'Vui lòng nhập thông tin.',
             'txtName.unique'=>'The service has already exists.',
         ]
        );
@@ -55,7 +59,9 @@ class ServiceController extends Controller
         $services = new list_services();
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
+        $services->created_by=auth::user()->username;
         $services->save();
+        
         return redirect('services')->with('thongbao', 'Bạn đã thêm thành công');
     }
 
@@ -128,5 +134,22 @@ class ServiceController extends Controller
         $service = list_services::find($id);
         $service->delete();
         return redirect('services')->with('thongbao', 'Xóa thành công');
+    }
+
+    /**
+     * [modaltu description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function modaltu(Request $request)
+    {
+        $notices = notices::all();
+        $modaltu = $request->get('su');
+        if ($modaltu != null) {
+            $user = account::orderBy('id')->where('username', 'like', '%'.$modaltu.'%')->paginate(5);
+            return view('page/templates/them', ['account'=>$user,'notices'=>$notices]);
+        } else {
+            return redirect('templates/them');
+        }
     }
 }
