@@ -17,12 +17,10 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <form action="contacts/add" method="POST">
-
                         <div id="content" class="container">
                             <center>
                                 <h2>Thêm mới danh bạ</h2>
                             </center>
-                            <!-- <form action="" method="POST"> -->
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <div class="col-md-12">
                                 <div class="col-md-2" id="label" style="float:left">
@@ -44,9 +42,9 @@
                                         @endforeach
                                     </select>
 
-                                    <input class="form-control" type="tel" id="phone" name="txtPhone" size="50px" style="margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Please enter phone number." />
+                                    <input class="form-control" type="tel" id="phone" name="txtPhone" style="margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Please enter phone number." />
 
-                                    <input class="form-control" type="text" id="name" name="txtName" style="margin-top:1%" size="50px" />
+                                    <input class="form-control" type="text" id="name" name="txtName" style="margin-top:1%"/>
 
                                     <input type="radio" name="gender" value="0" style="margin-top:1.5%"> Nam |
                                     <input type="radio" name="gender" value="1" style="margin-top:1.5%"> Nữ
@@ -55,13 +53,13 @@
 
                                     <input type="date" class="form-control" id="doB" name="doB" placeholder="Choose" style="margin-top:1%; width:20%">
 
-                                    <select class="form-control" name="city" id="city" style="margin-top:1%;width:20%;">
+                                    <select class="form-control" name="city" id="city" style="margin-top:1%;width:20%">
                                         @foreach($city as $t)
                                         <option value="{{$t->id}}">{{$t->name}}</option>
                                         @endforeach
                                     </select>
 
-                                    <input class="form-control" type="text" name="address" id="address" size="50px" style="margin-top:1%" />
+                                    <input class="form-control" type="text" name="address" id="address"style="margin-top:1%" />
 
                                     <select class="form-control" name="status" id="status" style="width:20%;margin-top:1%">
                                         <option value="1">Đang sử dụng</option>
@@ -70,14 +68,15 @@
                                     </select><br>
                                 </div>
                             </div>
-                        </div>
+                        </div> <!-- /.content -->
                         <button class="btn btn-info" type="reset" style="margin: 10px" onclick="window.location.href='contacts/list'">
                             <i class="fas fa-times fa-sm"> Hủy</i>
                         </button>
                         <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                </div><!-- /.table-responsive -->
+            </div> <!-- /.card-body -->
+        </div> <!-- /.card-shadow -->
+    </div><!-- /.md-6 -->
+</div><!-- /.container-fluid -->
 @endsection

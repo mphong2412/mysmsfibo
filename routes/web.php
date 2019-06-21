@@ -129,4 +129,6 @@ Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
 
   Route::group(['prefix'=>'schedules'], function () {
       Route::get('list', 'SchedulesController@index');
+
+      Route::get('add', 'SchedulesController@add');
   });

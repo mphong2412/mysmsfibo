@@ -77,13 +77,6 @@
                         @if (Gate::denies('enable_function', 'error'))
                         <a class="collapse-item " href="compose">Tin lỗi</a>
                         @endif
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="compose">Compose</a>
-                        <a class="collapse-item" href="#">Sent</a>
-                        <a class="collapse-item" href="#">Draft</a>
-                        <a class="collapse-item" href="#">Outbox</a>
-                        <a class="collapse-item" href="#">Errors</a>
-
                     </div>
                 </div>
             </li>
@@ -262,7 +255,6 @@
                 <div class="rev-slider">
                     @yield('content')
                 </div>
-            </div>
             <!-- End of Content Wrapper -->
             <!-- Footer -->
         </div>

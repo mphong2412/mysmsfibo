@@ -50,11 +50,9 @@
                                                 @endif
                                     </select>
 
-                                    <input class="form-control" type="text" name="txtUname" value="{{$account->username}}" style="width:45%;margin-top:1%"readonly>
+                                    <input class="form-control" type="text" name="txtUname" value="{{$account->username}}" style="width:45%;margin-top:1%" readonly>
 
                                     <input class="form-control" type="text" name="txtFname" value="{{$account->fullname}}" style="width:45%;margin-top:1%">
-
-
 
                                     <input class="form-control" type="text" name="txtApiU" value="{{$account->user_api}}" style="width:45%;margin-top:1%">
 
@@ -70,25 +68,7 @@
 
                                     <input class="form-control" type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="width:45%;margin-top:1%">
 
-                                    {{-- <select name="role" id="role" style="width:200px;margin-top:1%">
-                                        @if($account->role == 1)
-                                            <option value="1">Admin</option>
-                                            <option></option>
-                                            <option value="2">Người dùng</option>
-                                            <option value="3">Người dùng phụ</option>
-                                            @endif
-                                            @if($account->role == 2)
-                                                <option value="2">Người dùng</option>
-                                                <option></option>
-                                                <option value="3">Người dùng phụ</option>
-                                                @endif
-                                                @if($account->role == 3)
-                                                    <option value="3">Người dùng phụ</option>
-                                                    <option></option>
-                                                    <option value="2">Người dùng</option>
-                                                    @endif
-                                    </select><br> --}}
-                                    <input class="form-control" type="password" name="txtPass" title="Cấp mật khẩu mới." id="txtPass" style="width:45%;margin-top:1%; display:none"/>
+                                    <input class="form-control" type="password" name="txtPass" title="Cấp mật khẩu mới." id="txtPass" style="width:45%;margin-top:1%; display:none" />
                                 </div>
                             </div>
                         </div>
@@ -102,15 +82,18 @@
 
                         <!-- checkbox change password -->
                         @if (auth::user()->role == 1)
-                            <input type="checkbox" name="ip1" id="ip1"> Reset password
+                        <input type="checkbox" name="ip1" id="ip1"> Reset password
                         @endif
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-    @if (auth::user()->role == 1)
+                </div><!--/.table-responsive-->
+            </div><!--/.card-body-->
+        </div><!--/.card-shadow-->
+    </div><!--/.md-6-->
+</div><!--/.container-fluid-->
+
+<script>
+    < blade
+    if / > (auth::user() - > role == 1)
     document.getElementById('ip1').onchange = function() {
         if (this.checked) {
             document.getElementById('txtPass').style.display = '';
@@ -119,7 +102,7 @@
             document.getElementById('txtPass').style.display = 'none';
             document.getElementById('lpass').style.display = 'none';
         }
-    };
-    @endif        
-    </script>
-    @endsection
+    }; <
+    blade endif / >
+</script>
+@endsection

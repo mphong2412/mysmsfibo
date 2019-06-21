@@ -5,7 +5,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Quản lý tài khoản</h1>
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+    <div class="alert alert-danger">
         @foreach($errors->all() as $err)
             {{$err}} <br>
             @endforeach
@@ -45,7 +45,7 @@
                             <th width="12.5%">Người tạo</th>
                             <th width="12.5%">Ngày tạo</th>
                             @if (auth::user()->role == 1)
-                                <th width="12.5%">Quyền</th>
+                            <th width="12.5%">Quyền</th>
                             @endif
                             <th width="12.5%">Hành động</th>
                         </tr>
@@ -62,22 +62,24 @@
                             </td>
                             <td>{{$t->created_at}}</td>
                             @if (auth::user()->role == 1)
-                                <td>
-                                    @if ($t->role == 1)
-                                        admin
-                                    @endif
-                                    @if ($t->role == 2)
-                                        người dùng
-                                    @endif
-                                    @if ($t->role == 3)
-                                        người dùng phụ 
-                                    @endif
-                                </td>
+                            <td>
+                                @if ($t->role == 1)
+                                admin
+                                @endif
+                                @if ($t->role == 2)
+                                người dùng
+                                @endif
+                                @if ($t->role == 3)
+                                người dùng phụ
+                                @endif
+                            </td>
                             @endif
                             <td>
+                                <!--button edit-->
                                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='users/edit/{{$t->id}}'">
                                     <i class="fas fa-edit"></i>
                                 </button>
+                                <!--button delete-->
                                 <a href="users/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -88,8 +90,8 @@
                 </table>
                 <p class="pull-left">Hiển thị {{count($account)}} người dùng.</p>
                 {{$account->links()}}
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-    @endsection
+            </div><!-- /.table-responsive -->
+        </div><!-- /.card-body -->
+    </div><!-- /.card-shadow-->
+</div><!-- /.container-fluid -->
+@endsection

@@ -12,25 +12,27 @@ use App\notices;
 use App\account;
 use App\user_has_templates;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class TemplateController extends Controller
 {
     /**
     * Xoa template
     * @param $id
-    * @return array || json
+    * @return \Illuminate\Http\Response
     */
     public function getXoa($id)
     {
         $templates = templates::find($id);
+        $as = user_has_templates::where('template_id', $id)->delete();
         $templates->delete();
         return redirect('templates')->with('thongbao', 'Xóa thành công');
     }
 
     /**
      * [getSua description]
-     * @param  [type] $id [description]
-     * @return [type]     [description]
+     * @param  $id
+     * @return \Illuminate\Http\Response
      */
     public function getSua($id)
     {
@@ -42,8 +44,8 @@ class TemplateController extends Controller
     /**
      * [postSua description]
      * @param  Request $request [description]
-     * @param  [type]  $id      [description]
-     * @return [type]           [description]
+     * @param   $id
+     * @return \Illuminate\Http\Response
      */
     public function postSua(Request $request, $id)
     {
@@ -69,7 +71,7 @@ class TemplateController extends Controller
 
     /**
      * [getThem description]
-     * @return [type] [description]
+     * @return \Illuminate\Http\Response
      */
     public function getThem()
     {
@@ -82,7 +84,7 @@ class TemplateController extends Controller
     /**
      * [postThem description]
      * @param  Request $request [description]
-     * @return [type]           [description]
+     * @return \Illuminate\Http\Response
      */
     public function postThem(Request $request)
     {
@@ -103,14 +105,21 @@ class TemplateController extends Controller
         $templates->template = $request->txtTemplate;
         $templates->status = $request->status;
         $templates->created_by=auth::user()->username;
+        $total_input = $request->get('total_input');
         $templates->save();
+        for ($i = 0; $i < $total_input; $i++) {
+            if (!empty($request->get('id_' . $i))) {
+                $user_id = $request->get('id_' . $i);
+                $this->saveU($templates->id, $user_id);
+            }
+        }
         return redirect('templates')->with('thongbao', 'Thêm thành công');
     }
 
     /**
      * [searcht description]
      * @param  Request $request [description]
-     * @return [type]           [description]
+     * @return \Illuminate\Http\Response
      */
     public function searcht(Request $request)
     {
@@ -127,7 +136,7 @@ class TemplateController extends Controller
     /**
      * [modaltu description]
      * @param  Request $request [description]
-     * @return [type]           [description]
+     * @return \Illuminate\Http\Response
      */
     public function modaltu(Request $request)
     {
@@ -140,12 +149,12 @@ class TemplateController extends Controller
             return redirect('templates/them');
         }
     }
-
-    public function abc()
-    {
-        $fun = account::select('id', 'username')->get();
-        return $fun;
-    }
+    /**
+     * [saveU description]
+     * @param  [type] $id      [description]
+     * @param  [type] $user_id [description]
+     * @return [type]          [description]
+     */
     public function saveU($id, $user_id)
     {
         $h = new user_has_templates;

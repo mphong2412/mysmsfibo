@@ -1,9 +1,8 @@
 @extends('master')
 @section('content')
 <div class="container-fluid">
-    <!-- Page Heading -->
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+    <div class="alert alert-danger">
         @foreach($errors->all() as $err)
             {{$err}} <br>
             @endforeach
@@ -22,14 +21,14 @@
                 <form action="notice" method="post">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="col-sm-12">
-                        <label>Thông báo: </label><br />
-                        <input type="textarea" name="txtNotice" id="txtNotice" style="width:40%;height: 80px"><br><br>
+                        <label>Thông báo: </label>
+                        <input class="form-control" type="textarea" name="txtNotice" id="txtNotice" style="width:40%;height:80px">
                         <input type="text" name="status" value="1" hidden>
                     </div>
-                    <button class="btn btn-success" type="button" style="margin: 10px" onclick="window.location.href='notices'">
+                    <button class="btn btn-success" type="button" style="margin: 1%" onclick="window.location.href='notices'">
                         <i class="fas fa-times fa-sm"> Hủy bỏ</i>
                     </button>
-                    <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu lại</button>
+                    <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 1%"> Lưu lại</button>
                 </form><br>
                 <h2>Quản lý thông báo</h2>
                 <table class="table table-bordered table-hover " id="dataTable" width="100%" cellspacing="0">
@@ -62,8 +61,8 @@
                 </table>
                 <p class="pull-left">Hiển thị {{count($notices)}} thông báo.</p>
                 {{$notices->links()}}
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-    @endsection
+            </div><!-- /.table-responsive -->
+        </div><!-- /.card-body -->
+    </div><!-- /.card-shadow -->
+</div> <!-- /.container-fluid -->
+@endsection

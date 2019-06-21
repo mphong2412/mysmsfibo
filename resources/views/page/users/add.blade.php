@@ -17,7 +17,6 @@
                     <form action="users/add" method="POST">
 
                         <div id="content" class="container">
-                            <!-- <form action="" method="POST"> -->
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
                             <div class="col-md-12">
                                 <div class="col-md-2" id="label" style="float:left">
@@ -42,7 +41,7 @@
 
                                     <input class="form-control" type="text" name="txtUname" pattern="{a-Z}" title="Nhập tên đăng nhập" style="width:45%;margin-top:1%">
 
-                                    <input class="form-control" type="text" name="txtFname" title="Nhập họ và tên"  style="width:45%;margin-top:1%">
+                                    <input class="form-control" type="text" name="txtFname" title="Nhập họ và tên" style="width:45%;margin-top:1%">
 
                                     <input class="form-control" type="password" name="txtPass" title="Nhập mật khẩu" style="width:45%;margin-top:1%">
 
@@ -60,27 +59,30 @@
 
                                     <input class="form-control" type="number" name="txtLimit" title="Nhập giới hạn sms" min="0" style="width:20%;margin-top:1%">
 
-                                    <select hidden name="role" id="role" >
+                                    <select hidden name="role" id="role">
                                         @if (auth::user()->role == 1)
-                                            <option value="2">Người dùng</option>
+                                        <option value="2">Người dùng</option>
                                         @else
-                                            (auth::user()->role == 2)
-                                                <option value="3">Người dùng phụ</option>
+                                        (auth::user()->role == 2)
+                                        <option value="3">Người dùng phụ</option>
                                         @endif
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-
+                        <!-- button cancel -->
                         <button class="btn btn-info" type="reset" style="margin: 10px" onclick="window.location.href='users/list'">
                             <i class="fas fa-times fa-sm"> Hủy</i>
                         </button>
+
+                        <!-- button save -->
                         <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
 
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endsection
+                </div><!--/.table-responsive-->
+            </div><!--/.card-body-->
+        </div><!--/.card-shadow-->
+    </div><!--/.md-6-->
+</div><!--/.container-fluid-->
+@endsection
