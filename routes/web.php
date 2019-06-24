@@ -43,7 +43,9 @@ Route::get('contact', ['as'=>'contact','uses'=>'ContactController@index']);
 Route::get('/logout', 'UserController@getLogout')->name('logout');
 
 Route::get('/compose', 'PageController@getCompose')->name('compose');
+// Route::get('/compose', 'PageController@getDecription')->name('compose.decription');
 Route::post('/compose', 'ExcelController@readImport')->name('compose.import');
+Route::get('/compose','PageController@getGroup')->name('compose.group');
 
 Route::get('autocomplete', 'TemplateController@autocomplete')->name('autocomplete');
 
@@ -58,6 +60,8 @@ Route::get('xoa/{id}', ['as'=>'notices','uses'=>'NoticeController@destroy']);
 Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
 
 
+
+Route::get('/decription','PageController@getDecription')->name('decription');
 
   Route::group(['prefix'=>'templates'], function () {
       // xóa templates

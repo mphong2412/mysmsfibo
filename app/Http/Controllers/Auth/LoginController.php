@@ -59,9 +59,6 @@ class LoginController extends Controller
                 ->join('list_function','authorization.function_id', '=', 'list_function.id')
                 ->where('users.id', '=', $iduser)
                 ->select('function_name')->get();
-      //dd($iduser);
-      //query get authen
-      // Session::put('check_rolee', Auth::user());
 
       Session::put('key_function', $result);
       return redirect()->intended($this->redirectPath());

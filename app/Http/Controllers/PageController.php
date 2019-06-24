@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\templates;
+use App\contacts;
+use App\contact_groups;
 use App\list_services;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\notices;
 use App\account;
+use DB;
 
 class PageController extends Controller
 {
@@ -18,17 +21,11 @@ class PageController extends Controller
     {
         $this->middleware('auth');
     }
+
     //check role and save session
     public function getIndex()
     {
         $a = Session::get('key_function');
-        // $a = session()->get('user');
-        // dd($a);
-        // $a = session()->get('da');
-        // dd($a);
-        // if (Gate::allows('check_status')) {
-        //     return view('page.error.deactive');
-        // }
         $notices = notices::all();
         return view('page.trangchu', ['notices'=>$notices]);
     }
@@ -48,13 +45,85 @@ class PageController extends Controller
         return view('page.templates', ['templates'=>$templates,'notices'=>$notices]);
     }
 
-    public function getCompose()
-    {
+    // public function getCompose()
+    // {
+    //   $notices = notices::all();
+    //   $iduser = auth()->id();
+    //   //Get danh sách service.....................
+    //   $service = DB::table('user_has_list_services')
+    //             ->join('users', 'user_has_list_services.user_id', '=', 'users.id')
+    //             ->join('list_services','user_has_list_services.service_id', '=', 'list_services.id')
+    //             ->where('users.id', '=', $iduser)
+    //             ->select('list_services.name as name','list_services.id as id')->get();
+    //   //Get danh sách template.....................
+    //   $template = DB::table('user_has_templates')
+    //             ->join('users', 'user_has_templates.user_id', '=', 'users.id')
+    //             ->join('templates','user_has_templates.template_id', '=', 'templates.id')
+    //             ->where('users.id', '=', $iduser)
+    //             ->select('templates.template as name','templates.id as id')->get();
+    //   return view ('page.sms.compose', ['notices'=>$notices,'service'=>$service,'template'=>$template]);
+    // }
+
+    // public function getDecription() {
+    //   $iduser = auth()->id();
+    //   $notices = notices::all();
+    //   //Get danh sách service.....................
+    //   $service = DB::table('user_has_list_services')
+    //             ->join('users', 'user_has_list_services.user_id', '=', 'users.id')
+    //             ->join('list_services','user_has_list_services.service_id', '=', 'list_services.id')
+    //             ->where('users.id', '=', $iduser)
+    //             ->select('list_services.name as name','list_services.id as id')->get();
+    //   //Get danh sách template.....................
+    //   $template = DB::table('user_has_templates')
+    //             ->join('users', 'user_has_templates.user_id', '=', 'users.id')
+    //             ->join('templates','user_has_templates.template_id', '=', 'templates.id')
+    //             ->where('users.id', '=', $iduser)
+    //             ->select('templates.template as name','templates.id as id')->get();
+    //   return view ('page.sms.compose', ['notices'=>$notices,'service'=>$service,'template'=>$template]);
+    // }
+
+    public function getGroup() {
         $notices = notices::all();
-        if (Gate::allows('check_role')) {
-            return view('page.error.403');
-        } else {
-            return view('page.sms.compose', ['notices'=>$notices]);
+        $contact = contacts::all();
+        $group = contact_groups::orderBy('id')->get();
+        $a = Auth::user()->username;
+        if (Auth::user()->role == 2) {
+            $group = contact_groups::orderBy('id')->where('created_by', $a)->get();
         }
+        if (Auth::user()->role == 3) {
+            $group = contact_groups::orderBy('id')->where('created_by', $a)->get();
+        }
+        $value = Input::get('groupcontact');
+
+        $iduser = auth()->id();
+        //Get danh sách service.....................
+        $service = DB::table('user_has_list_services')
+                  ->join('users', 'user_has_list_services.user_id', '=', 'users.id')
+                  ->join('list_services','user_has_list_services.service_id', '=', 'list_services.id')
+                  ->where('users.id', '=', $iduser)
+                  ->select('list_services.name as name','list_services.id as id')->get();
+        //Get danh sách template.....................
+        $template = DB::table('user_has_templates')
+                  ->join('users', 'user_has_templates.user_id', '=', 'users.id')
+                  ->join('templates','user_has_templates.template_id', '=', 'templates.id')
+                  ->where('users.id', '=', $iduser)
+                  ->select('templates.template as name','templates.id as id')->get();
+        //Get contact by id group....................
+        $contact_list = DB::table('contact_groups')
+                        ->join('contacts','contact_groups.id', '=', 'contacts.contact_groups_id')
+                        ->where('contact_groups.id','=', $value)
+                        ->select('contacts.phone','contacts.birthday','contacts.address','contacts.full_name as name')->get();
+        return view('page.sms.compose', ['phonegroup'=>$contact_list,'notices'=>$notices, 'group'=>$group,'service'=>$service,'template'=>$template]);
     }
+
+    // public function getService() {
+    //   $iduser = auth()->id();
+    //   $notices = notices::all();
+    //   $result = DB::table('user_has_list_service')
+    //             ->join('users', 'user_has_list_service.user_id', '=', 'users.id')
+    //             ->join('list_service','user_has_list_service.service_id', '=', 'list_service.id')
+    //             ->where('users.id', '=', $iduser)
+    //             ->select('function_name')->get();
+    //   return view('page.sms.compose.decription',['notices'=>$notices,'result'=>$result]);
+    // }
 }
