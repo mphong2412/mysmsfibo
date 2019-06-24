@@ -10,7 +10,7 @@ class user_has_templates extends Model
 
     public function templates()
     {
-        return $this->hasmany('App\templates', 'templates_id', 'id');
+        return $this->hasmany('App\templates', 'template_id', 'id');
     }
 
     public function account()

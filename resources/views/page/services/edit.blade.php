@@ -41,8 +41,20 @@
                                     <th width="20%">Hành động</th>
                                 </tr>
                             </thead>
+                            @foreach ($user_has_list_services as $key => $value)
+                            <tbody>
+                                @foreach ($account as $key => $values)
+                                    @if ($value->user_id == $values->id)
+                                    <td width="20%">{{$values->username}}</td>
+                                    <td width="20%">{{$values->email}}</td>
+                                    <td width="20%">{{$values->phone}}</td>
+                                    @endif
+                                @endforeach
+                                <td width="20%"><img src='source/img/del.png' data-user_id=" + d + " class='btnDelete'/></td>
+                            </tbody>
+                            @endforeach
                         </table>
-
+                        {{$user_has_list_services->links()}}
                         <button class="btn btn-success" type="reset" style="margin: 1%" onclick="window.location.href='services'">
                             <i class="fas fa-times fa-sm"> Hủy</i>
                         </button>
@@ -125,7 +137,6 @@
     var d = 0;
 
     function test(id, name, email, phone) {
-        console.log(id, name, email, phone);
         $('#dataTable').append('<tr>' +
             '<td>' + name + '</td>' +
             '<td>' + email + '</td>' +
@@ -150,6 +161,7 @@
     $(function() {
         $(".btnDelete").bind("click", Delete);
     });
+
     function show() {
         var myTab = document.getElementById('tbUser');
     }

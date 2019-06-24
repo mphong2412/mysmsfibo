@@ -21,7 +21,7 @@ Route::get('/', 'PageController@getIndex');
 
 Auth::routes(['register' => false]);
 
-Route::get('templates', ['as'=>'template','uses'=>'PageController@getTemplates']);
+Route::get('templates', ['as'=>'template','uses'=>'TemplateController@getTemplates']);
 
 Route::get('notices', ['as'=>'notice','uses'=>'NoticeController@index']);
 

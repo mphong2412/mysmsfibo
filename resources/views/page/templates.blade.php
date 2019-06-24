@@ -49,6 +49,7 @@
                             @endif
                         </tr>
                     </thead>
+                    @if (auth::user()->role==1)
                     @foreach($templates as $t)
                     <tbody>
                         <tr>
@@ -68,6 +69,8 @@
                         </tr>
                     </tbody>
                     @endforeach
+                    @endif
+                    
                 </table>
                 <p class="pull-left">Hiển thị {{count($templates)}} mẫu tin.</p>
                 {{$templates->links()}}

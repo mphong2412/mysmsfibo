@@ -102,7 +102,8 @@ class ServiceController extends Controller
         $notices = notices::all();
         $services = list_services::find($id);
         $user = account::all();
-        return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices,'account'=>$user]);
+        $user_has_list_services = user_has_list_services::orderBy('id')->paginate(5);
+        return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices,'account'=>$user,'user_has_list_services'=>$user_has_list_services]);
     }
     public function postSua(Request $request, $id)
     {

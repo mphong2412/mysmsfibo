@@ -13,9 +13,19 @@ use App\account;
 use App\user_has_templates;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use DB;
 
 class TemplateController extends Controller
 {
+    public function getTemplates()
+    {
+        $notices = notices::all();
+        $service = list_services::all();
+        $user = account::all();
+        $user_has_templates = user_has_templates::all();
+        $templates = templates::orderBy('id')->paginate(10);
+        return view('page.templates', ['templates'=>$templates,'notices'=>$notices,'user_has_templates'=>$user_has_templates,'account'=>$user]);
+    }
     /**
     * Xoa template
     * @param $id
@@ -38,8 +48,10 @@ class TemplateController extends Controller
     {
         $notices = notices::all();
         $services = list_services::all();
+        $user = account::all();
         $templates = templates::find($id);
-        return view('page/templates/sua', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices]);
+        $user_has_templates = user_has_templates::all();
+        return view('page/templates/sua', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices,'user_has_templates'=>$user_has_templates,'account'=>$user]);
     }
     /**
      * [postSua description]
@@ -64,8 +76,14 @@ class TemplateController extends Controller
         $templates = templates::find($id);
         $templates->service = $request->txtService;
         $templates->template= $request->txtTemplate;
+        $total_input = $request->get('total_input');
         $templates->save();
-
+        for ($i = 0; $i < $total_input; $i++) {
+            if (!empty($request->get('id_' . $i))) {
+                $user_id = $request->get('id_' . $i);
+                $this->saveU($templates->id, $user_id);
+            }
+        }
         return redirect('templates')->with('thongbao', 'Cập nhật thành công');
     }
 
