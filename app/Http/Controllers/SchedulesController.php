@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\schedules;
 use App\notices;
+use App\contact_groups;
 
 class SchedulesController extends Controller
 {
@@ -25,9 +26,12 @@ class SchedulesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function add()
     {
-        //
+        $notices = notices::all();
+        $group = contact_groups::all();
+        $schedules = schedules::all();
+        return view('page.schedules.add', ['schedules'=>$schedules,'contact_groups'=>$group,'notices'=>$notices]);
     }
 
     /**

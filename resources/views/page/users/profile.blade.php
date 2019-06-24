@@ -34,21 +34,21 @@
                                 </div>
                                 <div class="col-md-10" id="input" style="float:right">
 
-                                    <input type="text" name="txtUname" value="{{$account->username}}" style="margin-top:2%" size="50%" disabled><br>
+                                    <input class="form-control" type="text" name="txtUname" value="{{$account->username}}" style="margin-top:1%;width:50%" disabled>
 
-                                    <input type="text" name="txtFname" value="{{$account->fullname}}" style="margin-top:2%" size="50%"><br>
+                                    <input class="form-control" type="text" name="txtFname" value="{{$account->fullname}}" style="margin-top:1%;width:50%">
 
-                                    <input type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:2%" size="50%" disabled><br>
+                                    <input class="form-control" type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:1%;width:50%" disabled>
 
-                                    <input type="password" name="txtApiP" value="{{$account->user_pass}}" style="margin-top:2%" size="50%" disabled><br>
+                                    <input class="form-control" type="password" name="txtApiP" value="{{$account->user_pass}}" style="margin-top:1%;width:50%" disabled>
 
-                                    <input type="email" name="txtEmail" value="{{$account->email}}" style="margin-top:2%" size="50%"><br>
+                                    <input class="form-control" type="email" name="txtEmail" value="{{$account->email}}" style="margin-top:1%;width:50%">
 
-                                    <input type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:2%" size="50%" disabled><br>
+                                    <input class="form-control" type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:1%;width:50%" disabled>
 
-                                    <input type="password" name="txtPass" id="txtPass" style="margin-top:2% ;display:none" placeholder="nhập mật khẩu hiện tại" size="50%"><br>
+                                    <input class="form-control" type="password" name="txtPass" id="txtPass" style="margin-top:1%;width:50% ;display:none" placeholder="nhập mật khẩu hiện tại">
 
-                                    <input type="password" name="newpass" id="newpass" style="margin-top:2%;display:none" placeholder="nhập mật khẩu mới" id="npass" size="50%">
+                                    <input class="form-control" type="password" name="newpass" id="newpass" style="margin-top:1%;width:50%;display:none" placeholder="nhập mật khẩu mới" id="npass">
                                 </div>
                             </div>
                         </div>
@@ -59,24 +59,25 @@
                         <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
                         <input type="checkbox" name="btnrpass" id="btnrpass">Đổi mật khẩu
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                </div><!-- /.table-responsive -->
+            </div><!-- /.card-body -->
+        </div><!-- /.card-shadow -->
+    </div><!-- /.md-6 -->
+</div> <!-- /.container-fluid -->
 
-    <script type="text/javascript">
-        document.getElementById('btnrpass').onchange = function() {
-            if (this.checked) {
-                document.getElementById('oldpass').style.display = '';
-                document.getElementById('newpa').style.display = '';
-                document.getElementById('txtPass').style.display = '';
-                document.getElementById('newpass').style.display = '';
-            } else {
-                document.getElementById('oldpass').style.display = 'none';
-                document.getElementById('newpa').style.display = 'none';
-                document.getElementById('txtPass').style.display = 'none';
-                document.getElementById('newpass').style.display = 'none';
-            }
-        };
-    </script>
-    @endsection
+<script type="text/javascript">
+    document.getElementById('btnrpass').onchange = function() {
+        if (this.checked) {
+            document.getElementById('oldpass').style.display = '';
+            document.getElementById('newpa').style.display = '';
+            document.getElementById('txtPass').style.display = '';
+            document.getElementById('newpass').style.display = '';
+        } else {
+            document.getElementById('oldpass').style.display = 'none';
+            document.getElementById('newpa').style.display = 'none';
+            document.getElementById('txtPass').style.display = 'none';
+            document.getElementById('newpass').style.display = 'none';
+        }
+    };
+</script>
+@endsection

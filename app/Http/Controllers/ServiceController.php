@@ -7,7 +7,10 @@ use App\list_services;
 use App\templates;
 use session;
 use validator;
+use App\account;
 use App\notices;
+use App\user_has_list_services;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -37,7 +40,8 @@ class ServiceController extends Controller
         $notices = notices::all();
         $template = templates::all();
         $services = list_services::all();
-        return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices]);
+        $user = account::all();
+        return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices,'account'=>$user]);
     }
 
     public function postAdd(Request $request)
@@ -48,6 +52,7 @@ class ServiceController extends Controller
             'txtName' => 'required|unique:list_services,name',
         ],
             [
+            'txtName.require'=>'Vui lòng nhập thông tin.',
             'txtName.unique'=>'The service has already exists.',
         ]
        );
@@ -55,7 +60,16 @@ class ServiceController extends Controller
         $services = new list_services();
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
+        $services->created_by=auth::user()->username;
+        $total_input = $request->get('total_input');
         $services->save();
+        for ($i = 0; $i < $total_input; $i++) {
+            if (!empty($request->get('id_' . $i))) {
+                $user_id = $request->get('id_' . $i);
+                $this->saveS($services->id, $user_id);
+            }
+        }
+
         return redirect('services')->with('thongbao', 'Bạn đã thêm thành công');
     }
 
@@ -87,7 +101,9 @@ class ServiceController extends Controller
     {
         $notices = notices::all();
         $services = list_services::find($id);
-        return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices]);
+        $user = account::all();
+        $user_has_list_services = user_has_list_services::orderBy('id')->paginate(5);
+        return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices,'account'=>$user,'user_has_list_services'=>$user_has_list_services]);
     }
     public function postSua(Request $request, $id)
     {
@@ -101,20 +117,30 @@ class ServiceController extends Controller
         $services = list_services::find($id);
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
+        $total_input = $request->get('total_input');
         $services->save();
+        for ($i = 0; $i < $total_input; $i++) {
+            if (!empty($request->get('id_' . $i))) {
+                $user_id = $request->get('id_' . $i);
+                $this->saveS($services->id, $user_id);
+            }
+        }
+
         return redirect('services')->with('thongbao', 'Sửa thành công');
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * [saveS description]
+     * @param  $id
+     * @param  $user_id
+     * @return [type]
      */
-    public function update(Request $request, $id)
+    public function saveS($id, $user_id)
     {
-        //
+        $s = new user_has_list_services;
+        $s->service_id = $id;
+        $s->user_id = $user_id;
+        $s->save();
     }
 
     /**
@@ -126,7 +152,25 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $service = list_services::find($id);
+        $a = user_has_list_services::where('service_id', $id)->delete();
         $service->delete();
         return redirect('services')->with('thongbao', 'Xóa thành công');
+    }
+
+    /**
+     * [modaltu description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function modaltu(Request $request)
+    {
+        $notices = notices::all();
+        $modaltu = $request->get('su');
+        if ($modaltu != null) {
+            $user = account::orderBy('id')->where('username', 'like', '%'.$modaltu.'%')->paginate(5);
+            return view('page/templates/them', ['account'=>$user,'notices'=>$notices]);
+        } else {
+            return redirect('templates/them');
+        }
     }
 }

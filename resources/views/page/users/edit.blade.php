@@ -34,12 +34,12 @@
                                     <label style="margin-top:10%">Công ty: </label><br>
                                     <label style="margin-top:10%">Địa chỉ: </label><br>
                                     <label style="margin-top:10%">Số luọng tin nhắn: </label><br>
-                                    <label style="margin-top:10%">Quyền: </label><br>
+                                    {{-- <label style="margin-top:10%">Quyền: </label><br> --}}
                                     <label style="margin-top:10%; display:none" id="lpass">Mật khẩu: </label>
                                 </div>
                                 <div class="col-md-10" id="input" style="float:right">
 
-                                    <select name="status" id="status" style="width:200px;margin-top:2%">
+                                    <select class="form-control" name="status" id="status" style="width:20%;margin-top:1%">
                                         @if($account->status == 1)
                                             <option value="1">Kích hoạt</option>
                                             <option value="2">Không kích hoạt</option>
@@ -48,47 +48,27 @@
                                                 <option value="2">Không kích hoạt</option>
                                                 <option value="1">Kích hoạt</option>
                                                 @endif
-                                    </select><br>
+                                    </select>
 
-                                    <input type="text" name="txtUname" value="{{$account->username}}" style="margin-top:2%" size="50%" readonly><br>
+                                    <input class="form-control" type="text" name="txtUname" value="{{$account->username}}" style="width:45%;margin-top:1%" readonly>
 
-                                    <input type="text" name="txtFname" value="{{$account->fullname}}" style="margin-top:2%" size="50%"><br>
+                                    <input class="form-control" type="text" name="txtFname" value="{{$account->fullname}}" style="width:45%;margin-top:1%">
 
+                                    <input class="form-control" type="text" name="txtApiU" value="{{$account->user_api}}" style="width:45%;margin-top:1%">
 
+                                    <input class="form-control" type="password" name="txtApiP" value="{{$account->user_pass}}" style="width:45%;margin-top:1%">
 
-                                    <input type="text" name="txtApiU" value="{{$account->user_api}}" style="margin-top:2%" size="50%"><br>
+                                    <input class="form-control" type="email" name="txtEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{$account->email}}" style="width:45%;margin-top:1%"readonly>
 
-                                    <input type="password" name="txtApiP" value="{{$account->user_pass}}" style="margin-top:2%" size="50%"><br>
+                                    <input class="form-control" type="tel" id="phone" name="txtPhone" value="{{$account->phone}}" style="width:45%;margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Please enter phone number." />
 
-                                    <input type="email" name="txtEmail" value="{{$account->email}}" style="margin-top:2%" size="50%" readonly><br>
+                                    <input class="form-control" type="text" name="txtCompa" value="{{$account->company}}" style="width:45%;margin-top:1%">
 
-                                    <input type="tel" id="phone" name="txtPhone" value="{{$account->phone}}" size="50px" style="margin-top:2%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Please enter phone number." /><br>
+                                    <input class="form-control" type="text" name="txtAddress" value="{{$account->address}}" style="width:45%;margin-top:1%">
 
-                                    <input type="text" name="txtCompa" value="{{$account->company}}" style="margin-top:2%" size="50%"><br>
+                                    <input class="form-control" type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="width:45%;margin-top:1%">
 
-                                    <input type="text" name="txtAddress" value="{{$account->address}}" style="margin-top:2%" size="50%"><br>
-
-                                    <input type="number" name="txtLimit" value="{{$account->limit_sms}}" min="0" style="margin-top:2%" size="50%"><br>
-
-                                    <select name="role" id="role" style="width:200px;margin-top:2%">
-                                        @if($account->role == 1)
-                                            <option value="1">Admin</option>
-                                            <option></option>
-                                            <option value="2">Người dùng</option>
-                                            <option value="3">Người dùng phụ</option>
-                                            @endif
-                                            @if($account->role == 2)
-                                                <option value="2">Người dùng</option>
-                                                <option></option>
-                                                <option value="3">Người dùng phụ</option>
-                                                @endif
-                                                @if($account->role == 3)
-                                                    <option value="3">Người dùng phụ</option>
-                                                    <option></option>
-                                                    <option value="2">Người dùng</option>
-                                                    @endif
-                                    </select><br>
-                                    <input type="password" name="txtPass" id="txtPass" style="margin-top:2%; display:none" size="50%" />
+                                    <input class="form-control" type="password" name="txtPass" title="Cấp mật khẩu mới." id="txtPass" style="width:45%;margin-top:1%; display:none" />
                                 </div>
                             </div>
                         </div>
@@ -101,21 +81,28 @@
                         <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
 
                         <!-- checkbox change password -->
+                        @if (auth::user()->role == 1)
                         <input type="checkbox" name="ip1" id="ip1"> Reset password
+                        @endif
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.getElementById('ip1').onchange = function() {
-            if (this.checked) {
-                document.getElementById('txtPass').style.display = '';
-                document.getElementById('lpass').style.display = '';
-            } else {
-                document.getElementById('txtPass').style.display = 'none';
-                document.getElementById('lpass').style.display = 'none';
-            }
-        };
-    </script>
-    @endsection
+                </div><!--/.table-responsive-->
+            </div><!--/.card-body-->
+        </div><!--/.card-shadow-->
+    </div><!--/.md-6-->
+</div><!--/.container-fluid-->
+
+<script>
+    < blade
+    if / > (auth::user() - > role == 1)
+    document.getElementById('ip1').onchange = function() {
+        if (this.checked) {
+            document.getElementById('txtPass').style.display = '';
+            document.getElementById('lpass').style.display = '';
+        } else {
+            document.getElementById('txtPass').style.display = 'none';
+            document.getElementById('lpass').style.display = 'none';
+        }
+    }; <
+    blade endif / >
+</script>
+@endsection

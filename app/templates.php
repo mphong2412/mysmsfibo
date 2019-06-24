@@ -15,6 +15,6 @@ class templates extends Model
 
     public function user_has_templates()
     {
-        return $this->hasmany('App\user_has_templates', 'templates_id', 'id');
+        return $this->hasmany('App\user_has_templates', 'template_id', 'id');
     }
 }

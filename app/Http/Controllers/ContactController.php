@@ -53,7 +53,7 @@ class ContactController extends Controller
      * Cập nhật thông tin vào database
      * @param  Request $request
      * @param   $id
-     * @return [view danh sách]
+     * @return \Illuminate\Http\Response
      */
     public function postSua(Request $request, $id)
     {
@@ -131,11 +131,12 @@ class ContactController extends Controller
      */
     public function searchc(Request $request)
     {
+        $groups = contact_groups::all();
         $notices = notices::all();
         $key = $request->get('key');
         if ($key != null) {
             $contact = contacts::orderBy('id')->where('phone', 'like', '%'.$key.'%')->orWhere('full_name', 'like', '%'.$key.'%')->paginate(10);
-            return view('page.contacts.list', ['contacts'=>$contact,'notices'=>$notices]);
+            return view('page.contacts.list', ['contacts'=>$contact,'notices'=>$notices,'contact_groups'=>$groups]);
         } else {
             return redirect('contacts/list');
         }

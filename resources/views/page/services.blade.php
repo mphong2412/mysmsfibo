@@ -28,9 +28,12 @@
                             <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
+                            @if (auth::user()->role == 1)
                             <button class="btn btn-success" type="button" style="margin-left: 10px" onclick="window.location.href='services/add'">
                                 <i class="fas fa-plus fa-sm"> Thêm mới</i>
                             </button>
+                            @endif
+
                         </div>
                     </div>
                 </form>
@@ -40,7 +43,10 @@
                             <th width="25%">STT</th>
                             <th width="25%">Dịch vụ</th>
                             <th width="25%">Mô tả</th>
+                            @if (auth::user()->role == 1)
                             <th width="25%">Hành động</th>
+                            @endif
+
                         </tr>
                     </thead>
                     @foreach($service as $t)
@@ -49,6 +55,7 @@
                             <td>{{$t->id}}</td>
                             <td>{{$t->name}}</td>
                             <td>{{$t->description}}</td>
+                            @if (auth::user()->role == 1)
                             <td>
                                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
                                     <i class="fas fa-edit"></i>
@@ -57,15 +64,15 @@
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
+                            @endif
                         </tr>
                     </tbody>
                     @endforeach
                 </table>
                 <p class="pull-left">Hiển thị {{count($service)}} dịch vụ.</p>
                 {{$service->links()}}
-            </div>
-        </div>
-    </div>
-
-    <!-- /.container-fluid -->
-    @endsection
+            </div><!-- /.table-responsive -->
+        </div><!-- /.card-body-->
+    </div><!-- /.card-shadow -->
+</div><!-- /.container-fluid -->
+@endsection

@@ -29,9 +29,11 @@
                             <button class="btn btn-info" type="submit" style="margin-left: 10px">
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
+                            @if (auth::user()->role == 1)
                             <a href="templates/them"><button class="btn btn-success" type="button" style="margin-left: 10px">
                                     <i class="fas fa-plus fa-sm"> Thêm mới</i>
                                 </button></a>
+                            @endif
                         </div>
                     </div>
                 </form><br>
@@ -42,31 +44,38 @@
                             <th width="25%">STT</th>
                             <th width="25%">Dịch vụ</th>
                             <th width="25%">Mẫu tin</th>
+                            @if (auth::user()->role == 1)
                             <th width="25%">Hành động</th>
+                            @endif
                         </tr>
                     </thead>
+                    @if (auth::user()->role==1)
                     @foreach($templates as $t)
                     <tbody>
                         <tr>
                             <td>{{$t->id}}</td>
                             <td>{{$t->service}}</td>
                             <td>{{$t->template}}</td>
+                            @if (auth::user()->role == 1)
                             <td>
-                                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='templates/sua/{{$t->id}}'">
+                                <button class="btn btn-warning btn-warning btn-circle btn-sm" title="Chỉnh sửa" onclick="window.location.href='templates/sua/{{$t->id}}'">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
+                                <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
+                            @endif
                         </tr>
                     </tbody>
                     @endforeach
+                    @endif
+                    
                 </table>
                 <p class="pull-left">Hiển thị {{count($templates)}} mẫu tin.</p>
                 {{$templates->links()}}
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-    @endsection
+            </div><!-- /.table-responsive -->
+        </div><!-- /.card-body -->
+    </div><!-- /.card-shadow -->
+</div><!-- /.container-fluid -->
+@endsection

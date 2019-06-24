@@ -29,7 +29,7 @@
                             <button class="btn btn-info" type="submit" style="margin-left: 10px">
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
-                            <a href="templates/them"><button class="btn btn-success" type="button" style="margin-left: 10px">
+                            <a href="schedules/add"><button class="btn btn-success" type="button" style="margin-left: 10px">
                                     <i class="fas fa-plus fa-sm"> Thêm mới</i>
                                 </button></a>
                         </div>
@@ -75,8 +75,8 @@
                 </table>
                 <p class="pull-left">Hiển thị {{count($schedules)}} mẫu tin.</p>
                 {{$schedules->links()}}
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-    @endsection
+            </div> <!-- /.table-responsive -->
+        </div> <!-- /.card-body -->
+    </div> <!-- /.card-shadow -->
+</div><!-- /.container-fluid -->
+@endsection

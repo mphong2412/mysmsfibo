@@ -77,7 +77,6 @@
                         @if (Gate::denies('enable_function', 'error'))
                         <a class="collapse-item " href="compose">Tin lỗi</a>
                         @endif
-
                     </div>
                 </div>
             </li>
@@ -256,7 +255,6 @@
                 <div class="rev-slider">
                     @yield('content')
                 </div>
-            </div>
             <!-- End of Content Wrapper -->
             <!-- Footer -->
         </div>
@@ -288,7 +286,7 @@
             </div>
         </div>
     </div>
-</div>  
+</div>
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">

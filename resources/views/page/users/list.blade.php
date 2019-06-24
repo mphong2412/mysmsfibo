@@ -5,7 +5,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Quản lý tài khoản</h1>
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+    <div class="alert alert-danger">
         @foreach($errors->all() as $err)
             {{$err}} <br>
             @endforeach
@@ -38,13 +38,16 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr id="test">
-                            <th width="15%">Tên đăng nhập</th>
-                            <th width="15%">Họ tên</th>
-                            <th width="15%">Email</th>
-                            <th width="15%">Số điện thoại</th>
-                            <th width="15%">Người tạo</th>
-                            <th width="15%">Ngày tạo</th>
-                            <th width="15%">Hành động</th>
+                            <th width="12.5%">Tên đăng nhập</th>
+                            <th width="12.5%">Họ tên</th>
+                            <th width="12.5%">Email</th>
+                            <th width="12.5%">Số điện thoại</th>
+                            <th width="12.5%">Người tạo</th>
+                            <th width="12.5%">Ngày tạo</th>
+                            @if (auth::user()->role == 1)
+                            <th width="12.5%">Quyền</th>
+                            @endif
+                            <th width="12.5%">Hành động</th>
                         </tr>
                     </thead>
                     @foreach($account as $t)
@@ -58,10 +61,25 @@
                                 {{$t->created_by}}
                             </td>
                             <td>{{$t->created_at}}</td>
+                            @if (auth::user()->role == 1)
                             <td>
+                                @if ($t->role == 1)
+                                admin
+                                @endif
+                                @if ($t->role == 2)
+                                người dùng
+                                @endif
+                                @if ($t->role == 3)
+                                người dùng phụ
+                                @endif
+                            </td>
+                            @endif
+                            <td>
+                                <!--button edit-->
                                 <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='users/edit/{{$t->id}}'">
                                     <i class="fas fa-edit"></i>
                                 </button>
+                                <!--button delete-->
                                 <a href="users/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
@@ -72,8 +90,8 @@
                 </table>
                 <p class="pull-left">Hiển thị {{count($account)}} người dùng.</p>
                 {{$account->links()}}
-            </div>
-        </div>
-    </div>
-    <!-- /.container-fluid -->
-    @endsection
+            </div><!-- /.table-responsive -->
+        </div><!-- /.card-body -->
+    </div><!-- /.card-shadow-->
+</div><!-- /.container-fluid -->
+@endsection

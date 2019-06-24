@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use App\account;
 use App;
+use DB;
 use validator;
 use App\notices;
+use App\list_function;
+use App\authorization;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -45,7 +48,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = account::find($id);
-        $user ->delete();
+        $au = authorization::where('user_id', $id)->delete();
+        $user->delete();
         return redirect('users/list')->with('thongbao', 'Bạn đã xóa tài khoản thành công.');
     }
 
@@ -59,7 +63,23 @@ class UserController extends Controller
     {
         $notices = notices::all();
         $user = account::all();
-        return view('page.users.add', ['account'=>$user,'notices'=>$notices]);
+        $ab = list_function::all();
+        return view('page.users.add', ['account'=>$user,'notices'=>$notices,'list_function'=>$ab]);
+    }
+    // lưu id của list_function
+    public function funct()
+    {
+        $func = list_function::select('id', 'function_name')->get();
+        return $func;
+    }
+
+    // lưu thông tin vào authorization
+    public function saveAu($id, $function_id) //truyền vào id,function_id
+    {
+        $aut = new authorization;
+        $aut->user_id = $id;
+        $aut->function_id = $function_id;
+        $aut->save();
     }
 
     /**
@@ -73,15 +93,15 @@ class UserController extends Controller
         $this->validate($request, [
          'txtUname'=>'required',
          'txtFname'=>'required',
-         'txtPass'=>'required|min:6|max:20',
+         'txtPass'=>'required|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
          'txtEmail'=>'required|unique:users,email',
          'txtPhone'=>'required|min:8|max:12',
      ], [
          'txtUname.required'=>'Vui lòng nhập tên đăng nhập.',
          'txtFname.required'=>'Vui lòng nhập họ và tên.',
          'txtPass.required'=>'Vui lòng nhập mật khẩu.',
-         'txtPass.min'=>'Mật khẩu phải có tối thiểu 6 ký tự.',
-         'txtPass.max'=>'Mật khẩu tối đa là 20 ký tự.',
+         'txtPass.min'=>'Mật khẩu phải có ít nhất 6 ký tự.',
+         'txtPass.regex'=>'Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt, 1 ký tự số, 1 ký tự in hoa, 1 ký tự thường.',
          'txtEmail.required'=>'Vui lòng nhập email.',
          'txtEmail.unique'=>'Email này đã tồn tại.',
          'txtPhone.required'=>'Vui lòng nhập số điện thoại.',
@@ -104,7 +124,22 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->created_by=auth::user()->username;
         $user->save();
-        
+        $listFunction = $this->funct(); //gọi function
+        foreach ($listFunction as $key => $value) {
+            if ($request->role == 1) {
+                $this->saveAu($user->id, $value->id);
+            } elseif ($request->role == 2) {
+                if ($value->function_name == 'noticeconfig') {
+                    continue; // bỏ qua function_name cần bỏ qua
+                }
+                $this->saveAu($user->id, $value->id);
+            } elseif ($request->role == 3) {
+                if ($value->function_name == 'noticeconfig' || $value->function_name == 'userconfig') {
+                    continue;
+                }
+                $this->saveAu($user->id, $value->id);
+            }
+        }
         return redirect('users/list')->with('thongbao', 'Thêm tài khoản thành công.');
     }
 
@@ -144,7 +179,7 @@ class UserController extends Controller
         $user->address = $request->txtAddress;
         $user->limit_sms = $request->txtLimit;
         $user->status = $request->status;
-        $user->role = $request->role;
+        // $user->role = $request->role;
         $user->save();
         return redirect('users/list')->with('thongbao', 'Cập nhật tài khoản thành công.');
     }
@@ -174,10 +209,11 @@ class UserController extends Controller
         if (isset($request->txtPass)) {
             $this->validate($request, [
                 'txtPass' => 'min:6',
-                'newpass' => 'string|min:6',
+                'newpass' => 'string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
             ], [
                 'txtPass.min'=>'Mật khẩu hiện tại phải ít nhất 6 ký tự.',
-                'newpass.min'=>'Mật khẩu mới phải có ít nhất 6 ký tự.'
+                'newpass.min'=>'Mật khẩu mới phải có ít nhất 6 ký tự.',
+                'newpass.regex'=> 'Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt, 1 ký tự số, 1 ký tự in hoa, 1 ký tự thường.',
             ]);
             if (!Hash::check($request->get('txtPass'), Auth::user()->password)) {
                 return redirect()->back()->with('thongbao', 'Mật khẩu hiện tại của bạn không trùng khớp. Vui lòng thử lại.');
