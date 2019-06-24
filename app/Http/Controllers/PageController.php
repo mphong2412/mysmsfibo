@@ -31,7 +31,7 @@ class PageController extends Controller
         return view('page.trangchu', ['notices'=>$notices]);
     }
 
-    public function getCompose()
+    public function getGroup()
     {
         $notices = notices::all();
         $contact = contacts::all();
