@@ -45,7 +45,7 @@ Route::get('/logout', 'UserController@getLogout')->name('logout');
 Route::get('/compose', 'PageController@getCompose')->name('compose');
 // Route::get('/compose', 'PageController@getDecription')->name('compose.decription');
 Route::post('/compose', 'ExcelController@readImport')->name('compose.import');
-Route::get('/compose','PageController@getGroup')->name('compose.group');
+Route::get('/compose', 'PageController@getGroup')->name('compose.group');
 
 Route::get('autocomplete', 'TemplateController@autocomplete')->name('autocomplete');
 
@@ -61,7 +61,7 @@ Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
 
 
 
-Route::get('/decription','PageController@getDecription')->name('decription');
+Route::get('/decription', 'PageController@getDecription')->name('decription');
 
   Route::group(['prefix'=>'templates'], function () {
       // xóa templates
@@ -70,6 +70,7 @@ Route::get('/decription','PageController@getDecription')->name('decription');
       // sửa template
       Route::get('sua/{id}', 'TemplateController@getSua');
       Route::post('sua/{id}', 'TemplateController@postSua');
+
 
       //thêm template
       Route::get('them', 'TemplateController@getThem');

@@ -18,6 +18,7 @@ class ServiceController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +28,9 @@ class ServiceController extends Controller
     {
         $notices = notices::all();
         $service = list_services::orderBy('id')->paginate(10);
-        return view('page.services', compact('service', 'notices'));
+        $user = account::all();
+        $user_has_list_services = user_has_list_services::all();
+        return view('page.services', compact('service', 'notices', 'user_has_list_services'));
     }
 
     /**
@@ -46,17 +49,12 @@ class ServiceController extends Controller
 
     public function postAdd(Request $request)
     {
-        $this->validate(
-            $request,
-            [
+        $this->validate($request, [
             'txtName' => 'required|unique:list_services,name',
-        ],
-            [
+        ], [
             'txtName.require'=>'Vui lòng nhập thông tin.',
             'txtName.unique'=>'The service has already exists.',
-        ]
-       );
-
+        ]);
         $services = new list_services();
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
@@ -82,10 +80,11 @@ class ServiceController extends Controller
     public function searchs(Request $request)
     {
         $notices = notices::all();
+        $user_has_list_services  = user_has_list_services::all();
         $searchs = $request->get('key');
         if ($searchs != null) {
             $service = list_services::orderBy('id')->where('name', 'like', '%'.$searchs.'%')->paginate(10);
-            return view('page.services', compact('service', 'notices'));
+            return view('page.services', compact('service', 'notices', 'user_has_list_services'));
         } else {
             return redirect('services');
         }
@@ -107,12 +106,9 @@ class ServiceController extends Controller
     }
     public function postSua(Request $request, $id)
     {
-        $this->validate(
-            $request,
-            [
+        $this->validate($request, [
            'txtName' => 'required ',
-       ]
-      );
+       ]);
 
         $services = list_services::find($id);
         $services->name = $request->txtName;

@@ -13,7 +13,6 @@ use App\account;
 use App\user_has_templates;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use DB;
 
 class TemplateController extends Controller
 {
@@ -35,6 +34,7 @@ class TemplateController extends Controller
     {
         $templates = templates::find($id);
         $as = user_has_templates::where('template_id', $id)->delete();
+        $as = user_has_templates::where('user_id', $id)->delete();
         $templates->delete();
         return redirect('templates')->with('thongbao', 'Xóa thành công');
     }
@@ -50,7 +50,7 @@ class TemplateController extends Controller
         $services = list_services::all();
         $user = account::all();
         $templates = templates::find($id);
-        $user_has_templates = user_has_templates::all();
+        $user_has_templates = user_has_templates::orderBy('id')->paginate(5);
         return view('page/templates/sua', ['templates'=>$templates,'list_services'=>$services,'notices'=>$notices,'user_has_templates'=>$user_has_templates,'account'=>$user]);
     }
     /**
@@ -61,17 +61,13 @@ class TemplateController extends Controller
      */
     public function postSua(Request $request, $id)
     {
-        $this->validate(
-            $request,
-            [
+        $this->validate($request, [
            'txtService' => 'required ',
            'txtTemplate' =>'required ',
-       ],
-            [
+       ], [
            'txtService.required'=>'Vui lòng nhập dịch vụ.',
            'txtTemplate.required'=>'Vui lòng nhập mẫu tin.',
-       ]
-        );
+       ]);
 
         $templates = templates::find($id);
         $templates->service = $request->txtService;
@@ -106,18 +102,14 @@ class TemplateController extends Controller
      */
     public function postThem(Request $request)
     {
-        $this->validate(
-            $request,
-            [
+        $this->validate($request, [
          'txtService' => 'required ',
          'txtTemplate' =>'required|unique:templates,template',
-        ],
-            [
+        ], [
          'txtService.required'=>'Vui lòng nhập dịch vụ.',
          'txtTemplate.required'=>'Vui lòng nhập mẫu tin.',
          'txtTemplate.unique'=>'Mẫu tin này đã tồn tại. ',
-        ]
-        );
+        ]);
         $templates = new templates();
         $templates->service = $request->txtService;
         $templates->template = $request->txtTemplate;
@@ -142,10 +134,11 @@ class TemplateController extends Controller
     public function searcht(Request $request)
     {
         $notices = notices::all();
+        $user_has_templates = user_has_templates::all();
         $searcht = $request->get('key');
         if ($searcht != null) {
             $templates = templates::orderBy('id')->where('service', 'like', '%'.$searcht.'%')->orWhere('template', 'like', '%'.$searcht.'%')->paginate(10);
-            return view('page.templates', compact('templates', 'notices'));
+            return view('page.templates', compact('templates', 'notices', 'user_has_templates'));
         } else {
             return redirect('templates');
         }
@@ -167,6 +160,7 @@ class TemplateController extends Controller
             return redirect('templates/them');
         }
     }
+
     /**
      * [saveU description]
      * @param  [type] $id      [description]

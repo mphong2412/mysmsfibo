@@ -57,19 +57,15 @@ class ContactController extends Controller
      */
     public function postSua(Request $request, $id)
     {
-        $this -> validate(
-            $request,
-            [
+        $this -> validate($request, [
             'gname' => 'required',
             'txtPhone' => 'required|min:8|max:11',
-        ],
-            [
+        ], [
             'gname.required'=>'Please choose groups.',
             'txtPhone.min'=>'This is an invalid phone number.',
             'txtPhone.max'=>'This is an invalid phone number.',
             'txtPhone.required'=>'Please enter your phone number.',
-        ]
-        );
+        ]);
         $contact = contacts::find($id);
         $contact->contact_groups_id = $request->gname;
         $contact->phone = $request->txtPhone;
@@ -81,7 +77,6 @@ class ContactController extends Controller
         $contact->address = $request->address;
         $contact->status = $request->status;
         $contact->save();
-
         return redirect('contacts/list')->with('thongbao', 'Cập nhật thông tin thành công');
     }
     /**
@@ -158,19 +153,15 @@ class ContactController extends Controller
 
     public function postThem(Request $request)
     {
-        $this -> validate(
-            $request,
-            [
+        $this -> validate($request, [
             'gname' => 'required',
             'txtPhone' => 'required|min:8|max:11',
-        ],
-            [
+        ], [
             'gname.required'=>'Please choose groups.',
             'txtPhone.min'=>'This is an invalid phone number.',
             'txtPhone.max'=>'This is an invalid phone number.',
             'txtPhone.required'=>'Please enter your phone number.',
-        ]
-        );
+        ]);
         $contact = new contacts();
         $contact->contact_groups_id = $request->gname;
         $contact->phone = $request->txtPhone;

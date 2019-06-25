@@ -32,7 +32,7 @@
                             </button>
                         </div>
 
-                        <table class="table table-bordered" id="dataTable" width="100%">
+                        <table class="table table-bordered table-hover" id="dataTable" width="100%">
                             <thead class="thead-dark">
                                 <tr>
                                     <th width="20%">Tên</th>
@@ -42,16 +42,18 @@
                                 </tr>
                             </thead>
                             @foreach ($user_has_list_services as $key => $value)
+                            @if ($value->service_id == $list_services->id)
+                            @foreach ($account as $key => $a)
+                            @if ($a->id == $value->user_id)
                             <tbody>
-                                @foreach ($account as $key => $values)
-                                    @if ($value->user_id == $values->id)
-                                    <td width="20%">{{$values->username}}</td>
-                                    <td width="20%">{{$values->email}}</td>
-                                    <td width="20%">{{$values->phone}}</td>
-                                    @endif
-                                @endforeach
-                                <td width="20%"><img src='source/img/del.png' data-user_id=" + d + " class='btnDelete'/></td>
+                                <td width="20%">{{$a->username}}</td>
+                                <td width="20%">{{$a->email}}</td>
+                                <td width="20%">{{$a->phone}}</td>
+                                <td width="20%"><img src='source/img/del.png' data-user_id=" + d + " class='btnDelete' /></td>
                             </tbody>
+                            @endif
+                            @endforeach
+                            @endif
                             @endforeach
                         </table>
                         {{$user_has_list_services->links()}}
@@ -86,7 +88,7 @@
                         </div>
                     </div>
                 </form>
-                <table class="table table-striped table-bordered table-md" id="tbUser" width="100%" height="10%">
+                <table class="table table-striped table-bordered table-hover table-md" id="tbUser" width="100%" height="10%">
                     <thead class="thead-dark">
                         <tr>
                             <th width="25%">Tên</th>

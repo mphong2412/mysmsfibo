@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="md-6">
         @if(count($errors) > 0)
-        <div class="elert alert-danger">
+        <div class="alert alert-danger">
             @foreach($errors->all() as $err)
                 {{$err}} <br>
                 @endforeach
@@ -17,7 +17,6 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <form action="templates/sua/{{$templates->id}}" method="POST">
-
                         <div class="container">
                             <h2>Thông tin mẫu tin</h2>
                             <input type="hidden" name="_token" value="{{csrf_token()}}" />
@@ -34,7 +33,7 @@
                             </button> <br>
                         </div>
 
-                        <table class="table table-bordered" id="dataTable" width="100%">
+                        <table class="table table-bordered table-hover" id="dataTable" width="100%">
                             <thead class="thead-dark">
                                 <tr>
                                     <th width="20%">Tên</th>
@@ -44,20 +43,21 @@
                                 </tr>
                             </thead>
                             @foreach ($user_has_templates as $key => $value)
-                            @if ($value->template_id == $templates->id)
-                            @foreach ($account as $key => $a)
-                            @if ($a->id == $value->user_id)
-                            <tbody>
-                                <td width="20%">{{$a->username}}</td>
-                                <td width="20%">{{$a->email}}</td>
-                                <td width="20%">{{$a->phone}}</td>
-                                <td width="20%"><img src='source/img/del.png' data-user_id=" + d + " class='btnDelete' /></td>
-                            </tbody>
-                            @endif
-                            @endforeach
-                            @endif
+                                @if ($value->template_id == $templates->id)
+                                    @foreach ($account as $key => $a)
+                                        @if ($a->id == $value->user_id)
+                                            <tbody>
+                                                <td width="20%">{{$a->username}}</td>
+                                                <td width="20%">{{$a->email}}</td>
+                                                <td width="20%">{{$a->phone}}</td>
+                                                <td width="20%"><img src='source/img/del.png' data-user_id=" + d + " class='btnDelete'/></td>
+                                            </tbody>
+                                        @endif
+                                    @endforeach
+                                @endif
                             @endforeach
                         </table>
+                        {{$user_has_templates->links()}}
 
                         <button class="btn btn-success" type="button" style="margin: 1%" onclick="window.location.href='templates'">
                             <i class="fas fa-times fa-sm"> Hủy</i>
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </form>
-                <table class="table table-striped table-bordered table-md" id="tbUser" width="100%" height="10%">
+                <table class="table table-striped table-bordered table-hover table-md" id="tbUser" width="100%" height="10%">
                     <thead class="thead-dark">
                         <tr>
                             <th width="25%">Tên</th>
@@ -100,16 +100,16 @@
                         </tr>
                     </thead>
                     @foreach ($account as $value)
-                    <tbody>
-                        <td>{{$value->username}}</td>
-                        <td>{{$value->email}}</td>
-                        <td>{{$value->phone}}</td>
-                        <td>
-                            <button class="btn btn-success btn-circle btn-sm" id="addtu" name="addtu" onclick="test({{ "'" . $value->id . "'"}}, {{ "'" . $value->username . "'"}},   {{ "'" . $value->email . "'" }}, {{ "'" . $value->phone . "'" }})">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </td>
-                    </tbody>
+                        <tbody>
+                            <td>{{$value->username}}</td>
+                            <td>{{$value->email}}</td>
+                            <td>{{$value->phone}}</td>
+                            <td>
+                                <button class="btn btn-success btn-circle btn-sm" id="addtu" name="addtu" onclick="test({{ "'" . $value->id . "'"}}, {{ "'" . $value->username . "'"}},   {{ "'" . $value->email . "'" }}, {{ "'" . $value->phone . "'" }})">
+                                        <i class="fas fa-plus"></i>
+                                </button>
+                            </td>
+                        </tbody>
                     @endforeach
                 </table>
             </div>
@@ -147,11 +147,9 @@
             "<td><img src='source/img/del.png' data-user_id=" + d + " class='btnDelete'/></td>" +
             '</tr>');
         $(".btnDelete").bind("click", Delete);
-
         $('.aa').append('<input id="ids_' + d + '" name="id_' + d + '" type="text" value="' + id + '" />');
         d = d + 1;
         $('#total_input').val(d);
-
     }
 
     function Delete() {

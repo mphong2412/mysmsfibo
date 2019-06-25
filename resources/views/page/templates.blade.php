@@ -5,7 +5,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Quản lý mẫu tin</h1>
     @if(count($errors) > 0)
-    <div class="elert alert-danger">
+    <div class="alert alert-danger">
         @foreach($errors->all() as $err)
             {{$err}} <br>
             @endforeach
@@ -26,7 +26,7 @@
                     <div class="input-group">
                         <input type="search" class="form-control bg-light border-0 small" name="key" id="key" aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-info" type="submit" style="margin-left: 10px">
+                            <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
                             @if (auth::user()->role == 1)
@@ -36,12 +36,11 @@
                             @endif
                         </div>
                     </div>
-                </form><br>
-                <br>
+                </form><br><br>
+
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="25%">STT</th>
                             <th width="25%">Dịch vụ</th>
                             <th width="25%">Mẫu tin</th>
                             @if (auth::user()->role == 1)
@@ -50,29 +49,45 @@
                         </tr>
                     </thead>
                     @if (auth::user()->role==1)
-                    @foreach($templates as $t)
-                    <tbody>
-                        <tr>
-                            <td>{{$t->id}}</td>
-                            <td>{{$t->service}}</td>
-                            <td>{{$t->template}}</td>
-                            @if (auth::user()->role == 1)
-                            <td>
-                                <button class="btn btn-warning btn-warning btn-circle btn-sm" title="Chỉnh sửa" onclick="window.location.href='templates/sua/{{$t->id}}'">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                            @endif
-                        </tr>
-                    </tbody>
-                    @endforeach
+                        @foreach($templates as $t)
+                            <tbody>
+                                <tr>
+                                    <td>{{$t->service}}</td>
+                                    <td>{{$t->template}}</td>
+                                    @if (auth::user()->role == 1)
+                                        <td>
+                                            <button class="btn btn-warning btn-warning btn-circle btn-sm" title="Chỉnh sửa" onclick="window.location.href='templates/sua/{{$t->id}}'">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <a href="templates/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    @endif
+                                </tr>
+                            </tbody>
+                        @endforeach
                     @endif
-                    
+                    @if (auth::user()->role != 1)
+                        @foreach ($user_has_templates as $key => $value)
+                            @if ($value->user_id == auth::user()->id)
+                                @foreach ($templates as $key => $t)
+                                    @if ($t->id == $value->template_id)
+                                        <tbody>
+                                            <tr>
+                                                <td>{{$t->service}}</td>
+                                                <td>{{$t->template}}</td>
+                                            </tr>
+                                        </tbody>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    @endif
                 </table>
-                <p class="pull-left">Hiển thị {{count($templates)}} mẫu tin.</p>
+                @if (auth::user()->role == 1)
+                    <p class="pull-left">Hiển thị {{count($templates)}} mẫu tin.</p>
+                @endif
                 {{$templates->links()}}
             </div><!-- /.table-responsive -->
         </div><!-- /.card-body -->

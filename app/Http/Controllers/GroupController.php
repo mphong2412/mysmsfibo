@@ -42,16 +42,12 @@ class GroupController extends Controller
     }
     public function postThem(Request $request)
     {
-        $this->validate(
-            $request,
-            [
+        $this->validate($request, [
             'txtGroup' => 'required |unique:contact_groups,name',
-        ],
-            [
+        ], [
             'txtGroup.required' => 'Please enter group name.',
             'txtGroup.unique' => 'This name has already exists.',
-        ]
-       );
+        ]);
 
         $groups = new contact_groups();
         $groups->name = $request->txtGroup;
@@ -93,33 +89,16 @@ class GroupController extends Controller
     }
     public function postSua(Request $request, $id)
     {
-        $this->validate(
-            $request,
-            [
+        $this->validate($request, [
             'txtGroup' => 'required ',
-        ],
-            [
+        ], [
             'txtGroup.require'=>'Please enter the group name.',
-        ]
-       );
-
+        ]);
         $groups = contact_groups::find($id);
         $groups->name = $request->txtGroup;
         $groups->description = $request->txtDesc;
         $groups->save();
         return redirect('group')->with('thongbao', 'Sửa thành công');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

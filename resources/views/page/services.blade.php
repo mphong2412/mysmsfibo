@@ -40,7 +40,6 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="25%">STT</th>
                             <th width="25%">Dịch vụ</th>
                             <th width="25%">Mô tả</th>
                             @if (auth::user()->role == 1)
@@ -49,27 +48,44 @@
 
                         </tr>
                     </thead>
-                    @foreach($service as $t)
-                    <tbody>
-                        <tr>
-                            <td>{{$t->id}}</td>
-                            <td>{{$t->name}}</td>
-                            <td>{{$t->description}}</td>
-                            @if (auth::user()->role == 1)
-                            <td>
-                                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <a href="services/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
-                            @endif
-                        </tr>
-                    </tbody>
+                    @if (auth::user()->role == 1)
+                        @foreach($service as $t)
+                        <tbody>
+                            <tr>
+                                <td>{{$t->name}}</td>
+                                <td>{{$t->description}}</td>
+                                @if (auth::user()->role == 1)
+                                <td>
+                                    <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <a href="services/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                @endif
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    @endif
+                    @foreach ($user_has_list_services as $key => $value)
+                        @if ($value->user_id == auth::user()->id)
+                            @foreach ($service as $key => $t)
+                                @if ($t->id == $value->service_id)
+                                    <tbody>
+                                        <tr>
+                                            <td>{{$t->name}}</td>
+                                            <td>{{$t->description}}</td>
+                                        </tr>
+                                    </tbody>
+                                @endif
+                            @endforeach
+                        @endif
                     @endforeach
                 </table>
-                <p class="pull-left">Hiển thị {{count($service)}} dịch vụ.</p>
+                @if (auth::user()->role == 1)
+                    <p class="pull-left">Hiển thị {{count($service)}} dịch vụ.</p>
+                @endif
                 {{$service->links()}}
             </div><!-- /.table-responsive -->
         </div><!-- /.card-body-->
