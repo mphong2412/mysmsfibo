@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.base')
 @section('content')
 <link href="source/css/style.css" rel="stylesheet">
 <div class="formCompose">
@@ -20,7 +20,7 @@
         <span class="" style="padding-left: 18%">Compose</span>
         <span class="" style="padding-left: 18%">Finish</span>
       </div>
-    </div></br>
+    </div>
 
     @csrf
     @if(count($errors))

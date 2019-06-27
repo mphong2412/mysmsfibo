@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Enums\ERoleUser;
+use App\Enums\EStatusUser;
+use App\Services\UserService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
+
 use DB;
 
 class LoginController extends Controller
@@ -29,16 +34,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/index';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
         $this->middleware('guest')->except('logout');
+        $this->userService = $userService;
     }
 
     public function username() {
@@ -47,30 +53,24 @@ class LoginController extends Controller
 
 
     /**
-    * Check status = 1 get Login,
+    * Check if status = 1 accept Login, else account block
     * status = 1 active account and status = 0 deactive.
     */
-    protected function authenticated(Request $request){
-      if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'status' => 0])){
-        Auth::logout();
-        //$request->session()->flash('alert-danger', 'Your Account is not activated yet.');
-        return redirect('login')->with('thongbao','DeActive');
-      }else
-      $iduser = auth()->id();
 
-      $result = DB::table('authorization')
-                ->join('users', 'authorization.user_id', '=', 'users.id')
-                ->join('list_function','authorization.function_id', '=', 'list_function.id')
-                ->where('users.id', '=', $iduser)
-                ->select('function_name')->get();
+    protected function authenticated(Request $request) {
 
-      Session::put('key_function', $result);
-      return redirect()->intended($this->redirectPath());
+        if(Auth::user()->role === ERoleUser::ADMIN) {
+            return redirect()->intended($this->redirectPath());
+
+        } else if(Auth::user()->status === EStatusUser::DEACTIVE) {
+            Auth::logout();
+            return redirect('login')->with('error_account', 'Tài khoản của bạn đã bị ngừng sử dụng! Vui lòng liên hệ admin.');
+
+        } else {
+            $authorizationUser = $this->userService->getAuthorization(auth()->id());
+            Session::put('key_function', $authorizationUser);
+            return redirect()->intended($this->redirectPath());
+
+        }
     }
-
-    // protected function credentials(\Illuminate\Http\Request $request)
-    // {
-    //     //return $request->only($this->username(), 'password');
-    //     return ['email' => $request->{$this->username()}, 'password' => $request->password, 'status' => 1];
-    // }
 }

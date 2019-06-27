@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.base')
 @section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Soạn/sửa tin nhắn cho lịch hẹn</h1>

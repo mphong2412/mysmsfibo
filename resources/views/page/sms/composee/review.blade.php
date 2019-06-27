@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.base')
 @section('content')
 <link href="source/css/style.css" rel="stylesheet">
 <h3>Review</h3>
