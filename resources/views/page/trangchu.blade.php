@@ -1,11 +1,11 @@
-@extends('master')
+@extends('layouts.base')
 @section('content')
 <!-- Begin Page Content -->
 <form action="index">
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <div class="d-sm-flex align-items-center justify-content-between mt-2 mb-4">
             <h1 class="h3 mb-0 text-gray-800">Thống kê</h1>
         </div>
 

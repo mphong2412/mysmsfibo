@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\contact_groups;
 use validator;
 use App\notices;
-use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -19,13 +18,6 @@ class GroupController extends Controller
     {
         $notices = notices::all();
         $groups = contact_groups::orderBy('id')->paginate(10);
-        $a = Auth::user()->username;
-        if (Auth::user()->role == 2) {
-            $groups = contact_groups::orderBy('id')->where('created_by', $a)->paginate(10);
-        }
-        if (Auth::user()->role == 3) {
-            $groups = contact_groups::orderBy('id')->where('created_by', $a)->paginate(10);
-        }
         return view('page.group', compact('groups', 'notices'));
     }
 
@@ -52,7 +44,6 @@ class GroupController extends Controller
         $groups = new contact_groups();
         $groups->name = $request->txtGroup;
         $groups->description = $request->txtDesc;
-        $groups->created_by=auth::user()->username;
         $groups->save();
         return redirect('group')->with('thongbao', 'Bạn đã thêm thành công');
     }

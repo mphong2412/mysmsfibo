@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.base')
 @section('content')
 <div class="container-fluid">
     <h2 class="h3 mb-2 text-gray-800">Thông tin tài khoản</h2>

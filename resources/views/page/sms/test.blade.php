@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.base')
 @section('content')
 <form action="{{route('import')}}" method="post">
   <input type="file" name="inputfile">

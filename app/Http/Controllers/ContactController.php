@@ -57,15 +57,19 @@ class ContactController extends Controller
      */
     public function postSua(Request $request, $id)
     {
-        $this -> validate($request, [
-            'gname' => 'required',
-            'txtPhone' => 'required|min:8|max:11',
-        ], [
-            'gname.required'=>'Please choose groups.',
-            'txtPhone.min'=>'This is an invalid phone number.',
-            'txtPhone.max'=>'This is an invalid phone number.',
-            'txtPhone.required'=>'Please enter your phone number.',
-        ]);
+        $this -> validate(
+            $request,
+            [
+                'gname' => 'required',
+                'txtPhone' => 'required|min:8|max:11',
+            ],
+            [
+                'gname.required' => 'Please choose groups.',
+                'txtPhone.min'=>'This is an invalid phone number.',
+                'txtPhone.max'=>'This is an invalid phone number.',
+                'txtPhone.required'=>'Please enter your phone number.',
+            ]
+        );
         $contact = contacts::find($id);
         $contact->contact_groups_id = $request->gname;
         $contact->phone = $request->txtPhone;
@@ -96,10 +100,10 @@ class ContactController extends Controller
     public function contactImport(Request $request)
     {
         $this->validate($request, [
-            'input1'=>'required|mimes:xls,xlsx',
+            'input1' => 'required|mimes:xls,xlsx',
         ], [
-            'input1.required'=>'Vui lòng chọn tập tin cần import.',
-            'input1.mimes'=>'Tập tin không hợp lệ, chúng tôi hỗ trợ định dạng xlsx.',
+            'input1.required' => 'Vui lòng chọn tập tin cần import.',
+            'input1.mimes' => 'Tập tin không hợp lệ, chúng tôi hỗ trợ định dạng xlsx.',
         ]);
 
         if ($request->hasFile('input1')) {
