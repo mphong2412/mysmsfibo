@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
-use App\account;
-use App;
-use DB;
-use validator;
-use App\notices;
-use App\list_function;
-use App\authorization;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\User;
+use App\account;
+use App\notices;
+use App\list_function;
+use App\authorization;
+use App\ENums\ERoleUser;
+
+use App;
+use DB;
+use validator;
+
 
 class UserController extends Controller
 {
@@ -33,7 +36,7 @@ class UserController extends Controller
         $notices = notices::all();
         $user = account::orderBy('id')->paginate(10);
         $a = Auth::user()->username;
-        if (Auth::user()->role == 2) {
+        if (Auth::user()->role == ERoleUser::ROOT) {
             $user = account::where('created_by', $a)->paginate(10);
         }
         return view('page.users.list', ['account'=>$user,'notices'=>$notices]);
@@ -156,13 +159,13 @@ class UserController extends Controller
           'txtFname'=>'required',
           'txtEmail'=>'required',
           'txtPhone'=>'required|min:8|max:12',
-      ], [
+        ], [
           'txtFname.required'=>'Vui lòng nhập họ và tên.',
           'txtEmail.required'=>'Vui lòng nhập email.',
           'txtPhone.required'=>'Vui lòng nhập số điện thoại.',
           'txtPhone.min'=>'Số điện thoại không hợp lệ.',
           'txtPhone.max'=>'Số điện thoại không hợp lệ.',
-      ]);
+        ]);
 
         $user = account::find($id);
         $user->username = $request->txtUname;
