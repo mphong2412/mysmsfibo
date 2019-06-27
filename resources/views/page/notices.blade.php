@@ -25,7 +25,7 @@
                         <input class="form-control" type="textarea" name="txtNotice" id="txtNotice" style="width:40%;height:80px">
                         <input type="text" name="status" value="1" hidden>
                     </div>
-                    <button class="btn btn-success" type="button" style="margin: 1%" onclick="window.location.href='notices'">
+                    <button class="btn btn-success" type="reset">
                         <i class="fas fa-times fa-sm"> Hủy bỏ</i>
                     </button>
                     <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 1%"> Lưu lại</button>
@@ -51,7 +51,7 @@
                             </td>
                             <td>{{$t->created_at}}</td>
                             <td>
-                                <a href="xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
+                                <a href="{{route('notice-del',[$t->id],false)}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

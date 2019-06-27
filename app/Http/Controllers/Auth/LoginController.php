@@ -45,7 +45,6 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->userService = $userService;
-
     }
 
     /**
@@ -53,20 +52,17 @@ class LoginController extends Controller
     * status = 1 active account and status = 0 deactive.
     */
 
-    protected function authenticated(Request $request) {
-
-        if(Auth::user()->role === ERoleUser::ADMIN) {
+    protected function authenticated(Request $request)
+    {
+        if (Auth::user()->role === ERoleUser::ADMIN) {
             return redirect()->intended($this->redirectPath());
-
-        } else if(Auth::user()->status === EStatusUser::DEACTIVE) {
+        } elseif (Auth::user()->status === EStatusUser::DEACTIVE) {
             Auth::logout();
             return redirect('login')->with('error_account', 'Tài khoản của bạn đã bị ngừng sử dụng! Vui lòng liên hệ admin.');
-        
         } else {
             $authorizationUser = $this->userService->getAuthorization(auth()->id());
             Session::put('key_function', $authorizationUser);
             return redirect()->intended($this->redirectPath());
-
         }
     }
 }

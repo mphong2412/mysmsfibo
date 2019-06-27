@@ -14,7 +14,7 @@
 
 Auth::routes(['register' => false]);
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     // Dashboard
     Route::get('', 'PageController@getIndex')->name('dashboard');
 
@@ -23,157 +23,118 @@ Route::group(['middleware' => ['auth']], function() {
         // SMS compose
         Route::get('compose', 'PageController@getGroup')->name('compose');
         // SMS draf
-
     });
 
     // Manage Templates
     Route::group(['prefix'=>'manage-templates'], function () {
         Route::get('', 'TemplateController@getTemplates')->name('template');
+
+        Route::get('xoa/{id}', 'TemplateController@getXoa')->name('template-del');
+
+        Route::post('sua/{id}', 'TemplateController@getSua')->name('template-edit');
+        Route::post('sua/{id}', 'TemplateController@postSua')->name('template-edit');
+
+
+        Route::get('them', 'TemplateController@getThem')->name('template-add');
+        Route::post('them', 'TemplateController@postThem')->name('template-add');
+
+        Route::get('searcht', 'TemplateController@searcht')->name('template-search');
+
+        Route::post('modaltu', ['as'=>'modaltu','uses'=>'TemplateController@modaltu']);
     });
 
     // Manage Services
     Route::group(['prefix'=>'manage-service'], function () {
         Route::get('', 'ServiceController@getList')->name('services');
+
+        Route::get('xoa/{id}', 'ServiceController@destroy')->name('services-del');
+
+        Route::get('edit/{id}', 'ServiceController@getSua')->name('services-edit');
+        Route::post('edit/{id}', 'ServiceController@postSua')->name('services-edit');
+
+        Route::get('add', 'ServiceController@getadd')->name('services-add');
+        Route::post('add', 'ServiceController@postadd')->name('services-add');
+
+        Route::get('searchs', 'ServiceController@searchs')->name('service-search');
     });
 
     // Manage Contact
     Route::group(['prefix'=>'manage-contact'], function () {
-        Route::get('address-book', 'ContactController@index')->name('contact-address-book');
-        Route::get('group', 'GroupController@getThem')->name('contact-group');
+        Route::get('', 'ContactController@index')->name('contact-address-book');
+
+        Route::get('add', 'ContactController@getThem')->name('contact-add');
+        Route::post('add', 'ContactController@postThem')->name('contact-add');
+
+        Route::get('edit/{id}', 'ContactController@getSua')->name('contact-edit');
+        Route::post('edit/{id}', 'ContactController@postSua')->name('contact-edit');
+
+        Route::get('xoa/{id}', 'ContactController@destroy')->name('contact-del');
+
+        Route::get('export', 'ContactController@contactExport')->name('contact.export');
+        Route::post('import', 'ContactController@contactImport')->name('contact.import');
+
+        Route::get('searchc', 'ContactController@searchc')->name('contact-search');
     });
 
-    // Manage Schedule 
+    // Manage Group
+    Route::group(['prefix'=>'manage-group'], function () {
+        Route::get('', 'GroupController@getGroup')->name('contact-group');
+
+        Route::get('add', 'GroupController@getThem')->name('group-add');
+        Route::post('add', 'GroupController@postThem')->name('group-add');
+
+        Route::get('edit/{id}', 'GroupController@getSua')->name('group-edit');
+        Route::post('edit/{id}', 'GroupController@postSua')->name('group-edit');
+
+        Route::get('xoa/{id}', 'GroupController@destroy')->name('group-del');
+
+        Route::get('searchg', 'GroupController@searchg');
+    });
+
+    // Manage Schedule
     Route::group(['prefix'=>'manage-schedule'], function () {
         Route::get('', 'SchedulesController@index')->name('schedule');
+
+        Route::get('add', 'SchedulesController@add');
     });
-    
-    // Manage Account 
+
+    // Manage Account
     Route::group(['prefix'=>'manage-account'], function () {
         Route::get('', 'UserController@getlist')->name('account');
+
+        Route::get('xoa/{id}', 'UserController@destroy')->name('account-del');
+
+        Route::get('add', 'UserController@getThem')->name('account-add');
+        Route::post('add', 'UserController@postThem')->name('account-add');
+
+        Route::get('edit/{id}', 'UserController@getSua')->name('account-edit');
+        Route::post('edit/{id}', 'UserController@postSua')->name('account-edit');
+
+        Route::get('profile', 'UserController@getInfo')->name('account-profile');
+        Route::post('profile', 'UserController@postInfo')->name('account-profile');
+
+        Route::get('searchu', 'UserController@searchu');
     });
-    
-    // Config notification 
+
+    // Manage Notice
     Route::group(['prefix'=>'config-notification'], function () {
         Route::get('', 'NoticeController@index')->name('notification');
+
+        Route::get('notice', 'NoticeController@getThem')->name('notice-add');
+        Route::post('notice', 'NoticeController@postThem')->name('notice-add');
+
+        Route::get('xoa/{id}', 'NoticeController@destroy')->name('notice-del');
     });
 
-
-
-    Route::get('templates', ['as'=>'template','uses'=>'TemplateController@getTemplates']);
-
-    Route::get('notices', ['as'=>'notice','uses'=>'NoticeController@index']);
-
-    Route::get('searcht', ['as'=>'searcht','uses'=>'TemplateController@searcht']);
-
-    Route::post('modaltu', ['as'=>'modaltu','uses'=>'TemplateController@modaltu']);
-
-    Route::get('searchg', ['as'=>'searchg','uses'=>'GroupController@searchg']);
-
-    Route::get('searchs', ['as'=>'searchs','uses'=>'ServiceController@searchs']);
-
-    Route::get('searchc', ['as'=>'searchc','uses'=>'ContactController@searchc']);
-
-    Route::get('searchu', ['as'=>'searchu','uses'=>'UserController@searchu']);
-
-    Route::get('group', ['as'=>'group','uses'=>'GroupController@getGroup']);
-
-    Route::get('contact', ['as'=>'contact','uses'=>'ContactController@index']);
     Route::get('/logout', 'UserController@getLogout')->name('logout');
 
     Route::get('/compose', 'PageController@getCompose')->name('compose');
     // Route::get('/compose', 'PageController@getDecription')->name('compose.decription');
     Route::post('/compose', 'ExcelController@readImport')->name('compose.import');
-    Route::get('/compose','PageController@getGroup')->name('compose.group');
+    Route::get('/compose', 'PageController@getGroup')->name('compose.group');
 
     Route::get('autocomplete', 'TemplateController@autocomplete')->name('autocomplete');
 
-    Route::get('them', 'TemplateController@getThem');
-    Route::post('them', 'TemplateController@postThem');
 
-    Route::get('notice', ['as'=>'notices','uses'=>'NoticeController@getThem']);
-    Route::post('notice', ['as'=>'notices','uses'=>'NoticeController@postThem']);
-
-    Route::get('xoa/{id}', ['as'=>'notices','uses'=>'NoticeController@destroy']);
-
-    Route::get('services', ['as'=>'service','uses'=>'ServiceController@getList']);
-
-
-
-    Route::get('/decription','PageController@getDecription')->name('decription');
-
-    Route::group(['prefix'=>'templates'], function () {
-        // xóa templates
-        Route::get('xoa/{id}', 'TemplateController@getXoa');
-
-        // sửa template
-        Route::get('sua/{id}', 'TemplateController@getSua');
-        Route::post('sua/{id}', 'TemplateController@postSua');
-
-        //thêm template
-        Route::get('them', 'TemplateController@getThem');
-        Route::post('them', 'TemplateController@postThem');
-    });
-
-    Route::group(['prefix'=>'services'], function () {
-
-            // xóa template
-        Route::get('xoa/{id}', 'ServiceController@destroy');
-
-        //   // sửa template
-        Route::get('edit/{id}', 'ServiceController@getSua');
-        Route::post('edit/{id}', 'ServiceController@postSua');
-
-        //   //thêm template
-        Route::get('add', 'ServiceController@getadd');
-        Route::post('add', 'ServiceController@postadd');
-    });
-
-    Route::group(['prefix'=>'groups'], function () {
-        Route::get('add', 'GroupController@getThem');
-        Route::post('add', 'GroupController@postThem');
-
-        Route::get('edit/{id}', 'GroupController@getSua');
-        Route::post('edit/{id}', 'GroupController@postSua');
-
-        Route::get('xoa/{id}', 'GroupController@destroy');
-    });
-
-    Route::group(['prefix'=>'contacts'], function () {
-        Route::get('list', 'ContactController@index');
-
-        Route::get('add', 'ContactController@getThem');
-        Route::post('add', 'ContactController@postThem');
-
-        Route::get('edit/{id}', 'ContactController@getSua');
-        Route::post('edit/{id}', 'ContactController@postSua');
-
-        Route::get('xoa/{id}', 'ContactController@destroy');
-
-        Route::get('export', 'ContactController@contactExport')->name('contact.export');
-        Route::post('import', 'ContactController@contactImport')->name('contact.import');
-    });
-
-
-    Route::group(['prefix'=>'users'], function () {
-        Route::get('list', 'UserController@getlist');
-
-        Route::get('xoa/{id}', 'UserController@destroy')->name('users.xoa');
-
-        Route::get('add', 'UserController@getThem');
-        Route::post('add', 'UserController@postThem');
-
-        Route::get('edit/{id}', 'UserController@getSua');
-        Route::post('edit/{id}', 'UserController@postSua');
-
-        //Route::get('profile', ['as'=>'account','uses'=>'UserController@getInfo']);
-        //Route::post('profile', ['as'=>'account','uses'=>'UserController@postInfo']);
-    });
-
-    Route::group(['prefix'=>'schedules'], function () {
-        Route::get('list', 'SchedulesController@index');
-
-        Route::get('add', 'SchedulesController@add');
-    });
+    Route::get('/decription', 'PageController@getDecription')->name('decription');
 });
-
-

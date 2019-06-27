@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom styles for this template-->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
 
@@ -31,7 +34,7 @@
                 <marquee behavior="scroll" direction="left" onmouseover="this.stop()" onmouseout="this.start()">
                     @foreach ($notices as $item)
                         @if ($item->status == 1)
-                            <i class="fa fa-bell" aria-hidden="true"></i> 
+                            <i class="fa fa-bell" aria-hidden="true"></i>
                                 {{$item->name}}
                             <span style="margin-left:20%"></span>
                         @endif
@@ -81,7 +84,7 @@
                             </a>
                         </div>
                     </li>
-                </ul>   
+                </ul>
             </nav>
         </div>
     </div>
@@ -101,7 +104,7 @@
                     @if (Gate::allows('enable_function', 'sms'))
                         <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span class="fa fa-commenting fa-fw mr-3"></span> 
+                                <span class="fa fa-commenting fa-fw mr-3"></span>
                                 <span class="menu-collapsed">Quản lý tin nhắn</span>
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
@@ -124,7 +127,7 @@
                                 </a>
                             @endif
                             @if (Gate::allows('enable_function', 'outbox'))
-                            
+
                                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                                     <span class="menu-collapsed"><i class="fa fa-outdent mr-2"></i>Tin chờ gửi</span>
                                 </a>
@@ -146,8 +149,8 @@
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
-                        <div id='submenu2' class="collapse sidebar-submenu @if(Route::current()->uri === "templates") show @endif">
-                            <a href="{{route('template', [], false)}}" class="@if(Route::current()->uri === "templates") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
+                        <div id='submenu2' class="collapse sidebar-submenu @if(Route::current()->uri === "manage-templates") show @endif">
+                            <a href="{{route('template', [], false)}}" class="@if(Route::current()->uri === "manage-templates") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-files-o mr-2"></i>Quản lý mẫu tin</span>
                             </a>
                         </div>
@@ -176,11 +179,11 @@
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
-                        <div id='submenu4' class="collapse sidebar-submenu  @if(Route::current()->uri === "manage-contact/group" || Route::current()->uri === "manage-contact/address-book") show @endif">
-                            <a href="{{route('contact-group', [], false)}}" class="@if(Route::current()->uri === "manage-contact/group") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
+                        <div id='submenu4' class="collapse sidebar-submenu  @if(Route::current()->uri === "manage-group" || Route::current()->uri === "manage-contact") show @endif">
+                            <a href="{{route('contact-group', [], false)}}" class="@if(Route::current()->uri === "manage-group") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-users mr-2"></i>Quản lý nhóm</span>
                             </a>
-                            <a href="{{route('contact-address-book', [], false)}}" class="@if(Route::current()->uri === "manage-contact/address-book") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
+                            <a href="{{route('contact-address-book', [], false)}}" class="@if(Route::current()->uri === "manage-contact") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-address-book mr-2"></i>Quản lý danh bạ</span>
                             </a>
                         </div>

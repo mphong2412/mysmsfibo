@@ -41,15 +41,11 @@
                                 </tr>
                             </thead>
                         </table><br>
-
-                        <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='services'">
-                            <i class="fas fa-times fa-sm"> Hủy</i>
-                        </button>
+                        <a href="{{route('services',[],false)}}" class="btn btn-secondary" role="button"><i class="fas fa-times fa-sm"> Hủy</i></a>
                         <div class="aa" id="aa" name="aa" style="display:none">
                             <input type="text" id="total_input" name="total_input" value="0">
                         </div>
-                        <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
-
+                        <button type="submit" class="btn btn-success fas fa-save fa-sm"> Lưu</button>
                     </form>
                 </div><!-- /.table-responsive -->
             </div><!-- /.card-body -->
@@ -73,7 +69,7 @@
                         </div>
                     </div>
                 </form>
-                <table class="table table-striped table-bordered table-md" id="tbUser" width="100%" height="10%">
+                <table class="table table-striped table-bordered table-hover table-md" id="tbUser" width="100%" height="10%">
                     <thead class="thead-dark">
                         <tr>
                             <th width="25%">Tên</th>

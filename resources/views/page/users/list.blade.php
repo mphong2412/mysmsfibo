@@ -29,7 +29,7 @@
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
 
-                            <a href="users/add"><button class="btn btn-success" type="button" style="margin-left: 10px">
+                            <a href="{{route('account-add',[],false)}}"><button class="btn btn-success" type="button" style="margin-left: 10px">
                                     <i class="fas fa-plus fa-sm"> Thêm mới</i>
                                 </button></a>
                         </div>
@@ -76,11 +76,11 @@
                             @endif
                             <td>
                                 <!--button edit-->
-                                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='users/edit/{{$t->id}}'">
+                                <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='{{route('account-edit',[$t->id],false)}}'">
                                     <i class="fas fa-edit"></i>
                                 </button>
                                 <!--button delete-->
-                                <a href="users/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
+                                <a href="{{route('account-del',[$t->id],false)}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>

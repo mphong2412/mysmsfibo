@@ -26,7 +26,7 @@
                             <div class="col-sm-12">Mô tả:
                                 <input class="form-control" type="textarea" name="txtDesc"></div><br>
                         </div>
-                        <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='group'">
+                        <button class="btn btn-success" type="reset" style="margin: 10px" onclick="window.location.href='{{route('group')}}'">
                             <i class="fas fa-times fa-sm"> Hủy</i>
                         </button>
                         <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>

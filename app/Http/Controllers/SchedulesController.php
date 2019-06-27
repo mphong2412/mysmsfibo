@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\schedules;
-use App\notices;
-use App\contact_groups;
+use App\Models\Schedules;
+use App\Models\Notices;
+use App\Models\ContactGroups;
 
 class SchedulesController extends Controller
 {
@@ -16,8 +16,8 @@ class SchedulesController extends Controller
      */
     public function index()
     {
-        $notices = notices::all();
-        $schedules = schedules::orderBy('id')->paginate(10);
+        $notices = Notices::all();
+        $schedules = Schedules::orderBy('id')->paginate(10);
         return view('page.schedules.list', ['schedules'=>$schedules,'notices'=>$notices]);
     }
 
@@ -28,9 +28,9 @@ class SchedulesController extends Controller
      */
     public function add()
     {
-        $notices = notices::all();
-        $group = contact_groups::all();
-        $schedules = schedules::all();
+        $notices = Notices::all();
+        $group = ContactGroups::all();
+        $schedules = Schedules::all();
         return view('page.schedules.add', ['schedules'=>$schedules,'contact_groups'=>$group,'notices'=>$notices]);
     }
 

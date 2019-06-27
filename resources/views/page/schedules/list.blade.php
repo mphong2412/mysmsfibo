@@ -39,7 +39,6 @@
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead class="thead-dark">
                         <tr>
-                            <th width="11%">STT</th>
                             <th width="11%">Tên chiến dịch</th>
                             <th width="11%">Nội dung</th>
                             <th width="11%">Ngày hẹn</th>
@@ -53,7 +52,6 @@
                     @foreach($schedules as $t)
                     <tbody>
                         <tr>
-                            <td></td>
                             <td>{{$t->campaign}}</td>
                             <td>{{$t->msg_content}}</td>
                             <td>{{$t->day}}</td>
