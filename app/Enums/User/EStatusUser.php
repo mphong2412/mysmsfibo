@@ -1,5 +1,5 @@
 <?php
-namespace App\Enums;
+namespace App\Enums\User;
 
 abstract class EStatusUser {
 	const ACTIVE = 1;
