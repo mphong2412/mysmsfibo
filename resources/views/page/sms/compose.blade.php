@@ -57,6 +57,7 @@
       <div class="toggle-input">Input Phone Number</div>
       <div class="input-phone">
         <textarea  placeholder="Input phone number" rows="20" name="mobile" id="comment_text" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea><br>
+        <p>SĐT cách nhau bởi dấu "," và đấu số điện thoại "09|03|07|08|05" ví dụ: 0901861911 | 0371861912,0901861913 ..v.v.</p>
         <button class="myButton" id="comment_text" onclick="Test()">Submit</button>
       </div>
     </form>
@@ -88,9 +89,10 @@
   </form>
 
     <div class="table-wrapper">
-      <table id="customers">
+      <table id="customers" class="inputphone">
         <tr>
-          <th>Check</th>
+          <th>Chọn</th>
+          <th>Thao tác</th>
           <th>Phone</th>
           <th>Name</th>
           <th>Birthday</th>
@@ -98,8 +100,9 @@
         </tr>
         @if(!empty($phonetrue))
         @foreach($phonetrue as $true)
-        <tr>
-          <td type="checkbox" id="check" name="result"></td>
+        <tr id="phonetrue">
+          <td><input type="checkbox" class="chcktbl" id="check" name="select[]" ></td>
+          <td><button id="delete-record" class="btn"><i class="fa fa-trash"></i></button></td>
           <td name="phone" class="phone" id="phone">{{$true}}</td>
           <td id="name"></td>
           <td id="birthday"></td>
@@ -110,8 +113,9 @@
 
         @if(!empty($phonegroup))
         @foreach($phonegroup as $true)
-        <tr>
-          <td type="checkbox" id="check" name="result" ></td>
+        <tr id="phonegroup">
+          <td><input type="checkbox" class="chcktbl" id="check" name="select[]" ></td>
+          <td><button id="delete-record" class="btn"><i class="fa fa-trash"></i></button></td>
           <td name="phone" class="phone" id="phone">{{$true->phone}}</td>
           <td id="name">{{$true->name}}</td>
           <td id="birthday">{{$true->birthday}}</td>
@@ -120,10 +124,13 @@
         @endforeach
         @endif
       </table>
-      <button class="btn"><i class="fa fa-trash"></i></button>
+      <br/>
+      <input class="btn" type="button" id="btn1" value="Chọn hết"/>
+      <input class="btn" type="button" id="btn2" value="Bỏ chọn"/>
+      <button class="btn" id="delete-all"><i class="fa fa-trash"></i></button>
     </div>
     <div class="nextprevious">
-      <button  id="nextdecription" onclick="Test()"  class="next">Next &raquo;</button>
+      <button  id="nextdecription"  class="next">Next &raquo;</button>
     </div>
   </div>
 
@@ -202,94 +209,70 @@
     </div>
   </div>
 
-  <div>
+
     <div class="container">
-      <form action="">
-      <div class="row">
-        <div class="col-25">
-          <label for="member">Khách hàng:</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="member" name="member" value="{{Auth::user()->username}}" disabled>
-        </div>
-      </div>
+      <form action="" method="post">
 
-      <div class="row">
-        <div class="col-25">
-          <label for="servicename">Gửi Từ:</label>
+        <div class="mid">
+          <input class="btnSave" type="button" value="Lưu"/>
+          <input class="btnSend" type="button" value="Gửi"/>
         </div>
-        <div class="col-75">
-          <input type="text" id="servicename" name="servicename" value="" disabled>
+        <div class="row">
+          <div class="col-25">
+            <label for="member">Khách hàng:</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="member" name="member" value="{{Auth::user()->username}}" disabled>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-25">
-          <label for="campaign">Tên Chiến Dịch:</label>
+        <div class="row">
+          <div class="col-25">
+            <label for="servicename">Gửi Từ:</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="servicename" name="servicename" value="" disabled>
+          </div>
         </div>
-        <div class="col-75">
-          <input type="text" id="campaignreview" name="campaignreview" disabled>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-25">
-          <label for="contentsms">Nội Dung SMS:</label>
+        <div class="row">
+          <div class="col-25">
+            <label for="campaign">Tên Chiến Dịch:</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="campaignreview" name="campaignreview" disabled>
+          </div>
         </div>
-        <div class="col-75">
-          <input type="text" id="contentsms" name="contentsms" value="" disabled>
-        </div>
-      </div>
 
-      <table id="customers" class="savefunction">
-        <tr>
-          <th>Sđt</th>
-          <th>Nội Dung</th>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
-    </div>
+        <div class="row">
+          <div class="col-25">
+            <label for="contentsms">Nội Dung SMS:</label>
+          </div>
+          <div class="col-75">
+            <input type="text" id="contentsms" name="contentsms" value="" disabled>
+          </div>
+        </div>
+
+        <table id="customers" class="savefunction">
+          <tr>
+            <th>Sđt</th>
+            <th>Nội Dung</th>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+    </form>
     <div class="nextprevious">
       <button id="previous" class="previous">&laquo; Previous</button>
     </div>
   </div>
 </div>
+<button onclick="checkexists()" id="checkexists">checkexists</button>
+
+
 <script>
-
-// function Test() {
-//   var a = $('#comment_text').val();
-//   var invalidPhone = "";
-//
-//  if(a.search(',') != '-1') {
-//    var s = a.split(',');
-//    s.forEach(function(element) {
-//      var isnum = /^\d+$/.test(element);
-//      var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(element);
-//      if(isnum == true && isphone == true){
-//       $('#tableid').append('<tr>'
-//                                 +'<td><input type="checkbox" ></td>'
-//                                 + '<td>' + element + '</td>' + '</tr>');
-//     }else{
-//       invalidPhone += element+',';
-//
-//     }
-//   });
-//   alert('Check again number Phone:'+invalidPhone);
-//
-//  } else {
-//      var isnum = /^\d+$/.test(a);
-//    var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(a);
-//     if(isnum == true && isphone == true) {
-//       $('#phone').text(a);
-//     }else {
-//       alert('Phone valid:' + a);
-//     }
-//  }
-// }
-
 
 function Test() {
   var a = $('#comment_text').val();
@@ -304,8 +287,9 @@ function Test() {
      var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(element);
      if(isnum == true && isphone == true){
       $('#customers').append('<tr>'
-                                +'<td><input type="checkbox" ></td>'
-                                + '<td>' + element + '</td>'
+                                +'<td><input type="checkbox" class="chcktbl" id="checkall[]" name="select[]" ></td>'
+                                +'<td><button id="delete-record" class="btn"><i class="fa fa-trash"></i></button></td>'
+                                + '<td name="phone" class="phone" id="phone">' + element + '</td>'
                                 +'<td></td>'
                                 +'<td></td>'
                                 +'<td></td>' + '</tr>');
@@ -315,22 +299,34 @@ function Test() {
   });
   if (invalidPhone.length > 0){
     alert('Check again number Phone:'+invalidPhone);
-  } else {
-    console.log('1111');
   }
  } else {
    var isnum = /^\d+$/.test(a);
    var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(a);
     if(isnum == true && isphone == true) {
       $('#customers').append('<tr>'
-                                +'<td><input type="checkbox" ></td>'
-                                + '<td>' + a + '</td>' + '</tr>');
+                                +'<td><input type="checkbox" class="chcktbl" id="checkall[]" name="select[]" ></td>'
+                                +'<td><button id="delete-record" class="btn"><i class="fa fa-trash"></i></button></td>'
+                                + '<td name="phone" class="phone" id="phone">' + a + '</td>'
+                                +'<td></td>'
+                                +'<td></td>'
+                                +'<td></td>' + '</tr>');
     }else {
       alert('Phone valid:' + a);
     }
   }
  }
 }
+
+function checkexists() {
+  var contents = [];
+  var rowCount = $('.inputphone td').children().length;console.log(rowCount);
+$(".inputphone .phone").each(function() {
+
+});
+
+}
+
 
 $('#formCompose').submit(function(event) {
       event.preventDefault();
@@ -355,12 +351,21 @@ $(".toggle-group").click(function(){
   $(".select-box").toggle(400);
 });
 
-$("#nextdecription").ready(function(){
-  if($("#phone").length){
-    $("#nextdecription").prop("disabled", false);
-  } else {
-    $("#nextdecription").prop("disabled", true);
+$("#nextdecription").click(function(){
+  var rowCount = $('.inputphone td').children().length;
+  if( rowCount < 1) {
+    alert('Vui lòng nhập số điện thoại..');
   }
+});
+
+//Xóa tất cả value trong bảng
+$("#delete-all").click(function() {
+  $(".inputphone td").parent().remove();
+});
+//Xóa dòng value trong bảng
+$(".inputphone tr").click(function() {
+  $(this).remove();
+  return false;
 });
 
 function btnNext() {
@@ -382,7 +387,6 @@ function btnNext() {
       $('.savefunction').append('<tr>'
                                 + '<td>' + numberphone + '</td>'
                                 + '<td>' + setcontent + '</td>' + '</tr>');
-
     });
   }
 }
@@ -392,10 +396,30 @@ $( "select" ) .change(function () {
   $("#compose_content").val(settemplate).change();
 });
 
-$(".sdfsdf").click(function () {
-  var id = $(this).closest("tr").find("#phone").text();
-  alert(id);
+$(".previous").click(function() {
+  $(".savefunction td").parent().remove();
+  $("#servicename").val("");
+  $("#campaignreview").val("");
+  $("#contentsms").val("");
 });
+
+document.getElementById("btn1").onclick = function () {
+  // Lấy danh sách checkbox
+  var checkboxes = document.getElementsByName('select[]');
+  // Lặp và thiết lập checked
+    for (var i = 0; i < checkboxes.length; i++){
+      checkboxes[i].checked = true;
+    }
+};
+// Chức năng bỏ chọn hết
+document.getElementById("btn2").onclick = function () {
+  // Lấy danh sách checkbox
+  var checkboxes = document.getElementsByName('select[]');
+  // Lặp và thiết lập Uncheck
+  for (var i = 0; i < checkboxes.length; i++){
+      checkboxes[i].checked = false;
+  }
+};
 
 </script>
 @endsection

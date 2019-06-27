@@ -31,11 +31,10 @@ class PageController extends Controller
         return view('page.trangchu', ['notices'=>$notices]);
     }
 
-    public function getGroup()
-    {
+    public function getGroup() {
         $notices = notices::all();
         $contact = contacts::all();
-        $group = contact_groups::orderBy('id')->get();
+        $group = contact_groups::all();
         $a = Auth::user()->username;
         if (Auth::user()->role == 2) {
             $group = contact_groups::orderBy('id')->where('created_by', $a)->get();
@@ -46,18 +45,21 @@ class PageController extends Controller
         $value = Input::get('groupcontact');
 
         $iduser = auth()->id();
+
         //Get danh sách service.....................
         $service = DB::table('user_has_list_services')
                   ->join('users', 'user_has_list_services.user_id', '=', 'users.id')
                   ->join('list_services','user_has_list_services.service_id', '=', 'list_services.id')
                   ->where('users.id', '=', $iduser)
                   ->select('list_services.name as name','list_services.id as id')->get();
+
         //Get danh sách template.....................
         $template = DB::table('user_has_templates')
                   ->join('users', 'user_has_templates.user_id', '=', 'users.id')
                   ->join('templates','user_has_templates.template_id', '=', 'templates.id')
                   ->where('users.id', '=', $iduser)
                   ->select('templates.template as name','templates.id as id')->get();
+
         //Get contact by id group....................
         $contact_list = DB::table('contact_groups')
                         ->join('contacts','contact_groups.id', '=', 'contacts.contact_groups_id')
@@ -66,14 +68,15 @@ class PageController extends Controller
         return view('page.sms.compose', ['phonegroup'=>$contact_list,'notices'=>$notices, 'group'=>$group,'service'=>$service,'template'=>$template]);
     }
 
-    // public function getService() {
-    //   $iduser = auth()->id();
-    //   $notices = notices::all();
-    //   $result = DB::table('user_has_list_service')
-    //             ->join('users', 'user_has_list_service.user_id', '=', 'users.id')
-    //             ->join('list_service','user_has_list_service.service_id', '=', 'list_service.id')
-    //             ->where('users.id', '=', $iduser)
-    //             ->select('function_name')->get();
-    //   return view('page.sms.compose.decription',['notices'=>$notices,'result'=>$result]);
-    // }
+    public function saveSMS(Request $request) {
+      $composes = new composes();
+      $composes->created_by = Auth()->id();
+      $composes->msg_content = $request->contentsms;
+      $composes->msgcampaign_name = $request->campaignreview;
+      $composes->service = $request->servicename;
+      $composes->save();
+
+
+
+    }
 }
