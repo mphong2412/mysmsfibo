@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\notices;
+use App\Models\Notices;
 
 class NoticeController extends Controller
 {
@@ -14,7 +14,7 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        $notices = notices::orderBy('id', 'desc')->paginate(5);
+        $notices = Notices::orderBy('id', 'desc')->paginate(5);
         return view('page.notices', ['notices'=>$notices]);
     }
 
@@ -25,7 +25,7 @@ class NoticeController extends Controller
      */
     public function getThem()
     {
-        $notices = notices::all();
+        $notices = Notices::all();
         return view('notices', ['notices'=>$notices]);
     }
 
@@ -40,14 +40,14 @@ class NoticeController extends Controller
         $this->validate($request, [
             'status'=>'required',
         ]);
-        $notices = new notices();
+        $notices = new Notices();
         if (isset($request->txtNotice)) {
             $notices->name = $request->txtNotice;
             $notices->status = $request->status;
             $notices->save();
-            return redirect('notices')->with('thongbao', 'Cập nhật thông báo thành công.');
+            return redirect('notification')->with('thongbao', 'Cập nhật thông báo thành công.');
         } else {
-            return redirect('notices');
+            return redirect('notification');
         }
     }
 
@@ -59,8 +59,8 @@ class NoticeController extends Controller
      */
     public function destroy($id)
     {
-        $notices = notices::find($id);
+        $notices = Notices::find($id);
         $notices->delete();
-        return redirect('notices')->with('thongbao', 'Xóa thành công.');
+        return redirect('notification')->with('thongbao', 'Xóa thành công.');
     }
 }

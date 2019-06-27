@@ -28,13 +28,11 @@
                             <button class="btn btn-primary" type="submit" style="margin-left: 10px">
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
-                            <button class="btn btn-success" type="button" style="margin-left: 10px" onclick="window.location.href='groups/add'">
-                                <i class="fas fa-plus fa-sm"> Thêm mới</i>
-                            </button>
+                            <a href="{{route('group-add',[],false)}}" class="btn btn-secondary" role="button"><i class="fas fa-plus fa-sm"> Thêm mới</i></a>
                         </div>
                     </div>
                 </form>
-                
+
                 <div class="w3-container w3-center w3-animate-zoom">
                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead class="thead-dark">
@@ -52,10 +50,10 @@
                                 <td>{{$t->name}}</td>
                                 <td>{{$t->description}}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='groups/edit/{{$t->id}}'">
+                                    <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='{{route('group-edit',[$t->id],false)}}'">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <a href="groups/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
+                                    <a href="{{route('group-del',[$t->id],false)}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

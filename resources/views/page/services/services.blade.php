@@ -29,9 +29,7 @@
                                 <i class="fas fa-search fa-sm"> Tìm kiếm</i>
                             </button>
                             @if (auth::user()->role == 1)
-                            <button class="btn btn-success" type="button" style="margin-left: 10px" onclick="window.location.href='services/add'">
-                                <i class="fas fa-plus fa-sm"> Thêm mới</i>
-                            </button>
+                            <a href="{{route('services-add',[],false)}}" class="btn btn-success" role="button"><i class="fas fa-plus fa-sm"> Thêm mới</i></a>
                             @endif
 
                         </div>
@@ -56,10 +54,10 @@
                                 <td>{{$t->description}}</td>
                                 @if (auth::user()->role == 1)
                                 <td>
-                                    <button class="btn btn-warning btn-warning btn-circle btn-sm" onclick="window.location.href='services/edit/{{$t->id}}'">
+                                    <button class="btn btn-warning btn-circle btn-sm" onclick="window.location.href='{{route('services-edit',[$t->id],false)}}'">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <a href="services/xoa/{{$t->id}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
+                                    <a href="{{route('services-del',[$t->id],false)}}" class="btn btn-danger btn-circle btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

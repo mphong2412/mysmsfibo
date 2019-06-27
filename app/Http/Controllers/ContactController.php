@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\contacts;
-use App\contact_groups;
-use App\city;
-use App\Imports\ContactsImport;
-use Excel;
-use App\Exports\ContactsExport;
-use App\notices;
 use Illuminate\Support\Facades\Auth;
-use App\account;
+use Excel;
+use App\Imports\ContactsImport;
+use App\Exports\ContactsExport;
+use App\Models\Contacts;
+use App\Models\ContactGroups;
+use App\Models\City;
+use App\Models\Notices;
+use App\Models\Account;
 
 class ContactController extends Controller
 {
@@ -22,15 +22,15 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $notices = notices::all();
-        $groups = contact_groups::all();
-        $contact = contacts::orderBy('id')->paginate(10);
+        $notices = Notices::all();
+        $groups = ContactGroups::all();
+        $contact = Contacts::orderBy('id')->paginate(10);
         $a = Auth::user()->username;
         if (Auth::user()->role == 2) {
-            $contact = contacts::orderBy('id')->where('created_by', $a)->paginate(10);
+            $contact = Contacts::orderBy('id')->where('created_by', $a)->paginate(10);
         }
         if (Auth::user()->role == 3) {
-            $contact = contacts::orderBy('id')->where('created_by', $a)->paginate(10);
+            $contact = Contacts::orderBy('id')->where('created_by', $a)->paginate(10);
         }
         return view('page.contacts.list', ['contacts'=>$contact,'contact_groups'=>$groups,'notices'=>$notices]);
     }
@@ -43,10 +43,10 @@ class ContactController extends Controller
      */
     public function getSua($id)
     {
-        $notices = notices::all();
-        $contact = contacts::find($id);
-        $groups = contact_groups::all();
-        $city = city::all();
+        $notices = Notices::all();
+        $contact = Contacts::find($id);
+        $groups = ContactGroups::all();
+        $city = City::all();
         return view('page/contacts/edit', ['contacts'=>$contact,'contact_groups'=>$groups,'city'=>$city,'notices'=>$notices]);
     }
     /**
@@ -70,7 +70,7 @@ class ContactController extends Controller
                 'txtPhone.required'=>'Please enter your phone number.',
             ]
         );
-        $contact = contacts::find($id);
+        $contact = Contacts::find($id);
         $contact->contact_groups_id = $request->gname;
         $contact->phone = $request->txtPhone;
         $contact->full_name = $request->txtName;
@@ -89,7 +89,7 @@ class ContactController extends Controller
      */
     public function contactExport()
     {
-        $contact = contacts::select('phone', 'full_name')->get();
+        $contact = Contacts::select('phone', 'full_name')->get();
         return Excel::download(new ContactsExport, 'contacts.xlsx');
     }
     /**
@@ -130,11 +130,11 @@ class ContactController extends Controller
      */
     public function searchc(Request $request)
     {
-        $groups = contact_groups::all();
-        $notices = notices::all();
+        $groups = ContactGroups::all();
+        $notices = Notices::all();
         $key = $request->get('key');
         if ($key != null) {
-            $contact = contacts::orderBy('id')->where('phone', 'like', '%'.$key.'%')->orWhere('full_name', 'like', '%'.$key.'%')->paginate(10);
+            $contact = Contacts::orderBy('id')->where('phone', 'like', '%'.$key.'%')->orWhere('full_name', 'like', '%'.$key.'%')->paginate(10);
             return view('page.contacts.list', ['contacts'=>$contact,'notices'=>$notices,'contact_groups'=>$groups]);
         } else {
             return redirect('contacts/list');
@@ -148,10 +148,10 @@ class ContactController extends Controller
      */
     public function getThem()
     {
-        $notices = notices::all();
-        $groups = contact_groups::all();
-        $contact = contacts::all();
-        $city = city::all();
+        $notices = Notices::all();
+        $groups = ContactGroups::all();
+        $contact = Contacts::all();
+        $city = City::all();
         return view('page/contacts/add', ['contact'=>$contact,'contact_groups'=>$groups,'city'=>$city,'notices'=>$notices]);
     }
 
@@ -166,7 +166,7 @@ class ContactController extends Controller
             'txtPhone.max'=>'This is an invalid phone number.',
             'txtPhone.required'=>'Please enter your phone number.',
         ]);
-        $contact = new contacts();
+        $contact = new Contacts();
         $contact->contact_groups_id = $request->gname;
         $contact->phone = $request->txtPhone;
         $contact->full_name = $request->txtName;
@@ -188,7 +188,7 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact = contacts::find($id);
+        $contact = Contacts::find($id);
         $contact->delete();
         return redirect('contacts/list')->with('thongbao', 'Xóa danh bạ thành công');
     }

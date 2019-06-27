@@ -58,10 +58,7 @@
                             @endforeach
                         </table>
                         {{$user_has_templates->links()}}
-
-                        <button class="btn btn-success" type="button" style="margin: 1%" onclick="window.location.href='templates'">
-                            <i class="fas fa-times fa-sm"> Hủy</i>
-                        </button>
+                        <a href="{{route('template',[],false)}}" class="btn btn-secondary" role="button"><i class="fas fa-times fa-sm"> Hủy</i></a>
                         <div class="aa" id="aa" name="aa" style="display:none">
                             <input type="text" id="total_input" name="total_input" value="0">
                         </div>

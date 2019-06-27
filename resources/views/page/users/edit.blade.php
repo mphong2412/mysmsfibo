@@ -58,9 +58,9 @@
 
                                     <input class="form-control" type="password" name="txtApiP" value="{{$account->user_pass}}" style="width:45%;margin-top:1%">
 
-                                    <input class="form-control" type="email" name="txtEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" value="{{$account->email}}" style="width:45%;margin-top:1%"readonly>
+                                    <input class="form-control" type="email" name="txtEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" oninvalid="setCustomValidity('Nhập mật khẩu : {a-Z}{1-9}{!@#$...}. Ví du: aA@123456 ')" oninput="setCustomValidity('')" value="{{$account->email}}" style="width:45%;margin-top:1%" readonly>
 
-                                    <input class="form-control" type="tel" id="phone" name="txtPhone" value="{{$account->phone}}" style="width:45%;margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Please enter phone number." />
+                                    <input class="form-control" type="tel" id="phone" name="txtPhone" value="{{$account->phone}}" style="width:45%;margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$"  oninvalid="setCustomValidity('Vui lòng nhập số điện thoại. Ex: 0901861912')" oninput="setCustomValidity('')" />
 
                                     <input class="form-control" type="text" name="txtCompa" value="{{$account->company}}" style="width:45%;margin-top:1%">
 
@@ -74,7 +74,7 @@
                         </div>
 
                         <!-- button cancel -->
-                        <button class="btn btn-info" type="reset" style="margin: 10px" onclick="window.location.href='users/list'">
+                        <button class="btn btn-info" type="reset" style="margin: 10px" onclick="window.location.href='{{route('account',[],false)}}'">
                             <i class="fas fa-times fa-sm"> Hủy</i></button>
 
                         <!-- button save -->
@@ -92,8 +92,7 @@
 </div><!--/.container-fluid-->
 
 <script>
-    < blade
-    if / > (auth::user() - > role == 1)
+    if (auth::user()->role == 1){
     document.getElementById('ip1').onchange = function() {
         if (this.checked) {
             document.getElementById('txtPass').style.display = '';
@@ -102,7 +101,7 @@
             document.getElementById('txtPass').style.display = 'none';
             document.getElementById('lpass').style.display = 'none';
         }
-    }; <
-    blade endif / >
+    };
+}
 </script>
 @endsection

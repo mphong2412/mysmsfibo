@@ -39,19 +39,20 @@
                                         <option value="2">Không kích hoạt</option>
                                     </select>
 
-                                    <input class="form-control" type="text" name="txtUname" pattern="{a-Z}" title="Nhập tên đăng nhập" style="width:45%;margin-top:1%">
+                                    <input class="form-control" type="text" name="txtUname" title="Nhập tên đăng nhập" style="width:45%;margin-top:1%">
 
                                     <input class="form-control" type="text" name="txtFname" title="Nhập họ và tên" style="width:45%;margin-top:1%">
 
-                                    <input class="form-control" type="password" name="txtPass" title="Nhập mật khẩu" style="width:45%;margin-top:1%">
+                                    <input class="form-control" type="password" name="txtPass" title="Nhập mật khẩu" oninvalid="setCustomValidity('Nhập mật khẩu : {a-Z}{1-9}{!@#$...}. Ví du: aA@123456 ')" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}" oninput="setCustomValidity('')"
+                                     style="width:45%;margin-top:1%">
 
                                     <input class="form-control" type="text" name="txtApiU" style="width:45%;margin-top:1%">
 
                                     <input class="form-control" type="password" name="txtApiP" value="" style="width:45%;margin-top:1%">
 
-                                    <input class="form-control" type="email" name="txtEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" style="width:45%;margin-top:1%">
+                                    <input class="form-control" type="email" name="txtEmail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" oninvalid="setCustomValidity('Ví dụ : a@fibo.vn')" oninput="setCustomValidity('')" title="Nhập email" style="width:45%;margin-top:1%">
 
-                                    <input class="form-control" type="tel" id="phone" title="Nhập số điện thoại" name="txtPhone" style="width:45%;margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Nhập số điện thoại." />
+                                    <input class="form-control" type="tel" id="phone" oninvalid="setCustomValidity('Vui lòng nhập số điện thoại. Ex: 0901861912')" oninput="setCustomValidity('')" name="txtPhone" style="width:45%;margin-top:1%" pattern="^\+?(?:[0-9]??).{5,14}[0-9]$" title="Nhập số điện thoại." />
 
                                     <input class="form-control" type="text" title="Nhập tên công ty" name="txtCompa" style="width:45%;margin-top:1%">
 
@@ -72,7 +73,7 @@
                         </div>
 
                         <!-- button cancel -->
-                        <button class="btn btn-info" type="reset" style="margin: 10px" onclick="window.location.href='users/list'">
+                        <button class="btn btn-info" type="reset" style="margin: 10px" onclick="window.location.href='{{route('account',[],false)}}'">
                             <i class="fas fa-times fa-sm"> Hủy</i>
                         </button>
 
@@ -80,9 +81,9 @@
                         <button type="submit" class="btn btn-success fas fa-save fa-sm" style="margin: 10px"> Lưu</button>
 
                     </form>
-                </div><!--/.table-responsive-->
-            </div><!--/.card-body-->
-        </div><!--/.card-shadow-->
-    </div><!--/.md-6-->
-</div><!--/.container-fluid-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

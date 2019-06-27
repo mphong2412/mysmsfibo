@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\list_services;
-use App\templates;
+use Illuminate\Support\Facades\Auth;
 use session;
 use validator;
-use App\account;
-use App\notices;
-use App\user_has_list_services;
-use Illuminate\Support\Facades\Auth;
+use App\Models\ListServices;
+use App\Models\Templates;
+use App\Models\Account;
+use App\Models\Notices;
+use App\Models\UserHasListServices;
 
 class ServiceController extends Controller
 {
@@ -26,11 +26,11 @@ class ServiceController extends Controller
      */
     public function getList()
     {
-        $notices = notices::all();
-        $service = list_services::orderBy('id')->paginate(10);
-        $user = account::all();
-        $user_has_list_services = user_has_list_services::all();
-        return view('page.services', compact('service', 'notices', 'user_has_list_services'));
+        $notices = Notices::all();
+        $service = ListServices::orderBy('id')->paginate(10);
+        $user = Account::all();
+        $user_has_list_services = UserHasListServices::all();
+        return view('page.services.services', compact('service', 'notices', 'user_has_list_services'));
     }
 
     /**
@@ -40,10 +40,10 @@ class ServiceController extends Controller
      */
     public function getadd()
     {
-        $notices = notices::all();
-        $template = templates::all();
-        $services = list_services::all();
-        $user = account::all();
+        $notices = Notices::all();
+        $template = Templates::all();
+        $services = ListServices::all();
+        $user = Account::all();
         return view('page/services/add', ['templates'=>$template,'list_services'=>$services,'notices'=>$notices,'account'=>$user]);
     }
 
@@ -55,10 +55,10 @@ class ServiceController extends Controller
             'txtName.require'=>'Vui lòng nhập thông tin.',
             'txtName.unique'=>'The service has already exists.',
         ]);
-        $services = new list_services();
+        $services = new ListServices();
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
-        $services->created_by=auth::user()->username;
+        $services->created_by = auth::user()->username;
         $total_input = $request->get('total_input');
         $services->save();
         for ($i = 0; $i < $total_input; $i++) {
@@ -68,7 +68,7 @@ class ServiceController extends Controller
             }
         }
 
-        return redirect('services')->with('thongbao', 'Bạn đã thêm thành công');
+        return redirect('manage-services')->with('thongbao', 'Bạn đã thêm thành công');
     }
 
     /**
@@ -79,14 +79,14 @@ class ServiceController extends Controller
      */
     public function searchs(Request $request)
     {
-        $notices = notices::all();
-        $user_has_list_services  = user_has_list_services::all();
+        $notices = Notices::all();
+        $user_has_list_services  = UserHasListServices::all();
         $searchs = $request->get('key');
         if ($searchs != null) {
-            $service = list_services::orderBy('id')->where('name', 'like', '%'.$searchs.'%')->paginate(10);
-            return view('page.services', compact('service', 'notices', 'user_has_list_services'));
+            $service = ListServices::orderBy('id')->where('name', 'like', '%'.$searchs.'%')->paginate(10);
+            return view('manage-services', compact('service', 'notices', 'user_has_list_services'));
         } else {
-            return redirect('services');
+            return redirect('manage-services');
         }
     }
 
@@ -98,10 +98,10 @@ class ServiceController extends Controller
      */
     public function getSua($id)
     {
-        $notices = notices::all();
-        $services = list_services::find($id);
-        $user = account::all();
-        $user_has_list_services = user_has_list_services::orderBy('id')->paginate(5);
+        $notices = Notices::all();
+        $services = ListServices::find($id);
+        $user = Account::all();
+        $user_has_list_services = UserHasListServices::orderBy('id')->paginate(5);
         return view('page/services/edit', ['list_services'=>$services,'notices'=>$notices,'account'=>$user,'user_has_list_services'=>$user_has_list_services]);
     }
     public function postSua(Request $request, $id)
@@ -110,7 +110,7 @@ class ServiceController extends Controller
            'txtName' => 'required ',
        ]);
 
-        $services = list_services::find($id);
+        $services = ListServices::find($id);
         $services->name = $request->txtName;
         $services->description = $request->txtDesc;
         $total_input = $request->get('total_input');
@@ -122,7 +122,7 @@ class ServiceController extends Controller
             }
         }
 
-        return redirect('services')->with('thongbao', 'Sửa thành công');
+        return redirect('manage-service')->with('thongbao', 'Sửa thành công');
     }
 
     /**
@@ -133,7 +133,7 @@ class ServiceController extends Controller
      */
     public function saveS($id, $user_id)
     {
-        $s = new user_has_list_services;
+        $s = new UserHasListServices;
         $s->service_id = $id;
         $s->user_id = $user_id;
         $s->save();
@@ -147,8 +147,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $service = list_services::find($id);
-        $a = user_has_list_services::where('service_id', $id)->delete();
+        $service = ListServices::find($id);
+        $a = UserHasListServices::where('service_id', $id)->delete();
         $service->delete();
         return redirect('services')->with('thongbao', 'Xóa thành công');
     }
@@ -160,13 +160,13 @@ class ServiceController extends Controller
      */
     public function modaltu(Request $request)
     {
-        $notices = notices::all();
+        $notices = Notices::all();
         $modaltu = $request->get('su');
         if ($modaltu != null) {
-            $user = account::orderBy('id')->where('username', 'like', '%'.$modaltu.'%')->paginate(5);
-            return view('page/templates/them', ['account'=>$user,'notices'=>$notices]);
+            $user = Account::orderBy('id')->where('username', 'like', '%'.$modaltu.'%')->paginate(5);
+            return view('page/services/them', ['account'=>$user,'notices'=>$notices]);
         } else {
-            return redirect('templates/them');
+            return redirect('services/them');
         }
     }
 }
