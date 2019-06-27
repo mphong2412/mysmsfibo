@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
     });
 
     // Manage Templates
-    Route::group(['prefix'=>'templates-sms'], function () {
+    Route::group(['prefix'=>'manage-templates'], function () {
         Route::get('', 'TemplateController@getTemplates')->name('template');
     });
 
@@ -38,7 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     // Manage Contact
     Route::group(['prefix'=>'manage-contact'], function () {
-        Route::get('', 'ContactController@index')->name('contact');
+        Route::get('address-book', 'ContactController@index')->name('contact-address-book');
+        Route::get('group', 'GroupController@getThem')->name('contact-group');
     });
 
     // Manage Schedule 
@@ -51,6 +52,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('', 'UserController@getlist')->name('account');
     });
     
+    // Config notification 
+    Route::group(['prefix'=>'config-notification'], function () {
+        Route::get('', 'NoticeController@index')->name('notification');
+    });
 
 
 
@@ -160,8 +165,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('edit/{id}', 'UserController@getSua');
         Route::post('edit/{id}', 'UserController@postSua');
 
-        Route::get('profile', ['as'=>'account','uses'=>'UserController@getInfo']);
-        Route::post('profile', ['as'=>'account','uses'=>'UserController@postInfo']);
+        //Route::get('profile', ['as'=>'account','uses'=>'UserController@getInfo']);
+        //Route::post('profile', ['as'=>'account','uses'=>'UserController@postInfo']);
     });
 
     Route::group(['prefix'=>'schedules'], function () {

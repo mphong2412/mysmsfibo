@@ -61,3 +61,17 @@
   text-align: right;
   padding-left: 10px;
 }
+
+.footerbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.sidebar_active {
+    background-color: black !important;
+}
+
+.bg_custom {
+    background-color: #495057;
+}

@@ -92,7 +92,7 @@
                 <ul class="list-group">
                     <!-- /END Separator -->
                     <!-- Menu with submenu -->
-                    <a href="{{route('dashboard', [], false)}}" class="bg-dark list-group-item list-group-item-action">
+                    <a href="{{route('dashboard', [], false)}}" class="@if(Route::current()->uri === "/") sidebar_active @else bg-dark @endif list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span class="fa fa-area-chart fa-fw mr-3"></span>
                             <span class="menu-collapsed">Dashboard</span>
@@ -107,9 +107,9 @@
                             </div>
                         </a>
                         <!-- Tin nhắn -->
-                        <div id='submenu1' class="collapse sidebar-submenu">
+                        <div id='submenu1' class="collapse sidebar-submenu @if(Route::current()->uri === "manage-sms/compose") show @endif">
                             @if (Gate::allows('enable_function', 'compose'))
-                                <a href="{{route('compose', [], false)}}" class="list-group-item list-group-item-action bg-dark text-white">
+                                <a href="{{route('compose', [], false)}}" class="@if(Route::current()->uri === "manage-sms/compose") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                     <span class="menu-collapsed"><i class="fa fa-commenting mr-2"></i>Soạn tin</span>
                                 </a>
                             @endif
@@ -146,8 +146,8 @@
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
-                        <div id='submenu2' class="collapse sidebar-submenu">
-                            <a href="templates" class="list-group-item list-group-item-action bg-dark text-white">
+                        <div id='submenu2' class="collapse sidebar-submenu @if(Route::current()->uri === "templates") show @endif">
+                            <a href="{{route('template', [], false)}}" class="@if(Route::current()->uri === "templates") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-files-o mr-2"></i>Quản lý mẫu tin</span>
                             </a>
                         </div>
@@ -161,8 +161,8 @@
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
-                        <div id='submenu3' class="collapse sidebar-submenu">
-                            <a href="services" class="list-group-item list-group-item-action bg-dark text-white">
+                        <div id='submenu3' class="collapse sidebar-submenu @if(Route::current()->uri === "manage-service") show @endif">
+                            <a href="{{route('services', [], false)}}" class="@if(Route::current()->uri === "manage-service") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-sitemap mr-2"></i>Quản lý danh sách dịch vụ</span>
                             </a>
                         </div>
@@ -176,11 +176,11 @@
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
-                        <div id='submenu4' class="collapse sidebar-submenu">
-                            <a href="group" class="list-group-item list-group-item-action bg-dark text-white">
+                        <div id='submenu4' class="collapse sidebar-submenu  @if(Route::current()->uri === "manage-contact/group" || Route::current()->uri === "manage-contact/address-book") show @endif">
+                            <a href="{{route('contact-group', [], false)}}" class="@if(Route::current()->uri === "manage-contact/group") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-users mr-2"></i>Quản lý nhóm</span>
                             </a>
-                            <a href="contacts/list" class="list-group-item list-group-item-action bg-dark text-white">
+                            <a href="{{route('contact-address-book', [], false)}}" class="@if(Route::current()->uri === "manage-contact/address-book") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-address-book mr-2"></i>Quản lý danh bạ</span>
                             </a>
                         </div>
@@ -196,8 +196,8 @@
                                 <span class="submenu-icon ml-auto"></span>
                             </div>
                         </a>
-                        <div id='submenu5' class="collapse sidebar-submenu">
-                            <a href="schedules/list" class="list-group-item list-group-item-action bg-dark text-white">
+                        <div id='submenu5' class="collapse sidebar-submenu @if(Route::current()->uri === "manage-schedule") show @endif">
+                            <a href="{{route('schedule', [], false)}}" class="@if(Route::current()->uri === "manage-schedule") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-calendar mr-2"></i>Quản lý lịch hẹn</span>
                             </a>
                         </div>
@@ -215,22 +215,27 @@
                         </a>
 
                         <!-- Submenu content -->
-                        <div id='submenu6' class="collapse sidebar-submenu">
-                            <a href="users/list" class="list-group-item list-group-item-action bg-dark text-white">
+                        <div id='submenu6' class="collapse sidebar-submenu @if(Route::current()->uri === "manage-account") show @endif">
+                            <a href="{{route('account', [], false)}}" class="@if(Route::current()->uri === "manage-account") sidebar_active @else bg-dark @endif list-group-item list-group-item-action text-white">
                                 <span class="menu-collapsed"><i class="fa fa-user-circle mr-2"></i> Cấu hình người dùng </span>
                             </a>
-                            <a href="notices" class="list-group-item list-group-item-action bg-dark text-white">
-                                <span class="menu-collapsed"> <i class="fa fa-bell mr-2"></i> Cấu hình thông báo</span>
-                            </a>
                         </div>
-                    @endif
+
+                        <a href="{{route('notification', [], false)}}" class="@if(Route::current()->uri === "config-notification") sidebar_active @else bg-dark @endif list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-area-chart fa-fw mr-3"></span>
+                                <span class="menu-collapsed">Cấu hình thông báo</span>
+                            </div>
+                        </a>
+                    @endif 
+                    
                     <a href="#" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center">
                         <div class="d-flex w-100 justify-content-start align-items-center">
                             <span id="collapse-icon" class="fa fa-2x mr-3"></span>
                             <span id="collapse-text" class="menu-collapsed">Đóng Sidebar</span>
                         </div>
                     </a>  
-                </ul><!-- List Group END-->
+                </ul>
             </div><!-- sidebar-container END -->
             <!-- MAIN -->
             <div class="col">
@@ -249,30 +254,12 @@
                 @yield('content')
             </div><!-- Main Col END -->
         </div><!-- body-row END -->
-    <script>
-    // Collapse click
-    $('[data-toggle=sidebar-colapse]').click(function() {
-        SidebarCollapse();
-    });
-
-    function SidebarCollapse () {
-        $('.menu-collapsed').toggleClass('d-none');
-        $('.sidebar-submenu').toggleClass('d-none');
-        $('.submenu-icon').toggleClass('d-none');
-        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
-        
-        // Treating d-flex/d-none on separators with title
-        var SeparatorTitle = $('.sidebar-separator-title');
-        if ( SeparatorTitle.hasClass('d-flex') ) {
-            SeparatorTitle.removeClass('d-flex');
-        } else {
-            SeparatorTitle.addClass('d-flex');
-        }
-        
-        // Collapse/Expand icon
-        $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
-    }
-    </script>
+    <footer class="app-footer"><a href="http://fibo.vn">MY SMS</a> © 2017 Fibo.
+        <span class="float-right">Powered by <a href="http://fibo.vn">Fibo</a></span>
+    </footer>
+    <script src="{{ asset('js/base.js') }}"> </script>
+    @section('scripts')
+    @show
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -26,9 +26,8 @@ class PageController extends Controller
     //check role and save session
     public function getIndex()
     {
-        $a = Session::get('key_function');
         $notices = notices::all();
-        return view('page.trangchu', ['notices'=>$notices]);
+        return view('page.dashboard.homepage', ['notices'=>$notices]);
     }
 
     public function getGroup()
