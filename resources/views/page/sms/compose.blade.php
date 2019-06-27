@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('content')
-<link href="source/css/style.css" rel="stylesheet">
+
 <div class="formCompose">
 <div class="">
   <div style="background-color: white; padding-bottom: 0px">

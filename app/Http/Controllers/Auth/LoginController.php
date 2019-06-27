@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Enums\ERoleUser;
+use App\Enums\User\ERoleUser;
 use App\Enums\EStatusUser;
 use App\Services\UserService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
