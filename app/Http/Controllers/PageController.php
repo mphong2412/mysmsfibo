@@ -4,43 +4,45 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\templates;
-use App\contacts;
-use App\contact_groups;
-use App\list_services;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use App\user_has_templates;
-use App\notices;
-use App\account;
+
+use App\Models\Templates;
+use App\Models\Contacts;
+use App\Models\ContactGroups;
+use App\Models\ListServices;
+use App\Models\UserHasTemplates;
+use App\Models\Notices;
 use DB;
 
 class PageController extends Controller
 {
     public function __construct()
     {
+
         $this->middleware('auth');
     }
 
     //check role and save session
     public function getIndex()
     {
-        $a = Session::get('key_function');
-        $notices = notices::all();
-        return view('page.trangchu', ['notices'=>$notices]);
+        $notices = Notices::all();
+        return view('page.dashboard.homepage', ['notices'=>$notices]);
     }
 
+
+
     public function getGroup() {
-        $notices = notices::all();
-        $contact = contacts::all();
-        $group = contact_groups::all();
+        $Notices = Notices::all();
+        $contact = Contacts::all();
+        $group = ContactGroups::all();
         $a = Auth::user()->username;
         if (Auth::user()->role == 2) {
-            $group = contact_groups::orderBy('id')->where('created_by', $a)->get();
+            $group = ContactGroups::orderBy('id')->where('created_by', $a)->get();
         }
         if (Auth::user()->role == 3) {
-            $group = contact_groups::orderBy('id')->where('created_by', $a)->get();
+            $group = ContactGroups::orderBy('id')->where('created_by', $a)->get();
         }
         $value = Input::get('groupcontact');
 
@@ -65,11 +67,11 @@ class PageController extends Controller
                         ->join('contacts','contact_groups.id', '=', 'contacts.contact_groups_id')
                         ->where('contact_groups.id','=', $value)
                         ->select('contacts.phone','contacts.birthday','contacts.address','contacts.full_name as name')->get();
-        return view('page.sms.compose', ['phonegroup'=>$contact_list,'notices'=>$notices, 'group'=>$group,'service'=>$service,'template'=>$template]);
+        return view('page.sms.compose', ['phonegroup'=>$contact_list,'notices'=>$Notices, 'group'=>$group,'service'=>$service,'template'=>$template]);
     }
 
     public function saveSMS(Request $request) {
-      $composes = new composes();
+      $composes = new Composes();
       $composes->created_by = Auth()->id();
       $composes->msg_content = $request->contentsms;
       $composes->msgcampaign_name = $request->campaignreview;

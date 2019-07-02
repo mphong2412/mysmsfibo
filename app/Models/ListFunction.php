@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 
-class list_function extends Model
+class ListFunction extends Model
 {
     protected $table = "list_function";
 

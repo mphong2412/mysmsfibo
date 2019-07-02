@@ -1,18 +1,14 @@
 @extends('layouts.base')
 @section('content')
-
 <div class="formCompose">
-<div class="">
-  <div style="background-color: white; padding-bottom: 0px">
-    <ul class="">
-      <li>
-        <span class="">Compose</span>
-      </li>
-    </ul>
-  </div>
-</div>
 
-<div class="textForm" >
+  <div class="card">
+      <h4 class="card-header">Compose</h4>
+      <div class="card-body">
+
+
+
+<div class="container">
   <!-- <div class="" style="width: 90%; height: 80%; margin-left: 5%;"> -->
     <div class="" style="width:100%; height: 10%; background-color: #FAFAFA;">
       <div class="" style="padding: 10px;font-size: 25px">
@@ -20,7 +16,7 @@
         <span class="" style="padding-left: 18%">Compose</span>
         <span class="" style="padding-left: 18%">Finish</span>
       </div>
-    </div>
+    </div><br>
 
     @csrf
     @if(count($errors))
@@ -52,51 +48,110 @@
         </div>
     @endif
 
-
-    <form action="" autocomplete="off" id="formCompose">
-      <div class="toggle-input">Input Phone Number</div>
-      <div class="input-phone">
-        <textarea  placeholder="Input phone number" rows="20" name="mobile" id="comment_text" cols="40" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea><br>
-        <p>SĐT cách nhau bởi dấu "," và đấu số điện thoại "09|03|07|08|05" ví dụ: 0901861911 | 0371861912,0901861913 ..v.v.</p>
-        <button class="myButton" id="comment_text" onclick="Test()">Submit</button>
-      </div>
-    </form>
-
     <!--  -->
-  <form action="{{route('compose.import')}}" method="post" id="formCompose" enctype="multipart/form-data">
-    @csrf
-    <div class="toggle-excel">Input From Excel</div>
-    <div class="input-excel">
-      <div "example-import">
-        <input type="file" class="file" id="inputfile" name="inputfile" />
-        <button type="submit" id="btnImport" nam="btnImport" class="myButton" >Submit</button>
-        <a class="example-import" href="/source/data.xlsx">Sample Template</a>
+
+
+  <!--Accordion wrapper-->
+  <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+    <!-- Accordion card -->
+    <div class="card">
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="headingTwo1">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1"
+          aria-expanded="false" aria-controls="collapseTwo1">
+          <h5 class="mb-0">
+            Nhập Số Điện Thoại <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+      </div>
+
+      <!-- Card body -->
+      <div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
+        data-parent="#accordionEx1">
+        <div class="card-body">
+
+          <textarea  placeholder="Input phone number" rows="5" name="mobile" id="comment_text" cols="40" class="form-control-file" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea><br>
+          <p style="color: red">SĐT cách nhau bởi dấu "," và đấu số điện thoại "09|03|07|08|05" ví dụ: 0901861911 | 0371861912,0901861913 ..v.v.</p>
+          <button class="btn btn-primary"  onclick="Test()" type="submit" > Submit </button>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Accordion card -->
+    <!-- Accordion card -->
+    <div class="card">
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="headingTwo2">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
+          aria-expanded="false" aria-controls="collapseTwo21">
+          <h5 class="mb-0">
+            Nhập Từ File Excel <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+      </div>
+      <!-- Card body -->
+      <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
+        data-parent="#accordionEx1">
+        <div class="card-body">
+          <form action="{{route('compose.import')}}" method="post" id="formCompose" enctype="multipart/form-data">
+            @csrf
+            <p style="color: red">Chọn file Excel</p>
+            <input type="file" class="file" id="inputfile" name="inputfile">
+            <a class="example-import" href="/source/data.xlsx">Sample Template</a>
+            <div class="mt-3">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </form>
+    <!-- Accordion card -->
 
-  <form action="{{route('compose.group')}}" id="formCompose">
-    <div class="toggle-group">Input From Group</div>
-    <div class="select-box">
-      <label for="select-box1" class="label select-box1"><span class="label-desc">Group danh sách liên lạc</span> </label>
-      <button class="myButton" type="submit"  id="inputGroup">Submit</button>
-      <select id="select-box1" name="groupcontact" class="select">
-        @foreach($group as $gr)
-        <option value="{{$gr->id}}">{{$gr->name}}</option>
-        @endforeach
-      </select>
-    </div>
-  </form>
-
-    <div class="table-wrapper">
-      <table id="customers" class="inputphone">
-        <tr>
-          <th>Chọn</th>
-          <th>Thao tác</th>
-          <th>Phone</th>
-          <th>Name</th>
-          <th>Birthday</th>
-          <th>Address</th>
+    <!-- Accordion card -->
+    <div class="card">
+      <!-- Card header -->
+      <div class="card-header" role="tab" id="headingThree31">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31"
+          aria-expanded="false" aria-controls="collapseThree31">
+          <h5 class="mb-0">
+            Nhập Từ Nhóm <i class="fas fa-angle-down rotate-icon"></i>
+          </h5>
+        </a>
+      </div>
+      <!-- Card body -->
+      <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31"
+        data-parent="#accordionEx1">
+        <div class="card-body">
+          <form action="" id="formCompose">
+            <div class="toggle-group"><h4 style="color: red">Nhập Từ Nhóm</h4></div>
+            <div class="select-box">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Group danh sách liên lạc</label>
+                <select class="form-control" name="groupcontact" id="exampleFormControlSelect1" style="width: 30%">
+                  @if(!empty($group))
+                  @foreach($group as $gr)
+                  <option value="{{$gr->id}}">{{$gr->name}}</option>
+                  @endforeach
+                  @endif
+                </select><br>
+                <input class="btn btn-primary"  type="submit" value="Submit">
+              </div>
+            </div>
+          </form><br>
+        </div>
+      </div>
+    </div><br>
+    <!-- Accordion card -->
+    <div class="table table-hover">
+      <table id="customers" style="border: 1" class="table table-hover">
+        <tr style="color: #007bff">
+          <th scope="row">Chọn</th>
+          <th scope="row">Thao tác</th>
+          <th scope="row">Phone</th>
+          <th scope="row">Name</th>
+          <th scope="row">Birthday</th>
+          <th scope="row">Address</th>
         </tr>
         @if(!empty($phonetrue))
         @foreach($phonetrue as $true)
@@ -125,135 +180,123 @@
         @endif
       </table>
       <br/>
-      <input class="btn" type="button" id="btn1" value="Chọn hết"/>
-      <input class="btn" type="button" id="btn2" value="Bỏ chọn"/>
-      <button class="btn" id="delete-all"><i class="fa fa-trash"></i></button>
+      <button type="button" id="btn1" class="btn btn-primary">Chọn hết</button>
+      <button type="button" id="btn2" class="btn btn-danger">Bỏ chọn</button>
+      <button type="button" id="delete-all" class="btn btn-danger fa fa-trash"></button>
     </div>
     <div class="nextprevious">
-      <button  id="nextdecription"  class="next">Next &raquo;</button>
+      <button type="button" id="nextdecription" class="btn btn-success">Next &raquo;</button>
     </div>
   </div>
+  </div>
 
+  <!-- Accordion wrapper -->
 
   <div class="container">
     <form action="">
-    <div class="row">
-      <div class="col-25">
-        <label for="fname">Khách hàng:</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="fname" name="firstname" value="{{Auth::user()->username}}" disabled>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-25">
-        <label for="country">Gửi từ</label>
-      </div>
-      <div class="col-35">
-        <select id="sendfrom" name="sendfrom">
-          <option value=""></option>
-          @if(!empty($service))
-          @foreach($service as $sv)
-          <option value="{{$sv->name}}">{{$sv->name}}</option>
-          @endforeach
-          @endif
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-25">
-        <label for="lname">Tên chiến dịch</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="campaign" name="campaign" placeholder="Your last name..">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="country">Nội dung mẫu</label>
-      </div>
-      <div class="col-35">
-        <select id="template" name="template">
-          <option value=""></option>
-          @if(!empty($template))
-          @foreach($template as $tp)
-          <option value="{{$tp->name}}">{{$tp->name}}</option>
-          @endforeach
-          @endif
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="subject">Nội dung sms</label>
-      </div>
-      <div class="content-sms">
-        <button class="myButton" type="submit" >Tên</button>
-        <button class="myButton" type="submit" >Ngày</button>
-        <button class="myButton" type="submit" >Email</button>
-        <button class="myButton" type="submit" >Sđt</button>
+      <div class="form-group row">
+        <label for="inputuserlogin" class="col-sm-2 col-form-label">Khách Hàng:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="userlogin" value="{{Auth::user()->username}}" disabled>
+        </div>
       </div>
 
-      <div class="col-75" style="margin-left: 25%">
-        <p>Lưu ý: Nội dung tin nhắn phải có nghĩa, không có dấu, tuyệt đối không có chữ 'test' hoặc 'kiểm tra'</p>
-        <textarea id="compose_content" name="content" style="height:200px"></textarea>
-        <p>***Lưu ý: Khi thay thế các chuỗi {sodienthoai}, {ngay},...vv bằng dữ liệu thích hợp, Độ dài tin nhắn sẽ thay đổi. </p>
+      <div class="form-group row">
+        <label for="inputuserlogin" class="col-sm-2 col-form-label">Gửi Từ:</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="sendfrom" name="sendfrom">
+            <option>Chọn data extra</option>
+            @if(!empty($service))
+            @foreach($service as $sv)
+            <option value="{{$sv->name}}">{{$sv->name}}</option>
+            @endforeach
+            @endif
+          </select>
+        </div>
       </div>
-    </div>
-    </form>
-    <div class="nextprevious">
-      <button id="previous" class="previous">&laquo; Previous</button>
-      <button  id="nextdecription" onclick="btnNext()" class="next">Next &raquo;</button>
+
+      <div class="form-group row">
+        <label for="campaign" class="col-sm-2 col-form-label">Tên Chiến Dịch:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="campaign" name="campaign">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputuserlogin" class="col-sm-2 col-form-label">Nội Dung Mẫu:</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="template" name="template">
+            <option>Chọn data extra</option>
+            @if(!empty($template))
+            @foreach($template as $tp)
+            <option value="{{$tp->name}}">{{$tp->name}}</option>
+            @endforeach
+            @endif
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputuserlogin" class="col-sm-2 col-form-label">Nội Dung Sms:</label>
+        <div class="content-sms" style="margin-left:15px">
+          <button class="btn btn-info" type="submit" >Tên</button>
+          <button class="btn btn-info" type="submit" >Ngày</button>
+          <button class="btn btn-info" type="submit" >Email</button>
+          <button class="btn btn-info" type="submit" >Sđt</button>
+        </div>
+        <div class="col-sm-10" style="margin-left:16.8%">
+          <p>Lưu ý: Nội dung tin nhắn phải có nghĩa, không có dấu, tuyệt đối không có chữ 'test' hoặc 'kiểm tra'</p>
+          <textarea id="compose_content" class="form-control" name="content" style="height:200px"></textarea>
+          <p>***Lưu ý: Khi thay thế các chuỗi {sodienthoai}, {ngay},...vv bằng dữ liệu thích hợp, Độ dài tin nhắn sẽ thay đổi. </p>
+        </div>
+      </div>
+
+
+
+      <div class="nextprevious">
+        <button id="previous" class="btn btn-secondary" >&laquo; Previous</button>
+        <button type="button" id="nextdecription" onclick="btnNext()"  class="btn btn-success">Next &raquo;</button>
+      </div>
     </div>
   </div>
-
 
     <div class="container">
       <form action="" method="post">
 
-        <div class="mid">
-          <input class="btnSave" type="button" value="Lưu"/>
-          <input class="btnSend" type="button" value="Gửi"/>
+        <div class="mid" style="text-align: center; margin-bottom: 20px">
+          <input class="btn btn-outline-success" type="button" value="Lưu"/>
+          <input class="btn btn-outline-secondary" type="button" value="Gửi"/>
         </div>
-        <div class="row">
-          <div class="col-25">
-            <label for="member">Khách hàng:</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="member" name="member" value="{{Auth::user()->username}}" disabled>
+        <div class="form-group row">
+          <label for="inputuserlogin" class="col-sm-2 col-form-label">Khách Hàng:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="userlogin" value="{{Auth::user()->username}}" disabled>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-25">
-            <label for="servicename">Gửi Từ:</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="servicename" name="servicename" value="" disabled>
+        <div class="form-group row">
+          <label for="inputuserlogin" class="col-sm-2 col-form-label">Gửi Từ:</label>
+          <div class="col-sm-10">
+            <input type="text"class="form-control" id="servicename" name="servicename" disabled>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-25">
-            <label for="campaign">Tên Chiến Dịch:</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="campaignreview" name="campaignreview" disabled>
+        <div class="form-group row">
+          <label for="inputuserlogin" class="col-sm-2 col-form-label">Tên Chiến Dịch:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="campaignreview" disabled>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-25">
-            <label for="contentsms">Nội Dung SMS:</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="contentsms" name="contentsms" value="" disabled>
+        <div class="form-group row">
+          <label for="inputuserlogin" class="col-sm-2 col-form-label">Nội Dung SMS:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="contentsms" name="contentsms" value="" disabled>
           </div>
         </div>
 
-        <table id="customers" class="savefunction">
+        <table id="savefunction" class="table">
           <tr>
             <th>Sđt</th>
             <th>Nội Dung</th>
@@ -264,162 +307,13 @@
           </tr>
         </table>
     </form>
-    <div class="nextprevious">
-      <button id="previous" class="previous">&laquo; Previous</button>
+
+    <div class="previous">
+      <button id="btnPrevious" class="btn btn-secondary" >&laquo; Previous</button>
     </div>
   </div>
 </div>
-<button onclick="checkexists()" id="checkexists">checkexists</button>
-
-
-<script>
-
-function Test() {
-  var a = $('#comment_text').val();
-  var invalidPhone = "";
-  if(a == ""){
-    alert('Bạn chưa nhập số điện thoại!');
-  } else {
-  if(a.search(',') != '-1') {
-   var s = a.split(',');
-   s.forEach(function(element) {
-     var isnum = /^\d+$/.test(element);
-     var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(element);
-     if(isnum == true && isphone == true){
-      $('#customers').append('<tr>'
-                                +'<td><input type="checkbox" class="chcktbl" id="checkall[]" name="select[]" ></td>'
-                                +'<td><button id="delete-record" class="btn"><i class="fa fa-trash"></i></button></td>'
-                                + '<td name="phone" class="phone" id="phone">' + element + '</td>'
-                                +'<td></td>'
-                                +'<td></td>'
-                                +'<td></td>' + '</tr>');
-    } else{
-      invalidPhone += element+',';
-    }
-  });
-  if (invalidPhone.length > 0){
-    alert('Check again number Phone:'+invalidPhone);
-  }
- } else {
-   var isnum = /^\d+$/.test(a);
-   var isphone = /((09|03|07|08|05)+([0-9]{8})\b)/g.test(a);
-    if(isnum == true && isphone == true) {
-      $('#customers').append('<tr>'
-                                +'<td><input type="checkbox" class="chcktbl" id="checkall[]" name="select[]" ></td>'
-                                +'<td><button id="delete-record" class="btn"><i class="fa fa-trash"></i></button></td>'
-                                + '<td name="phone" class="phone" id="phone">' + a + '</td>'
-                                +'<td></td>'
-                                +'<td></td>'
-                                +'<td></td>' + '</tr>');
-    }else {
-      alert('Phone valid:' + a);
-    }
-  }
- }
-}
-
-function checkexists() {
-  var contents = [];
-  var rowCount = $('.inputphone td').children().length;console.log(rowCount);
-$(".inputphone .phone").each(function() {
-
-});
-
-}
-
-
-$('#formCompose').submit(function(event) {
-      event.preventDefault();
-      var form = $(this);
-      console.log(form.serialize());
-      $.ajax({
-        type: form.attr('method'),
-        url: form.attr('action'),
-        data: form.serialize()
-      });
-    });
-
-$(".toggle-input").click(function(){
-  $(".input-phone").toggle(400);
-});
-
-$(".toggle-excel").click(function(){
-  $(".input-excel").toggle(400);
-});
-
-$(".toggle-group").click(function(){
-  $(".select-box").toggle(400);
-});
-
-$("#nextdecription").click(function(){
-  var rowCount = $('.inputphone td').children().length;
-  if( rowCount < 1) {
-    alert('Vui lòng nhập số điện thoại..');
-  }
-});
-
-//Xóa tất cả value trong bảng
-$("#delete-all").click(function() {
-  $(".inputphone td").parent().remove();
-});
-//Xóa dòng value trong bảng
-$(".inputphone tr").click(function() {
-  $(this).remove();
-  return false;
-});
-
-function btnNext() {
-  var service = $('#sendfrom').val();
-  var campaign = $('#campaign').val();
-  var template = $('#template').val();
-  var content = $('#compose_content').val();
-  if(service == "" || campaign == "" || template == "" || content == "") {
-    alert('Vui lòng nhập đầy đủ các thông tin');
-  } else {
-    var setcampaign = $('#campaign').val();
-    var setcontent = $('#compose_content').val();
-    var setservice = $('#sendfrom').val();
-    $("#campaignreview").val(setcampaign).change();
-    $("#contentsms").val(setcontent).change();
-    $("#servicename").val(setservice).change();
-    $('#customers .phone').each(function() {
-      var numberphone = ($(this).html());
-      $('.savefunction').append('<tr>'
-                                + '<td>' + numberphone + '</td>'
-                                + '<td>' + setcontent + '</td>' + '</tr>');
-    });
-  }
-}
-
-$( "select" ) .change(function () {
-  var settemplate = $('#template').val();
-  $("#compose_content").val(settemplate).change();
-});
-
-$(".previous").click(function() {
-  $(".savefunction td").parent().remove();
-  $("#servicename").val("");
-  $("#campaignreview").val("");
-  $("#contentsms").val("");
-});
-
-document.getElementById("btn1").onclick = function () {
-  // Lấy danh sách checkbox
-  var checkboxes = document.getElementsByName('select[]');
-  // Lặp và thiết lập checked
-    for (var i = 0; i < checkboxes.length; i++){
-      checkboxes[i].checked = true;
-    }
-};
-// Chức năng bỏ chọn hết
-document.getElementById("btn2").onclick = function () {
-  // Lấy danh sách checkbox
-  var checkboxes = document.getElementsByName('select[]');
-  // Lặp và thiết lập Uncheck
-  for (var i = 0; i < checkboxes.length; i++){
-      checkboxes[i].checked = false;
-  }
-};
-
-</script>
+</div>
+</div>
+<script src="{{ asset('js/composeSMS/compose.js') }}"> </script>
 @endsection

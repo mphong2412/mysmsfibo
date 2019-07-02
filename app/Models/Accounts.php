@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 
-class account extends Model
+class Accounts extends Model
 {
     protected $table = "users";
     public function user_has_templates()

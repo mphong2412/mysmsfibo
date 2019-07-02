@@ -12,9 +12,8 @@ class ComposeImport implements ToCollection
     /**
     * @param Collection $collection
     */
-    public function collection(Collection $reader) {dd($reader);
+    public function collection(Collection $reader) {
       $phoneExcel = array();
-
     }
 
 

@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('page.trangchu');
+        return view('page.dashboard.homepage');
     }
 
 

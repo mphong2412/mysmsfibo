@@ -21,7 +21,9 @@ Route::group(['middleware' => ['auth']], function() {
     // Manage SMS
     Route::group(['prefix'=>'manage-sms'], function () {
         // SMS compose
-        Route::get('compose', 'PageController@getGroup')->name('compose');
+        Route::get('compose', 'SmsController@getCompose')->name('compose');
+        // SMS get value in Excel
+        Route::post('compose', 'ExcelController@readImport')->name('compose.import');
         // SMS draf
 
     });
@@ -38,19 +40,25 @@ Route::group(['middleware' => ['auth']], function() {
 
     // Manage Contact
     Route::group(['prefix'=>'manage-contact'], function () {
-        Route::get('', 'ContactController@index')->name('contact');
+      Route::get('address-book', 'ContactController@index')->name('contact-address-book');
+      Route::get('group', 'GroupController@getThem')->name('contact-group');
     });
 
-    // Manage Schedule 
+    // Manage Schedule
     Route::group(['prefix'=>'manage-schedule'], function () {
         Route::get('', 'SchedulesController@index')->name('schedule');
     });
-    
-    // Manage Account 
+
+    // Manage Account
     Route::group(['prefix'=>'manage-account'], function () {
         Route::get('', 'UserController@getlist')->name('account');
     });
-    
+
+    // Config notification
+    Route::group(['prefix'=>'config-notification'], function () {
+        Route::get('', 'NoticeController@index')->name('notification');
+    });
+
 
 
 
@@ -74,11 +82,6 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('contact', ['as'=>'contact','uses'=>'ContactController@index']);
     Route::get('/logout', 'UserController@getLogout')->name('logout');
-
-    Route::get('/compose', 'PageController@getCompose')->name('compose');
-    // Route::get('/compose', 'PageController@getDecription')->name('compose.decription');
-    Route::post('/compose', 'ExcelController@readImport')->name('compose.import');
-    Route::get('/compose','PageController@getGroup')->name('compose.group');
 
     Route::get('autocomplete', 'TemplateController@autocomplete')->name('autocomplete');
 
@@ -170,5 +173,3 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('add', 'SchedulesController@add');
     });
 });
-
-

@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class contact_groups extends Model
+class ContactGroups extends Model
 {
     protected $table = "contact_groups";
 
@@ -13,7 +13,7 @@ class contact_groups extends Model
     }
 
     public function composes(){
-      
+
     }
 
 }

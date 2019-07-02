@@ -11,7 +11,7 @@ use App\account;
 use App\notices;
 use App\list_function;
 use App\authorization;
-use App\ENums\ERoleUser;
+use App\ENums\User\ERoleUser;
 
 use App;
 use DB;

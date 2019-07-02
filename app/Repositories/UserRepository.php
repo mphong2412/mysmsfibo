@@ -10,6 +10,7 @@ use App\Models\Authorization;
 
 class UserRepository {
 
+
 	public function __construct(Users $users, Authorization $authorization) {
         $this->users = $users;
         $this->authorization = $authorization;
