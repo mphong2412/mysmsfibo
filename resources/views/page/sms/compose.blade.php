@@ -265,8 +265,8 @@
       <form action="" method="post">
 
         <div class="mid" style="text-align: center; margin-bottom: 20px">
-          <input class="btn btn-outline-success" type="button" value="Lưu"/>
-          <input class="btn btn-outline-secondary" type="button" value="Gửi"/>
+          <button class="btn btn-outline-success" type="button" value="1">Lưu</button>
+          <button class="btn btn-outline-warning" type="button" value="2"/>Gửi</button>
         </div>
         <div class="form-group row">
           <label for="inputuserlogin" class="col-sm-2 col-form-label">Khách Hàng:</label>
@@ -310,6 +310,8 @@
 
     <div class="previous">
       <button id="btnPrevious" class="btn btn-secondary" >&laquo; Previous</button>
+      <button  class="btn btn-secondary" onclick="checkexists()" >&laquo; Check</button>
+      <button  class="btn btn-secondary" onclick="testduplicate()" >&laquo; Checkdupblicate</button>
     </div>
   </div>
 </div>

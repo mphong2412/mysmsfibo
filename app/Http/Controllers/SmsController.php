@@ -18,29 +18,30 @@ use App\Models\Notices;
 
 class SmsController extends Controller
 {
-  public function __construct(SmsService $smsService)
-  {
-      $this->middleware('auth');
-      $this->smsService = $smsService;
-  }
+    public function __construct(SmsService $smsService)
+    {
+        $this->middleware('auth');
+        $this->smsService = $smsService;
+    }
 
-  public function getIndex()
-  {
-      $a = Session::get('key_function');
-      $notices = Notices::all();
-      return view('layouts.base', ['notices'=>$notices]);
-  }
+    public function getIndex()
+    {
+        $a = Session::get('key_function');
+        $notices = Notices::all();
+        return view('layouts.base', ['notices'=>$notices]);
+    }
 
-  public function getCompose() {
-    $iduser = Auth()->id();
-    $notices = Notices::all();
-    $contact = Contacts::all();
-    $group = $this->smsService->getGroup($iduser);
-    $value = Input::get('groupcontact');
-    $contact_list = $this->smsService->getContactGroup($value);
-    $template = $this->smsService->getTemplate($iduser);
-    $service = $this->smsService->getService($iduser);
+    public function getCompose()
+    {
+        $iduser = Auth()->id();
+        $notices = Notices::all();
+        $contact = Contacts::all();
+        $group = $this->smsService->getGroup($iduser);
+        $value = Input::get('groupcontact');
+        $contact_list = $this->smsService->getContactGroup($value);
+        $template = $this->smsService->getTemplate($iduser);
+        $service = $this->smsService->getService($iduser);
 
-    return view('page.sms.compose', ['phonegroup'=>$contact_list,'notices'=>$notices, 'group'=>$group,'service'=>$service,'template'=>$template]);
-  }
+        return view('page.sms.compose', ['phonegroup'=>$contact_list,'notices'=>$notices, 'group'=>$group,'service'=>$service,'template'=>$template]);
+    }
 }
